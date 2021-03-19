@@ -26,8 +26,10 @@ public class BtnAddNoteBook : MonoBehaviour
                 
                 GameObject newPC = Instantiate(prefabPC, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                 PC scriptNewPC = newPC.GetComponent<PC>();
+                //Set Params
                 scriptNewPC.spriteName = spriteName;
                 scriptNewPC.pos = nextPCPos;
+                scriptNewPC.bitcoinPerSecond = 0.0000000001f;
 
                 scriptSystem.cntNotebook += 1;
             }

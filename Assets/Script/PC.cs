@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PC : MonoBehaviour
 {
-    system scriptSystem;
-    public string spriteName; //"notebook1"
-    public List<int> pos = null;
+    private system scriptSystem;
+
+    public string spriteName; //"notebook1" 
     private SpriteRenderer spriteR;
+    public List<int> pos = null;
+    public float bitcoinPerSecond;
 
     // Start is called before the first frame update
     void Start()
@@ -25,16 +27,20 @@ public class PC : MonoBehaviour
             prevScale[0] *= -1;
             transform.localScale = prevScale;
         }
-    }
 
-    private void OnGUI()
-    {
-        
+        StartCoroutine("setCurBitcoinOnRunning", 1);
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    IEnumerator setCurBitcoinOnRunning(float delay)
+    {
+        scriptSystem.curBitcoin += bitcoinPerSecond;
+        yield return new WaitForSeconds(delay);
+        StartCoroutine("setCurBitcoinOnRunning", 1);
     }
 }

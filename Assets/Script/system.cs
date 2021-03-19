@@ -10,6 +10,8 @@ public class system : MonoBehaviour
     public float SCENE_DISTANCE_BETWEEN_TABLE = 1.985f;
     public float SCENE_DISTANCE_BETWEEN_PC = 0.855f;
 
+    //TODO: Game Load할 때 불러오기
+    public float curBitcoin = 0;
     public int cntNotebook = 0;
 
     // Start is called before the first frame update
@@ -21,6 +23,5 @@ public class system : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }
