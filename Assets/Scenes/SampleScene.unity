@@ -2675,6 +2675,31 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6208207133460575462, guid: 6c96248434777aa40a9679f37fc19094,
+        type: 3}
+      propertyPath: pos.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208207133460575462, guid: 6c96248434777aa40a9679f37fc19094,
+        type: 3}
+      propertyPath: pos.Array.data[0]
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208207133460575462, guid: 6c96248434777aa40a9679f37fc19094,
+        type: 3}
+      propertyPath: pos.Array.data[1]
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208207133460575462, guid: 6c96248434777aa40a9679f37fc19094,
+        type: 3}
+      propertyPath: pos.Array.data[2]
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208207133460575462, guid: 6c96248434777aa40a9679f37fc19094,
+        type: 3}
+      propertyPath: pos.Array.data[3]
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6208207133460575463, guid: 6c96248434777aa40a9679f37fc19094,
         type: 3}
       propertyPath: m_RootOrder

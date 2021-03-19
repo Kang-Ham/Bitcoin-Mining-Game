@@ -6,7 +6,7 @@ public class PC : MonoBehaviour
 {
     system scriptSystem;
     public string spriteName; //"notebook1"
-    public List<int> pos;
+    public List<int> pos = null;
     private SpriteRenderer spriteR;
 
     // Start is called before the first frame update
