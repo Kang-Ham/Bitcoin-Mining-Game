@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using System;
 
-public class BtnAddNoteBook : MonoBehaviour
+public class addPC1 : MonoBehaviour
 {
     system scriptSystem;
     public GameObject prefabPC;
@@ -17,28 +18,30 @@ public class BtnAddNoteBook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("space"))
-        {
-            if(scriptSystem.cntNotebook>=0 && scriptSystem.cntNotebook <= 63)
-            {
-                List<int> nextPCPos = getPCPos(scriptSystem.cntNotebook + 1);
-                Debug.Log(nextPCPos[0].ToString()+ nextPCPos[1].ToString()+ nextPCPos[2].ToString()+ nextPCPos[3].ToString());
-                
-                GameObject newPC = Instantiate(prefabPC, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-                PC scriptNewPC = newPC.GetComponent<PC>();
-                //Set Params
-                scriptNewPC.spriteName = spriteName;
-                scriptNewPC.pos = nextPCPos;
-                scriptNewPC.bitcoinPerSecond = 0.0000000001f;
+    }
 
-                scriptSystem.cntNotebook += 1;
-            }
-            else
-            {
-                Debug.Log("Error: PC CANNOT Exceed Over 64");
-            }
+    public void OnClickEvent()
+    {
+        if (scriptSystem.cntNotebook >= 0 && scriptSystem.cntNotebook <= 63)
+        {
+            List<int> nextPCPos = getPCPos(scriptSystem.cntNotebook + 1);
+            Debug.Log(nextPCPos[0].ToString() + nextPCPos[1].ToString() + nextPCPos[2].ToString() + nextPCPos[3].ToString());
+
+            GameObject newPC = Instantiate(prefabPC, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+            PC scriptNewPC = newPC.GetComponent<PC>();
+            //Set Params
+            scriptNewPC.spriteName = spriteName;
+            scriptNewPC.pos = nextPCPos;
+            scriptNewPC.bitcoinPerSecond = 0.0000000001f;
+
+            scriptSystem.cntNotebook += 1;
+        }
+        else
+        {
+            Debug.Log("Error: PC CANNOT Exceed Over 64");
         }
     }
+
     List<int> getPCPos(int cnt)
     {
         List<int> RET = new List<int>();
