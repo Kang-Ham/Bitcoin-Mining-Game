@@ -32,13 +32,13 @@ public class addPC1 : MonoBehaviour
             //Set Params
             scriptNewPC.spriteName = spriteName;
             scriptNewPC.pos = nextPCPos;
-            scriptNewPC.bitcoinPerSecond = 0.000000001f;
+            scriptSystem.gameBitcoinPerTimeSlice += 0.00000001f;
 
             scriptSystem.cntNotebook += 1;
         }
         else
         {
-            Debug.Log("Error: PC CANNOT Exceed Over 64");
+            Debug.Log("Error: PC1 CANNOT Exceed Over 16");
         }
     }
 

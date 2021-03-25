@@ -23,20 +23,19 @@ public class addPC2 : MonoBehaviour
         if (scriptSystem.cntNotebook >= 16 && scriptSystem.cntNotebook <= 31)
         {
             List<int> nextPCPos = getPCPos(scriptSystem.cntNotebook + 1);
-            Debug.Log(nextPCPos[0].ToString() + nextPCPos[1].ToString() + nextPCPos[2].ToString() + nextPCPos[3].ToString());
 
             GameObject newPC = Instantiate(prefabPC, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
             PC scriptNewPC = newPC.GetComponent<PC>();
             //Set Params
             scriptNewPC.spriteName = spriteName;
             scriptNewPC.pos = nextPCPos;
-            scriptNewPC.bitcoinPerSecond = 0.000000025f;
+            scriptSystem.gameBitcoinPerTimeSlice += 0.00000025f;
 
             scriptSystem.cntNotebook += 1;
         }
         else
         {
-            Debug.Log("Error: PC CANNOT Exceed Over 64");
+            Debug.Log("ERROR: PC CANNOT BE INSTALLED");
         }
     }
 

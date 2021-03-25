@@ -159,8 +159,10 @@ MonoBehaviour:
   START_SCENE_POS: {x: -3.525, y: 6.9452, z: 0}
   SCENE_DISTANCE_BETWEEN_TABLE: 1.985
   SCENE_DISTANCE_BETWEEN_PC: 0.855
+  VALUE_TIME_SLICE_SECOND: 0.1
   curBitcoin: 0
   cntNotebook: 0
+  gameBitcoinPerTimeSlice: 0
   selectedMenu: 0
 --- !u!4 &57641490
 Transform:

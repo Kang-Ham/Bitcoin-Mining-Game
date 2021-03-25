@@ -17,6 +17,15 @@ public class curBitcoin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        textCurBitcoin.text = scriptSystem.curBitcoin.ToString("0."+new string('#', 10));
+        string strCurBitCoin = scriptSystem.curBitcoin.ToString("0."+new string('#', 8));
+        if (strCurBitCoin.Length > 10)
+        {
+            textCurBitcoin.text = strCurBitCoin.Substring(0, 11);
+        }
+        else
+        {
+
+            textCurBitcoin.text = strCurBitCoin;
+        }
     }
 }
