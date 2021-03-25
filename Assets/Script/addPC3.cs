@@ -1,14 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using System;
 
-public class addPC1 : MonoBehaviour
+public class addPC3 : MonoBehaviour
 {
     system scriptSystem;
     public GameObject prefabPC;
-    private string spriteName = "pc1";
+    private string spriteName = "pc3";
     // Start is called before the first frame update
     void Start()
     {
@@ -22,17 +20,16 @@ public class addPC1 : MonoBehaviour
 
     public void OnClickEvent()
     {
-        if (scriptSystem.cntNotebook >= 0 && scriptSystem.cntNotebook <= 15)
+        if (scriptSystem.cntNotebook >= 32 && scriptSystem.cntNotebook <= 47)
         {
             List<int> nextPCPos = getPCPos(scriptSystem.cntNotebook + 1);
-            Debug.Log(nextPCPos[0].ToString() + nextPCPos[1].ToString() + nextPCPos[2].ToString() + nextPCPos[3].ToString());
 
             GameObject newPC = Instantiate(prefabPC, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
             PC scriptNewPC = newPC.GetComponent<PC>();
             //Set Params
             scriptNewPC.spriteName = spriteName;
             scriptNewPC.pos = nextPCPos;
-            scriptSystem.gameBitcoinPerTimeSlice += 0.00000001f;
+            scriptSystem.gameBitcoinPerTimeSlice += 0.000025f;
 
             scriptSystem.cntNotebook += 1;
         }
@@ -49,8 +46,8 @@ public class addPC1 : MonoBehaviour
         int eachTableIndex = cnt - (tablePos[0] * scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptSystem.LENGTH_OF_TABLE + tablePos[1] * scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE) - 1;
         RET.Add(tablePos[0]);
         RET.Add(tablePos[1]);
-        RET.Add( (int)(eachTableIndex/Math.Sqrt(scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE)) );
-        RET.Add( (int)(eachTableIndex%Math.Sqrt(scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE)) );
+        RET.Add((int)(eachTableIndex / Math.Sqrt(scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE)));
+        RET.Add((int)(eachTableIndex % Math.Sqrt(scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE)));
         return RET;
     }
 
@@ -58,7 +55,7 @@ public class addPC1 : MonoBehaviour
     {
         List<int> RET = new List<int>();
         RET.Add((cnt - 1) / (scriptSystem.LENGTH_OF_TABLE * scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE));
-        RET.Add(((cnt - 1) % (scriptSystem.LENGTH_OF_TABLE * scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE))/scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE);
+        RET.Add(((cnt - 1) % (scriptSystem.LENGTH_OF_TABLE * scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE)) / scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE);
         return RET;
     }
 }
