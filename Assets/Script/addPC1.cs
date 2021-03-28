@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
+using System.Threading.Tasks;
 
 public class addPC1 : MonoBehaviour
 {
     system scriptSystem;
     public GameObject prefabPC;
+    private msgboxYesOrNo scriptMsgboxYesOrNo;
+    private msgbox scriptMsgbox;
     private string spriteName = "pc1";
     // Start is called before the first frame update
     void Start()
     {
         scriptSystem = GameObject.Find("system").GetComponent<system>();
+        scriptMsgboxYesOrNo = GameObject.Find("EventSystem").GetComponent<msgboxYesOrNo>();
+        scriptMsgbox = GameObject.Find("EventSystem").GetComponent<msgbox>();
     }
 
     // Update is called once per frame
@@ -20,15 +25,32 @@ public class addPC1 : MonoBehaviour
     {
     }
 
-    public void OnClickEvent()
+    async public void OnClickEvent()
     {
         if (scriptSystem.cntNotebook >= 0 && scriptSystem.cntNotebook <= 15)
         {
-            List<int> nextPCPos = getPCPos(scriptSystem.cntNotebook + 1);
-            Debug.Log(nextPCPos[0].ToString() + nextPCPos[1].ToString() + nextPCPos[2].ToString() + nextPCPos[3].ToString());
+            addPC();
+        }
+        else
+        {
+            scriptMsgbox.showMsgbox("You Can't Do That.", "예");
+            var task = Task.Run(() => getMsgboxYesOrNoClickedBtn());
+            int clickedBtn = await task;
+        }
+    }
+              
+    async void addPC()
+    {
+        scriptMsgboxYesOrNo.showMsgboxYesOrNo("Add PC1?", "예", "아니오");
+        var task = Task.Run(() => getMsgboxYesOrNoClickedBtn());
+        int clickedBtn = await task;
 
+        if (clickedBtn == 1)
+        {
+            List<int> nextPCPos = getPCPos(scriptSystem.cntNotebook + 1);
             GameObject newPC = Instantiate(prefabPC, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
             PC scriptNewPC = newPC.GetComponent<PC>();
+
             //Set Params
             scriptNewPC.spriteName = spriteName;
             scriptNewPC.pos = nextPCPos;
@@ -36,10 +58,14 @@ public class addPC1 : MonoBehaviour
 
             scriptSystem.cntNotebook += 1;
         }
-        else
-        {
-            Debug.Log("ERROR: PC CANNOT BE INSTALLED");
+    }
+
+    int getMsgboxYesOrNoClickedBtn()
+    {
+        while (scriptMsgboxYesOrNo.clickedBtn == -1){
+            
         }
+        return scriptMsgboxYesOrNo.clickedBtn;
     }
 
     List<int> getPCPos(int cnt)
