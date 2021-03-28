@@ -39,7 +39,7 @@ public class addPC4 : MonoBehaviour
 
     async void addPC()
     {
-        scriptMsgboxYesOrNo.showMsgboxYesOrNo("Add PC1?", "예", "아니오");
+        scriptMsgboxYesOrNo.showMsgboxYesOrNo("Add PC4?", "예", "아니오");
         var task = Task.Run(() => getMsgboxYesOrNoClickedBtn());
         int clickedBtn = await task;
 
