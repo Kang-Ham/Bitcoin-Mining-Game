@@ -23,25 +23,21 @@ public class menu : MonoBehaviour
     public void OnClicksystem()
     {
         selectMenu(0);
-        //system_scroll_panel.SetActive(true);
         Debug.Log("시스템");
     }
     public void OnClickcomputer()
     {
         selectMenu(1);
-        //computer_scroll_panel.SetActive(true);
         Debug.Log("컴퓨터");
     }
     public void OnClickGPU()
     {
         selectMenu(2);
-        //GPU_scroll_panel.SetActive(true);
         Debug.Log("그래픽카드");
     }
     public void OnClickskill()
     {
         selectMenu(3);
-        //skill_scroll_panel.SetActive(true);
         Debug.Log("특전");
     }
     public void OnClickQuit()
