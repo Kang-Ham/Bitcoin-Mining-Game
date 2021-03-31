@@ -32,7 +32,7 @@ public class addPC2 : MonoBehaviour
         else
         {
             scriptMsgbox.showMsgbox("You Can't Do That.", "예");
-            var task = Task.Run(() => getMsgboxYesOrNoClickedBtn());
+            var task = Task.Run(() => scriptMsgbox.getClickedBtn());
             int clickedBtn = await task;
         }
     }
@@ -40,7 +40,7 @@ public class addPC2 : MonoBehaviour
     async void addPC()
     {
         scriptMsgboxYesOrNo.showMsgboxYesOrNo("Add PC2?", "예", "아니오");
-        var task = Task.Run(() => getMsgboxYesOrNoClickedBtn());
+        var task = Task.Run(() => scriptMsgboxYesOrNo.getClickedBtn());
         int clickedBtn = await task;
 
         if (clickedBtn == 1)
@@ -56,15 +56,6 @@ public class addPC2 : MonoBehaviour
 
             scriptSystem.cntNotebook += 1;
         }
-    }
-
-    int getMsgboxYesOrNoClickedBtn()
-    {
-        while (scriptMsgboxYesOrNo.clickedBtn == -1)
-        {
-
-        }
-        return scriptMsgboxYesOrNo.clickedBtn;
     }
 
     List<int> getPCPos(int cnt)

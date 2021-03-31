@@ -6,6 +6,7 @@ TagManager:
   tags:
   - MenuText
   - MenuContent
+  - curBTC_text
   layers:
   - Default
   - TransparentFX

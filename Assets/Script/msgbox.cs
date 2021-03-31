@@ -41,4 +41,12 @@ public class msgbox : MonoBehaviour
     {
         msgboxPanel.SetActive(false);
     }
+    public int getClickedBtn()
+    {
+        while (clickedBtn == -1)
+        {
+
+        }
+        return clickedBtn;
+    }
 }

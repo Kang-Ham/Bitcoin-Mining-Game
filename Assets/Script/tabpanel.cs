@@ -42,6 +42,7 @@ public class tabpanel : MonoBehaviour
 
     public void selectMenu(int index)
     {
+        Debug.Log(index);
         if (index == -1)
         {
             if (objMenuTexts == null)

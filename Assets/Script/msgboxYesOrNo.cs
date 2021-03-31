@@ -48,4 +48,13 @@ public class msgboxYesOrNo : MonoBehaviour
     {
         msgboxYesOrNoPanel.SetActive(false);
     }
+
+    public int getClickedBtn()
+    {
+        while (clickedBtn == -1)
+        {
+
+        }
+        return clickedBtn;
+    }
 }

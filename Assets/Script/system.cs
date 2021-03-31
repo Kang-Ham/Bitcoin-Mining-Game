@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using System;
 
 public class system : MonoBehaviour
 {
@@ -12,18 +14,29 @@ public class system : MonoBehaviour
     public float SCENE_DISTANCE_BETWEEN_TABLE;
     public float SCENE_DISTANCE_BETWEEN_PC;
     public float VALUE_TIME_SLICE_SECOND; //1=> 1초에 1번씩 비트코인 갱신
+    public float VALUE_TIME_SLICE_CRAWLING; //60=> 1분에 1번씩 비트코인 크롤링
 
     //TODO: Game Load할 때 불러오기
     public float curBitcoin;
+    public UInt64 curMoney;
     public int cntNotebook;
     public float gameBitcoinPerTimeSlice;
 
+    //불러오기 않아도 됨
     public int selectedMenu;
+    public int curBitcoinPrice;
+    private curMoney scriptCurMoney;
 
     // Start is called before the first frame update
     void Start()
     {
+        scriptCurMoney = GameObject.Find("curWon").GetComponent<curMoney>();
+
+        //TODO: BTC, Money 등 로컬 파일에서 불러오기
+        scriptCurMoney.doUpdate();
+
         StartCoroutine("setCurBitcoinOnRunning", VALUE_TIME_SLICE_SECOND);
+        StartCoroutine("setCurBitcoinPriceWithCrawling", VALUE_TIME_SLICE_CRAWLING);
     }
 
     // Update is called once per frame
@@ -37,4 +50,70 @@ public class system : MonoBehaviour
         yield return new WaitForSeconds(delay);
         StartCoroutine("setCurBitcoinOnRunning", VALUE_TIME_SLICE_SECOND);
     }
+
+    IEnumerator setCurBitcoinPriceWithCrawling(float delay)
+    {
+        UnityWebRequest www = UnityWebRequest.Get("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=BTC&tsyms=BTC,KRW");
+        www.useHttpContinue = true;
+        www.downloadHandler = new DownloadHandlerBuffer();
+        yield return www.SendWebRequest();
+
+        string strBTCPrice = "";
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            string htmlText = www.downloadHandler.text;     
+            List<int> indexsBTCPrice = getIndexOfBTCFromHTMLText(htmlText, "\"PRICE\":");
+
+            if (indexsBTCPrice.Count >= 2) //해당 html 소스에 PRICE가 여러개 있음... 2번째(인덱스상 1) Price 뒤에 BTC 가격 있음
+            {
+                int curIndex = indexsBTCPrice[1] + 8; //"PRICE":0000 ... 0000만 추출하기 위해 +8
+                while (htmlText[curIndex] != ',') //strBTCPrice에 한 글자씩 넣음
+                {
+                    strBTCPrice += htmlText[curIndex];
+                    curIndex += 1;
+                }
+                //strBTCPrice 예시: 70175252.53 ... string -> float -> int
+                curBitcoinPrice = (int)System.Convert.ToSingle(strBTCPrice);
+
+                try
+                {
+                    curBitcoinPrice scriptCurBitcoinPrice = GameObject.Find("curBTC_text").GetComponent<curBitcoinPrice>();
+                    scriptCurBitcoinPrice.doUpdate(curBitcoinPrice);
+                }
+                catch
+                {
+                    Debug.Log("curBitcoinPrice is Loaded, but curBTC_text is inactive");
+                }
+                
+                Debug.Log("BTC Price Loaded: "+strBTCPrice);
+            }
+            else
+            {
+                Debug.Log("Cannot Find BTC Price");
+            }
+        }
+
+        yield return new WaitForSeconds(delay);
+        StartCoroutine("setCurBitcoinPriceWithCrawling", VALUE_TIME_SLICE_CRAWLING);
+    }
+
+    List<int> getIndexOfBTCFromHTMLText(string htmlText, string target)
+    {
+        List<int> indexs = new List<int>();
+        for(int i = 0; i < htmlText.Length-target.Length; i++)
+        {
+            if(htmlText.Substring(i, target.Length).Equals(target))
+            {
+                indexs.Add(i);
+            }
+        }
+        return indexs;
+    }
+
+
 }
