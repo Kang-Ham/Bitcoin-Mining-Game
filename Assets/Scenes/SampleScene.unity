@@ -4473,7 +4473,7 @@ GameObject:
   - component: {fileID: 473360217}
   - component: {fileID: 473360216}
   m_Layer: 5
-  m_Name: curWon
+  m_Name: curMoney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20246,7 +20246,7 @@ GameObject:
   - component: {fileID: 1945411964}
   - component: {fileID: 1945411963}
   m_Layer: 5
-  m_Name: won_image
+  m_Name: money_image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21278,7 +21278,7 @@ GameObject:
   - component: {fileID: 2025550341}
   - component: {fileID: 2025550340}
   m_Layer: 5
-  m_Name: won_background_image
+  m_Name: money_background_image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -25,15 +25,18 @@ public class system : MonoBehaviour
     //불러오기 않아도 됨
     public int selectedMenu;
     public int curBitcoinPrice;
+    private curBitcoin scriptCurBitcoin;
     private curMoney scriptCurMoney;
 
     // Start is called before the first frame update
     void Start()
     {
-        scriptCurMoney = GameObject.Find("curWon").GetComponent<curMoney>();
+        scriptCurBitcoin = GameObject.Find("curBitcoin").GetComponent<curBitcoin>();
+        scriptCurMoney = GameObject.Find("curMoney").GetComponent<curMoney>();
 
         //TODO: BTC, Money 등 로컬 파일에서 불러오기
         scriptCurMoney.doUpdate();
+        scriptCurBitcoin.doUpdate();
 
         StartCoroutine("setCurBitcoinOnRunning", VALUE_TIME_SLICE_SECOND);
         StartCoroutine("setCurBitcoinPriceWithCrawling", VALUE_TIME_SLICE_CRAWLING);
@@ -47,6 +50,7 @@ public class system : MonoBehaviour
     IEnumerator setCurBitcoinOnRunning(float delay)
     {
         curBitcoin += gameBitcoinPerTimeSlice* VALUE_TIME_SLICE_SECOND;
+        scriptCurBitcoin.doUpdate();
         yield return new WaitForSeconds(delay);
         StartCoroutine("setCurBitcoinOnRunning", VALUE_TIME_SLICE_SECOND);
     }

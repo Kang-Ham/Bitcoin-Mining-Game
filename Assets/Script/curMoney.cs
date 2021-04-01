@@ -10,15 +10,16 @@ public class curMoney : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scriptSystem = GameObject.Find("system").GetComponent<system>();
-        textCurMoney = GetComponent<Text>();
     }
 
     // Update is called once per frame
     public void doUpdate()
     {
+        if(!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+        if(!textCurMoney) textCurMoney = GetComponent<Text>();
+
         string strCurMoney = string.Format("{0:n0}", scriptSystem.curMoney);
-        textCurMoney.text = strCurMoney; ;
+        textCurMoney.text = strCurMoney;
         if (strCurMoney.Length > 23)
         {
             textCurMoney.fontSize = 22;
@@ -39,6 +40,5 @@ public class curMoney : MonoBehaviour
         {
             textCurMoney.fontSize = 44;
         }
-        
     }
 }

@@ -17,7 +17,7 @@ public class buyBTCBtn : MonoBehaviour
     void Start()
     {
         scriptSystem = GameObject.Find("system").GetComponent<system>();
-        scriptCurMoney = GameObject.Find("curWon").GetComponent<curMoney>();
+        scriptCurMoney = GameObject.Find("curMoney").GetComponent<curMoney>();
         scriptMsgboxYesOrNo = GameObject.Find("EventSystem").GetComponent<msgboxYesOrNo>();
         scriptMsgbox = GameObject.Find("EventSystem").GetComponent<msgbox>();
     }

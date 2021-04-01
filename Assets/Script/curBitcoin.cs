@@ -10,13 +10,16 @@ public class curBitcoin : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scriptSystem = GameObject.Find("system").GetComponent<system>();
-        textCurBitcoin = GetComponent<Text>();
+        
+        
     }
 
     // Update is called once per frame
-    void Update()
+    public void doUpdate()
     {
+        if(!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+        if(!textCurBitcoin) textCurBitcoin = GetComponent<Text>();
+
         string strCurBitCoin = scriptSystem.curBitcoin.ToString("0."+new string('#', 8));
         if (strCurBitCoin.Length > 10)
         {

@@ -14,7 +14,6 @@ public class tabpanel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scriptSystem = GameObject.Find("system").GetComponent<system>();
     }
 
     // Update is called once per frame
@@ -42,7 +41,8 @@ public class tabpanel : MonoBehaviour
 
     public void selectMenu(int index)
     {
-        Debug.Log(index);
+        if(!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+
         if (index == -1)
         {
             if (objMenuTexts == null)
@@ -55,6 +55,7 @@ public class tabpanel : MonoBehaviour
                 }
             }
 
+            ClickTab(scriptSystem.selectedMenu);
             selectMenu(scriptSystem.selectedMenu);
             return;
         }
