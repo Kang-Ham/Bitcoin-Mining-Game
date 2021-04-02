@@ -3,13 +3,16 @@ using UnityEngine;
 using System;
 using System.Threading.Tasks;
 
-public class addPC4 : MonoBehaviour
+public class addPC : MonoBehaviour
 {
     system scriptSystem;
     public GameObject prefabPC;
     private msgboxYesOrNo scriptMsgboxYesOrNo;
     private msgbox scriptMsgbox;
-    private string spriteName = "pc4";
+
+    private List<float> listBitcoinPerTimeSlice = new List<float>() {0f, 0.00000001f, 0.0000025f, 0.0000125f, 0.000625f};
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,50 +24,51 @@ public class addPC4 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
     }
 
-    async public void OnClickEvent()
+    async public void OnClickEvent(int pcType)
     {
-        if (scriptSystem.cntNotebook >= 48 && scriptSystem.cntNotebook <= 63)
+        if (scriptSystem.PCs.Count >= 0+16*(pcType-1) && scriptSystem.PCs.Count < 16+ 16 * (pcType - 1)
+            )
         {
-            addPC();
+            askForAddPC();
         }
         else
         {
             scriptMsgbox.showMsgbox("You Can't Do That.", "예");
-            var task = Task.Run(() => getMsgboxYesOrNoClickedBtn());
+            var task = Task.Run(() => scriptMsgbox.getClickedBtn());
             int clickedBtn = await task;
         }
     }
 
-    async void addPC()
+    async public void askForAddPC()
     {
-        scriptMsgboxYesOrNo.showMsgboxYesOrNo("Add PC1?", "예", "아니오");
-        var task = Task.Run(() => getMsgboxYesOrNoClickedBtn());
+        scriptMsgboxYesOrNo.showMsgboxYesOrNo("해당 PC를 구입하시겠습니까?", "예", "아니오");
+        var task = Task.Run(() => scriptMsgboxYesOrNo.getClickedBtn());
         int clickedBtn = await task;
 
         if (clickedBtn == 1)
         {
-            List<int> nextPCPos = getPCPos(scriptSystem.cntNotebook + 1);
-            GameObject newPC = Instantiate(prefabPC, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-            PC scriptNewPC = newPC.GetComponent<PC>();
-
-            //Set Params
-            scriptNewPC.spriteName = spriteName;
-            scriptNewPC.pos = nextPCPos;
-            scriptSystem.gameBitcoinPerTimeSlice += 0.00001f;
-
-            scriptSystem.cntNotebook += 1;
+            addNewPC();
         }
     }
 
-    int getMsgboxYesOrNoClickedBtn()
+    public void addNewPC()
     {
-        while (scriptMsgboxYesOrNo.clickedBtn == -1)
-        {
+        int pcType = (int)(scriptSystem.PCs.Count / 16) + 1;
 
-        }
-        return scriptMsgboxYesOrNo.clickedBtn;
+        List<int> nextPCPos = getPCPos(scriptSystem.PCs.Count + 1);
+        GameObject newPC = Instantiate(prefabPC, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        PC scriptNewPC = newPC.GetComponent<PC>();
+
+        //Set Params
+        scriptNewPC.spriteName = "pc"+ pcType.ToString();
+        scriptNewPC.pos = nextPCPos;
+        scriptNewPC.level = 1;
+        scriptNewPC.bitcoinPerTimeSlice = listBitcoinPerTimeSlice[pcType];
+
+        scriptSystem.PCs.Add(scriptNewPC);
     }
 
     List<int> getPCPos(int cnt)

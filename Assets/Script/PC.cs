@@ -5,10 +5,13 @@ using UnityEngine;
 public class PC : MonoBehaviour
 {
     private system scriptSystem;
-
-    public string spriteName; //"notebook1" 
     private SpriteRenderer spriteR;
+
+    public string spriteName; //"pc1" 
     public List<int> pos = null;
+
+    public int level;
+    public float bitcoinPerTimeSlice;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +21,8 @@ public class PC : MonoBehaviour
 
         setSprite(spriteName);
         setPos();
+
+        scriptSystem.gameBitcoinPerTimeSlice += bitcoinPerTimeSlice;
     }
 
     // Update is called once per frame

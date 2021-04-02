@@ -13,32 +13,37 @@ public class system : MonoBehaviour
     public Vector3 START_SCENE_POS;
     public float SCENE_DISTANCE_BETWEEN_TABLE;
     public float SCENE_DISTANCE_BETWEEN_PC;
-    public float VALUE_TIME_SLICE_SECOND; //1=> 1초에 1번씩 비트코인 갱신
+    public float VALUE_TIME_SLICE_BITCOIN; //1=> 1초에 1번씩 비트코인 갱신
+    public float VALUE_TIME_SLICE_SAVE; //1=> 1초에 1번씩 비트코인 갱신
     public float VALUE_TIME_SLICE_CRAWLING; //60=> 1분에 1번씩 비트코인 크롤링
 
     //TODO: Game Load할 때 불러오기
     public float curBitcoin;
     public UInt64 curMoney;
-    public int cntNotebook;
-    public float gameBitcoinPerTimeSlice;
+    public List<PC> PCs;
 
-    //불러오기 않아도 됨
+    //불러오기 않아도 됨        
+    public float gameBitcoinPerTimeSlice;
     public int selectedMenu;
     public int curBitcoinPrice;
     private curBitcoin scriptCurBitcoin;
     private curMoney scriptCurMoney;
+    private Json scriptJson;
 
     // Start is called before the first frame update
     void Start()
     {
         scriptCurBitcoin = GameObject.Find("curBitcoin").GetComponent<curBitcoin>();
         scriptCurMoney = GameObject.Find("curMoney").GetComponent<curMoney>();
+        scriptJson = GameObject.Find("json").GetComponent<Json>();
 
         //TODO: BTC, Money 등 로컬 파일에서 불러오기
+        scriptJson.load();
         scriptCurMoney.doUpdate();
         scriptCurBitcoin.doUpdate();
-
-        StartCoroutine("setCurBitcoinOnRunning", VALUE_TIME_SLICE_SECOND);
+        
+        StartCoroutine("setCurBitcoinOnRunning", VALUE_TIME_SLICE_BITCOIN);
+        StartCoroutine("savePeriodically", VALUE_TIME_SLICE_SAVE);
         StartCoroutine("setCurBitcoinPriceWithCrawling", VALUE_TIME_SLICE_CRAWLING);
     }
 
@@ -47,12 +52,25 @@ public class system : MonoBehaviour
     {
     }
 
+    void OnApplicationQuit()
+    {
+        scriptJson.save();
+    }
+
+
     IEnumerator setCurBitcoinOnRunning(float delay)
     {
-        curBitcoin += gameBitcoinPerTimeSlice* VALUE_TIME_SLICE_SECOND;
+        curBitcoin += gameBitcoinPerTimeSlice*delay;
         scriptCurBitcoin.doUpdate();
         yield return new WaitForSeconds(delay);
-        StartCoroutine("setCurBitcoinOnRunning", VALUE_TIME_SLICE_SECOND);
+        StartCoroutine("setCurBitcoinOnRunning", delay);
+    }
+
+    IEnumerator savePeriodically(float delay)
+    {
+        scriptJson.save();
+        yield return new WaitForSeconds(delay);
+        StartCoroutine("savePeriodically", delay);
     }
 
     IEnumerator setCurBitcoinPriceWithCrawling(float delay)
@@ -103,7 +121,7 @@ public class system : MonoBehaviour
         }
 
         yield return new WaitForSeconds(delay);
-        StartCoroutine("setCurBitcoinPriceWithCrawling", VALUE_TIME_SLICE_CRAWLING);
+        StartCoroutine("setCurBitcoinPriceWithCrawling", delay);
     }
 
     List<int> getIndexOfBTCFromHTMLText(string htmlText, string target)
@@ -119,5 +137,21 @@ public class system : MonoBehaviour
         return indexs;
     }
 
+    public void reset()
+    {
+        this.PCs = new List<PC>();
+        this.gameBitcoinPerTimeSlice = 0f;
 
+        GameObject[] PCs = GameObject.FindGameObjectsWithTag("pc");
+        for (int i = 1; i < PCs.Length; i++)
+        {
+            Destroy(PCs[i]);
+        }
+    }
+
+    public void addPC4()
+    {
+        addPC scriptAddPC = GameObject.Find("EventSystem").GetComponent<addPC>();
+        for (int i = 0; i < 4; i++) scriptAddPC.addNewPC();
+    }
 }
