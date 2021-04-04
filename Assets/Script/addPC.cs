@@ -16,9 +16,6 @@ public class addPC : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scriptSystem = GameObject.Find("system").GetComponent<system>();
-        scriptMsgboxYesOrNo = GameObject.Find("EventSystem").GetComponent<msgboxYesOrNo>();
-        scriptMsgbox = GameObject.Find("EventSystem").GetComponent<msgbox>();
     }
 
     // Update is called once per frame
@@ -29,6 +26,9 @@ public class addPC : MonoBehaviour
 
     async public void OnClickEvent(int pcType)
     {
+        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+        if (!scriptMsgbox) scriptMsgbox = GameObject.Find("EventSystem").GetComponent<msgbox>();
+
         if (scriptSystem.PCs.Count >= 0+16*(pcType-1) && scriptSystem.PCs.Count < 16+ 16 * (pcType - 1)
             )
         {
@@ -44,6 +44,8 @@ public class addPC : MonoBehaviour
 
     async public void askForAddPC()
     {
+        if (!scriptMsgboxYesOrNo) scriptMsgboxYesOrNo = GameObject.Find("EventSystem").GetComponent<msgboxYesOrNo>();
+
         scriptMsgboxYesOrNo.showMsgboxYesOrNo("해당 PC를 구입하시겠습니까?", "예", "아니오");
         var task = Task.Run(() => scriptMsgboxYesOrNo.getClickedBtn());
         int clickedBtn = await task;
@@ -56,6 +58,7 @@ public class addPC : MonoBehaviour
 
     public void addNewPC()
     {
+        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
         int pcType = (int)(scriptSystem.PCs.Count / 16) + 1;
 
         List<int> nextPCPos = getPCPos(scriptSystem.PCs.Count + 1);
@@ -73,6 +76,8 @@ public class addPC : MonoBehaviour
 
     List<int> getPCPos(int cnt)
     {
+        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+
         List<int> RET = new List<int>();
         List<int> tablePos = getTablePos(cnt);
         int eachTableIndex = cnt - (tablePos[0] * scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptSystem.LENGTH_OF_TABLE + tablePos[1] * scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE) - 1;
@@ -85,6 +90,8 @@ public class addPC : MonoBehaviour
 
     List<int> getTablePos(int cnt)
     {
+        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+
         List<int> RET = new List<int>();
         RET.Add((cnt - 1) / (scriptSystem.LENGTH_OF_TABLE * scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE));
         RET.Add(((cnt - 1) % (scriptSystem.LENGTH_OF_TABLE * scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE)) / scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE);

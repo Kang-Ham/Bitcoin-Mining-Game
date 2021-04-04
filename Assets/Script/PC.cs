@@ -38,6 +38,8 @@ public class PC : MonoBehaviour
 
     private void setPos()
     {
+        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+
         Vector3 scenePos = new Vector3((float)(scriptSystem.SCENE_DISTANCE_BETWEEN_TABLE * pos[1] + scriptSystem.SCENE_DISTANCE_BETWEEN_PC * pos[3]), (float)(-scriptSystem.SCENE_DISTANCE_BETWEEN_TABLE * pos[0] - scriptSystem.SCENE_DISTANCE_BETWEEN_PC * pos[2]), -1);
 
         transform.position = scriptSystem.START_SCENE_POS + scenePos;

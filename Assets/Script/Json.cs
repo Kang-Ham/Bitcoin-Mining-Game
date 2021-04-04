@@ -29,8 +29,6 @@ public class Json : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scriptAddPC = GameObject.Find("EventSystem").GetComponent<addPC>();
-        scriptSystem = GameObject.Find("system").GetComponent<system>();
     }
 
     // Update is called once per frame
@@ -41,6 +39,7 @@ public class Json : MonoBehaviour
 
     public void save()
     {
+        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
         List<int> levelOfSystemPCs = new List<int>();
         for (int i = 0; i < scriptSystem.PCs.Count; i++) levelOfSystemPCs.Add(scriptSystem.PCs[i].level);
 
@@ -51,6 +50,7 @@ public class Json : MonoBehaviour
 
     public void load()
     {
+        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
         string jsonString = File.ReadAllText(Application.dataPath + "/Resources/SystemInfo.json");
 
         JsonData jsonSystemInfo = JsonMapper.ToObject(jsonString);
@@ -65,6 +65,7 @@ public class Json : MonoBehaviour
                  
     public void addPCAndSetLevel(int index, int pcType, int level)
     {
+        if(!scriptAddPC) scriptAddPC = GameObject.Find("EventSystem").GetComponent<addPC>();
         scriptAddPC.addNewPC();
         scriptSystem.PCs[index].level = level;  
     }
