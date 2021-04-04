@@ -11,7 +11,7 @@ public class PC : MonoBehaviour
     public List<int> pos = null;
 
     public int level;
-    public float bitcoinPerTimeSlice;
+    public float bitcoinPerSecond;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +22,7 @@ public class PC : MonoBehaviour
         setSprite(spriteName);
         setPos();
 
-        scriptSystem.gameBitcoinPerTimeSlice += bitcoinPerTimeSlice;
+        scriptSystem.gameBitcoinPerSecond += bitcoinPerSecond;
     }
 
     // Update is called once per frame

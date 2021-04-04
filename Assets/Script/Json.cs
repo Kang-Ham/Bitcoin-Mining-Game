@@ -10,12 +10,14 @@ public class SystemInfo
     public double curBitcoin; //float을 json에 저장하는 것이 지원이 안 됨
     public UInt64 curMoney;
     public List<int> levelOfPCs;
+    public DateTime recentlyTerminatedAt;
 
-    public SystemInfo(double _curBitcoin, UInt64 _curMoney, List<int> _levelOfPCs)
+    public SystemInfo(double _curBitcoin, UInt64 _curMoney, List<int> _levelOfPCs, DateTime _recentlyTerminatedAt)
     {
         curBitcoin = _curBitcoin;
         curMoney = _curMoney;
         levelOfPCs = _levelOfPCs;
+        recentlyTerminatedAt = _recentlyTerminatedAt;
     }
 }
 
@@ -43,7 +45,7 @@ public class Json : MonoBehaviour
         List<int> levelOfSystemPCs = new List<int>();
         for (int i = 0; i < scriptSystem.PCs.Count; i++) levelOfSystemPCs.Add(scriptSystem.PCs[i].level);
 
-        systemInfo = new SystemInfo(Convert.ToDouble(scriptSystem.curBitcoin), scriptSystem.curMoney, levelOfSystemPCs);
+        systemInfo = new SystemInfo(Convert.ToDouble(scriptSystem.curBitcoin), scriptSystem.curMoney, levelOfSystemPCs, DateTime.Now);
         JsonData jsonSystemInfo = JsonMapper.ToJson(systemInfo);
         File.WriteAllText(Application.dataPath + "/Resources/SystemInfo.json", jsonSystemInfo.ToString());
     }
@@ -51,22 +53,20 @@ public class Json : MonoBehaviour
     public void load()
     {
         if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+        if (!scriptAddPC) scriptAddPC = GameObject.Find("EventSystem").GetComponent<addPC>();
         string jsonString = File.ReadAllText(Application.dataPath + "/Resources/SystemInfo.json");
 
         JsonData jsonSystemInfo = JsonMapper.ToObject(jsonString);
-        scriptSystem.curBitcoin = Convert.ToSingle(jsonSystemInfo["curBitcoin"].ToString());
         scriptSystem.curMoney = Convert.ToUInt64(jsonSystemInfo["curMoney"].ToString());
+        scriptSystem.curBitcoin = Convert.ToSingle(jsonSystemInfo["curBitcoin"].ToString());
+
+        DateTime recentlyTerminatedAt = Convert.ToDateTime(jsonSystemInfo["recentlyTerminatedAt"].ToString());
+        TimeSpan timeDifference = DateTime.Now - recentlyTerminatedAt;
 
         for (int i = 0; i < jsonSystemInfo["levelOfPCs"].Count; i++)
         {
-            addPCAndSetLevel(i, (int)(i / 16) + 1, Convert.ToInt16(jsonSystemInfo["levelOfPCs"][i].ToString()));
-        } 
-    }
-                 
-    public void addPCAndSetLevel(int index, int pcType, int level)
-    {
-        if(!scriptAddPC) scriptAddPC = GameObject.Find("EventSystem").GetComponent<addPC>();
-        scriptAddPC.addNewPC();
-        scriptSystem.PCs[index].level = level;  
+            PC scriptNewPC = scriptAddPC.addNewPC(Convert.ToInt16(jsonSystemInfo["levelOfPCs"][i].ToString()));
+            scriptSystem.curBitcoin += timeDifference.Seconds * scriptNewPC.bitcoinPerSecond;
+        }
     }
 }

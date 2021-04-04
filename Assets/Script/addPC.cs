@@ -10,9 +10,6 @@ public class addPC : MonoBehaviour
     private msgboxYesOrNo scriptMsgboxYesOrNo;
     private msgbox scriptMsgbox;
 
-    private List<float> listBitcoinPerTimeSlice = new List<float>() {0f, 0.00000001f, 0.0000025f, 0.0000125f, 0.000625f};
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -52,11 +49,11 @@ public class addPC : MonoBehaviour
 
         if (clickedBtn == 1)
         {
-            addNewPC();
+            addNewPC(1);
         }
     }
 
-    public void addNewPC()
+    public PC addNewPC(int level)
     {
         if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
         int pcType = (int)(scriptSystem.PCs.Count / 16) + 1;
@@ -68,10 +65,12 @@ public class addPC : MonoBehaviour
         //Set Params
         scriptNewPC.spriteName = "pc"+ pcType.ToString();
         scriptNewPC.pos = nextPCPos;
-        scriptNewPC.level = 1;
-        scriptNewPC.bitcoinPerTimeSlice = listBitcoinPerTimeSlice[pcType];
+        scriptNewPC.level = level;
+        scriptNewPC.bitcoinPerSecond = scriptSystem.BITCOIN_PER_SECOND[pcType - 1, level - 1];
 
         scriptSystem.PCs.Add(scriptNewPC);
+
+        return scriptNewPC;
     }
 
     List<int> getPCPos(int cnt)

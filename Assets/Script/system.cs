@@ -16,6 +16,12 @@ public class system : MonoBehaviour
     public float VALUE_TIME_SLICE_BITCOIN; //1=> 1초에 1번씩 비트코인 갱신
     public float VALUE_TIME_SLICE_SAVE; //1=> 1초에 1번씩 비트코인 갱신
     public float VALUE_TIME_SLICE_CRAWLING; //60=> 1분에 1번씩 비트코인 크롤링
+    public float[,] BITCOIN_PER_SECOND = new float[4, 1] {
+        { 0.00000001f },
+        { 0.0000025f },
+        { 0.0000125f },
+        { 0.000625f }
+    };
 
     //TODO: Game Load할 때 불러오기
     public float curBitcoin;
@@ -23,7 +29,7 @@ public class system : MonoBehaviour
     public List<PC> PCs;
 
     //불러오기 않아도 됨        
-    public float gameBitcoinPerTimeSlice;
+    public float gameBitcoinPerSecond;
     public int selectedMenu;
     public int curBitcoinPrice;
     private curBitcoin scriptCurBitcoin;
@@ -60,7 +66,7 @@ public class system : MonoBehaviour
 
     IEnumerator setCurBitcoinOnRunning(float delay)
     {
-        curBitcoin += gameBitcoinPerTimeSlice*delay;
+        curBitcoin += gameBitcoinPerSecond*delay;
         scriptCurBitcoin.doUpdate();
         yield return new WaitForSeconds(delay);
         StartCoroutine("setCurBitcoinOnRunning", delay);
@@ -140,7 +146,7 @@ public class system : MonoBehaviour
     public void reset()
     {
         this.PCs = new List<PC>();
-        this.gameBitcoinPerTimeSlice = 0f;
+        this.gameBitcoinPerSecond = 0f;
 
         GameObject[] PCs = GameObject.FindGameObjectsWithTag("pc");
         for (int i = 1; i < PCs.Length; i++)
@@ -152,6 +158,6 @@ public class system : MonoBehaviour
     public void addPC4()
     {
         addPC scriptAddPC = GameObject.Find("EventSystem").GetComponent<addPC>();
-        for (int i = 0; i < 4; i++) scriptAddPC.addNewPC();
+        for (int i = 0; i < 4; i++) scriptAddPC.addNewPC(1);
     }
 }
