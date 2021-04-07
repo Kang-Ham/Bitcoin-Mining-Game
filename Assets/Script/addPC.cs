@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 public class addPC : MonoBehaviour
 {
-    system scriptSystem;
+    private system scriptSystem;
     public GameObject prefabPC;
     private msgboxYesOrNo scriptMsgboxYesOrNo;
     private msgbox scriptMsgbox;
+    private com_menu_spawner scriptComMenuSpawner;
 
     // Start is called before the first frame update
     void Start()
@@ -18,15 +19,15 @@ public class addPC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
 
+    }
+                                    
     async public void OnClickEvent(int pcType)
     {
         if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
         if (!scriptMsgbox) scriptMsgbox = GameObject.Find("EventSystem").GetComponent<msgbox>();
 
-        if (scriptSystem.PCs.Count >= 0+16*(pcType-1) && scriptSystem.PCs.Count < 16+ 16 * (pcType - 1)
+        if (scriptSystem.PCs.Count >= 0 + 16 * (pcType - 1) && scriptSystem.PCs.Count < 16 + 16 * (pcType - 1)
             )
         {
             askForAddPC();
@@ -42,6 +43,7 @@ public class addPC : MonoBehaviour
     async public void askForAddPC()
     {
         if (!scriptMsgboxYesOrNo) scriptMsgboxYesOrNo = GameObject.Find("EventSystem").GetComponent<msgboxYesOrNo>();
+        if (!scriptComMenuSpawner) scriptComMenuSpawner = GameObject.FindGameObjectWithTag("content").GetComponent<com_menu_spawner>();
 
         scriptMsgboxYesOrNo.showMsgboxYesOrNo("해당 PC를 구입하시겠습니까?", "예", "아니오");
         var task = Task.Run(() => scriptMsgboxYesOrNo.getClickedBtn());
@@ -49,6 +51,7 @@ public class addPC : MonoBehaviour
 
         if (clickedBtn == 1)
         {
+            scriptComMenuSpawner.makeNewButton(scriptSystem.PCs.Count);
             addNewPC(1);
         }
     }
@@ -63,13 +66,12 @@ public class addPC : MonoBehaviour
         PC scriptNewPC = newPC.GetComponent<PC>();
 
         //Set Params
-        scriptNewPC.spriteName = "pc"+ pcType.ToString();
+        scriptNewPC.spriteName = "pc" + pcType.ToString();
         scriptNewPC.pos = nextPCPos;
         scriptNewPC.level = level;
         scriptNewPC.bitcoinPerSecond = scriptSystem.BITCOIN_PER_SECOND[pcType - 1, level - 1];
 
         scriptSystem.PCs.Add(scriptNewPC);
-
         return scriptNewPC;
     }
 

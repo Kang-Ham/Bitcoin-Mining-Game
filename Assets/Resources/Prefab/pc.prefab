@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6208207133460575461}
   m_Layer: 0
   m_Name: pc
-  m_TagString: Untagged
+  m_TagString: pc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,9 +44,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78fa48f8189d15c4e8b3dad2815183fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objPC: {fileID: 0}
-  type: 0
+  spriteName: 
   pos: 
+  level: 0
+  bitcoinPerSecond: 0
 --- !u!212 &6208207133460575461
 SpriteRenderer:
   m_ObjectHideFlags: 0

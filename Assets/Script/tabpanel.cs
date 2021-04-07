@@ -11,6 +11,8 @@ public class tabpanel : MonoBehaviour
     private GameObject[] objMenuTexts;
     private Text[] menuTexts;
 
+    private int isComputerClicked = 0;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,23 +22,6 @@ public class tabpanel : MonoBehaviour
     void Update()
     {
 
-    }
-
-    public void ClickTab(int id)
-    {
-        for(int i = 0; i < contentsPanels.Count; i++)
-        {
-            if(i==id)
-            {
-                contentsPanels[i].SetActive(true);
-                selectMenu(i);
-            }
-            else
-            {
-                contentsPanels[i].SetActive(false);
-            }
-            
-        }
     }
 
     public void selectMenu(int index)
@@ -55,7 +40,6 @@ public class tabpanel : MonoBehaviour
                 }
             }
 
-            ClickTab(scriptSystem.selectedMenu);
             selectMenu(scriptSystem.selectedMenu);
             return;
         }
@@ -69,14 +53,29 @@ public class tabpanel : MonoBehaviour
         {
             if (i == index)
             {
+                contentsPanels[i].SetActive(true);
                 newColor.a = 1f;
                 menuTexts[i].color = newColor;
+
+                if (i == 1&&isComputerClicked==0)
+                {
+                    loadAddPCButtons();
+                    isComputerClicked = 1;
+                }
             }
             else
             {
                 newColor.a = 0.5f;
                 menuTexts[i].color = newColor;
+                contentsPanels[i].SetActive(false);
             }
         }
+    }
+
+    public void loadAddPCButtons()
+    {
+        com_menu_spawner scriptComMenuSpawner = GameObject.FindGameObjectWithTag("content").GetComponent<com_menu_spawner>();
+        for(int i=0;i< scriptSystem.PCs.Count; i++) 
+            scriptComMenuSpawner.makeNewButton(i);
     }
 }

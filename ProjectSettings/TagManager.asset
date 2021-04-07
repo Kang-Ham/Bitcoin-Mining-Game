@@ -8,8 +8,8 @@ TagManager:
   - MenuContent
   - curBTC_text
   - pc
-  - Undefined
   - comContent
+  - content
   layers:
   - Default
   - TransparentFX

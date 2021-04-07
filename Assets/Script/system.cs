@@ -149,15 +149,26 @@ public class system : MonoBehaviour
         this.gameBitcoinPerSecond = 0f;
 
         GameObject[] PCs = GameObject.FindGameObjectsWithTag("pc");
-        for (int i = 1; i < PCs.Length; i++)
-        {
-            Destroy(PCs[i]);
-        }
+
+        for (int i = 1; i < PCs.Length; i++) Destroy(PCs[i]);
     }
 
     public void addPC4()
     {
-        addPC scriptAddPC = GameObject.Find("EventSystem").GetComponent<addPC>();
-        for (int i = 0; i < 4; i++) scriptAddPC.addNewPC(1);
+        try
+        {
+            addPC scriptAddPC = GameObject.Find("EventSystem").GetComponent<addPC>();
+            com_menu_spawner scriptComMenuSpawner = GameObject.FindGameObjectWithTag("content").GetComponent<com_menu_spawner>();
+            for (int i = 0; i < 4; i++)
+            {
+                scriptComMenuSpawner.makeNewButton(PCs.Count);
+                scriptAddPC.addNewPC(1);
+            }
+        }
+        catch
+        {
+            Debug.Log("panel - computer 탭 열고 해야함");
+        }
+
     }
 }
