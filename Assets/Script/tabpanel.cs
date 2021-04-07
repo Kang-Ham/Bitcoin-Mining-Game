@@ -57,9 +57,10 @@ public class tabpanel : MonoBehaviour
                 newColor.a = 1f;
                 menuTexts[i].color = newColor;
 
-                if (i == 1&&isComputerClicked==0)
+                if (i == 1&&isComputerClicked==0) //Computer 탭 처음으로 눌렀을 때
                 {
                     loadAddPCButtons();
+                    setButtonExceptLastInteractableFalse();
                     isComputerClicked = 1;
                 }
             }
@@ -74,8 +75,22 @@ public class tabpanel : MonoBehaviour
 
     public void loadAddPCButtons()
     {
+        int i;
+        //PC 갯수만큼 버튼 추가
         com_menu_spawner scriptComMenuSpawner = GameObject.FindGameObjectWithTag("content").GetComponent<com_menu_spawner>();
-        for(int i=0;i< scriptSystem.PCs.Count; i++) 
-            scriptComMenuSpawner.makeNewButton(i);
+        for (i = 0; i < scriptSystem.PCs.Count; i++) scriptComMenuSpawner.makeNewButton(i);
+    }
+
+    public void setButtonExceptLastInteractableFalse()
+    {
+        int i;
+        //addBtn 마지막 제외하고 전부 비활성화
+        GameObject[] addPCBtns = GameObject.FindGameObjectsWithTag("addBtn");
+        for (i = 0; i < addPCBtns.Length - 1; i++) addPCBtns[i].GetComponent<Button>().interactable = false;
+
+        if(scriptSystem.PCs.Count >= scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptSystem.LENGTH_OF_TABLE * scriptSystem.NUMBER_OF_MENU)
+        {
+            addPCBtns[scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptSystem.LENGTH_OF_TABLE * scriptSystem.NUMBER_OF_MENU-1].GetComponent<Button>().interactable = false;
+        }
     }
 }

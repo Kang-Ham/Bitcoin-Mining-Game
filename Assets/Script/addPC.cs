@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Threading.Tasks;
+using UnityEngine.UI;
 
 public class addPC : MonoBehaviour
 {
@@ -51,6 +52,9 @@ public class addPC : MonoBehaviour
 
         if (clickedBtn == 1)
         {
+            
+            GameObject[] addPCBtns = GameObject.FindGameObjectsWithTag("addBtn");
+            addPCBtns[addPCBtns.Length - 1].GetComponent<Button>().interactable = false;
             scriptComMenuSpawner.makeNewButton(scriptSystem.PCs.Count);
             addNewPC(1);
         }

@@ -169,8 +169,8 @@ GameObject:
   - component: {fileID: 6752555332503881839}
   - component: {fileID: 6752555332503881838}
   m_Layer: 5
-  m_Name: add_pc2_btn_left
-  m_TagString: Untagged
+  m_Name: add_pc_btn
+  m_TagString: addBtn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -382,8 +382,8 @@ GameObject:
   - component: {fileID: 8450922533709307343}
   - component: {fileID: 491076816343184005}
   m_Layer: 5
-  m_Name: add_pc2_btn_right
-  m_TagString: Untagged
+  m_Name: add_pc_btn
+  m_TagString: addBtn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

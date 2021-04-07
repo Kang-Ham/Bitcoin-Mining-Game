@@ -10200,10 +10200,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tabButtons:
-  - {fileID: 1924192312}
-  - {fileID: 1927000896}
-  - {fileID: 1954522149}
-  - {fileID: 1710900084}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   contentsPanels:
   - {fileID: 699825521}
   - {fileID: 955913624}
@@ -12859,7 +12859,7 @@ GameObject:
   - component: {fileID: 1226028091}
   - component: {fileID: 1226028090}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: TESTBTNADDPC4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16797,7 +16797,7 @@ GameObject:
   - component: {fileID: 1689061692}
   - component: {fileID: 1689061691}
   m_Layer: 5
-  m_Name: Button
+  m_Name: TESTBTNRESET
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17050,7 +17050,6 @@ GameObject:
   - component: {fileID: 1710900083}
   - component: {fileID: 1710900082}
   - component: {fileID: 1710900081}
-  - component: {fileID: 1710900084}
   m_Layer: 5
   m_Name: skill_btn
   m_TagString: Untagged
@@ -17172,18 +17171,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1710900079}
   m_CullTransparentMesh: 1
---- !u!114 &1710900084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1710900079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b2ff0ee20142b847bd4ef23b4c5209a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1733662181
 GameObject:
   m_ObjectHideFlags: 0
@@ -18507,7 +18494,7 @@ GameObject:
   - component: {fileID: 1840604491}
   - component: {fileID: 1840604490}
   m_Layer: 5
-  m_Name: skill_panel
+  m_Name: BTC_panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19356,7 +19343,6 @@ GameObject:
   - component: {fileID: 1924192311}
   - component: {fileID: 1924192310}
   - component: {fileID: 1924192309}
-  - component: {fileID: 1924192312}
   m_Layer: 5
   m_Name: system_btn
   m_TagString: Untagged
@@ -19478,18 +19464,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1924192307}
   m_CullTransparentMesh: 1
---- !u!114 &1924192312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1924192307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b2ff0ee20142b847bd4ef23b4c5209a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1927000891
 GameObject:
   m_ObjectHideFlags: 0
@@ -19502,7 +19476,6 @@ GameObject:
   - component: {fileID: 1927000895}
   - component: {fileID: 1927000894}
   - component: {fileID: 1927000893}
-  - component: {fileID: 1927000896}
   m_Layer: 5
   m_Name: computer_btn
   m_TagString: Untagged
@@ -19624,18 +19597,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1927000891}
   m_CullTransparentMesh: 1
---- !u!114 &1927000896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1927000891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b2ff0ee20142b847bd4ef23b4c5209a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1931292482
 GameObject:
   m_ObjectHideFlags: 0
@@ -19802,7 +19763,6 @@ GameObject:
   - component: {fileID: 1954522148}
   - component: {fileID: 1954522147}
   - component: {fileID: 1954522146}
-  - component: {fileID: 1954522149}
   m_Layer: 5
   m_Name: GPU_btn
   m_TagString: Untagged
@@ -19924,18 +19884,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1954522144}
   m_CullTransparentMesh: 1
---- !u!114 &1954522149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1954522144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b2ff0ee20142b847bd4ef23b4c5209a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1966200470 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1277198297499427128, guid: 92e2b98d4d90fa6428f01b0efccca427,

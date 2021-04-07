@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using System;
+using UnityEngine.UI;
 
 public class system : MonoBehaviour
 {
@@ -159,15 +160,17 @@ public class system : MonoBehaviour
         {
             addPC scriptAddPC = GameObject.Find("EventSystem").GetComponent<addPC>();
             com_menu_spawner scriptComMenuSpawner = GameObject.FindGameObjectWithTag("content").GetComponent<com_menu_spawner>();
+            tabpanel scriptTabpanel = GameObject.Find("Canvas").GetComponent<tabpanel>();
             for (int i = 0; i < 4; i++)
             {
                 scriptComMenuSpawner.makeNewButton(PCs.Count);
+                scriptTabpanel.setButtonExceptLastInteractableFalse();
                 scriptAddPC.addNewPC(1);
             }
         }
         catch
         {
-            Debug.Log("panel - computer 탭 열고 해야함");
+            Debug.Log("ERROR, system-addPC4: panel - computer 탭 열어야함 또는 PC 갯수 초과");
         }
 
     }
