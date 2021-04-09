@@ -10,7 +10,6 @@ public class PC : MonoBehaviour
     public string spriteName; //"pc1" 
     public List<int> pos = null;
 
-    public int level;
     public float bitcoinPerSecond;
 
     // Start is called before the first frame update

@@ -56,11 +56,11 @@ public class addPC : MonoBehaviour
             GameObject[] addPCBtns = GameObject.FindGameObjectsWithTag("addBtn");
             addPCBtns[addPCBtns.Length - 1].GetComponent<Button>().interactable = false;
             scriptComMenuSpawner.makeNewButton(scriptSystem.PCs.Count);
-            addNewPC(1);
+            addNewPC();
         }
     }
 
-    public PC addNewPC(int level)
+    public PC addNewPC()
     {
         if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
         int pcType = (int)(scriptSystem.PCs.Count / 16) + 1;
@@ -72,8 +72,7 @@ public class addPC : MonoBehaviour
         //Set Params
         scriptNewPC.spriteName = "pc" + pcType.ToString();
         scriptNewPC.pos = nextPCPos;
-        scriptNewPC.level = level;
-        scriptNewPC.bitcoinPerSecond = scriptSystem.BITCOIN_PER_SECOND[pcType - 1, level - 1];
+        scriptNewPC.bitcoinPerSecond = scriptSystem.PC_BITCOIN_PER_SECOND[pcType - 1];
 
         scriptSystem.PCs.Add(scriptNewPC);
         return scriptNewPC;

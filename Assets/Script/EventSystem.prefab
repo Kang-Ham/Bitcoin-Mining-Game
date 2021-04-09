@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 1260065709270414533}
   - component: {fileID: 4101977875481036552}
   - component: {fileID: 5360129607200143924}
+  - component: {fileID: 4630271517840167586}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -148,3 +149,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabPC: {fileID: 6208207133460575460, guid: 6c96248434777aa40a9679f37fc19094,
     type: 3}
+--- !u!114 &4630271517840167586
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277198297499427128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 088da8901e1509c42abefce7284bf900, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

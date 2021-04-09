@@ -475,6 +475,22 @@ MonoBehaviour:
   VALUE_TIME_SLICE_BITCOIN: 0.1
   VALUE_TIME_SLICE_SAVE: 10
   VALUE_TIME_SLICE_CRAWLING: 60
+  PC_BITCOIN_PER_SECOND:
+  - 0.00000001
+  - 0.0000025
+  - 0.0000125
+  - 0.000625
+  GPU_RATES:
+  - 1
+  - 1.3
+  - 1.5
+  - 1.6
+  - 1.8
+  - 1.9
+  - 2.1
+  - 2.4
+  - 2.7
+  - 3
   curBitcoin: 0
   curMoney: 100000000
   PCs: []
@@ -802,10 +818,10 @@ RectTransform:
   m_Father: {fileID: 1018420357}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 390, y: -170}
-  m_SizeDelta: {x: 760, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &87533803
 MonoBehaviour:
@@ -1630,7 +1646,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &187109937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2246,7 +2262,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 258983156}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277198298253244335}
+        m_TargetAssemblyTypeName: upgradeGPU, Assembly-CSharp
+        m_MethodName: OnClickEvent
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &258983156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2960,10 +2988,10 @@ RectTransform:
   m_Father: {fileID: 1018420357}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 390, y: -500}
-  m_SizeDelta: {x: 760, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &323728339
 MonoBehaviour:
@@ -3639,7 +3667,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 364542898}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277198298253244335}
+        m_TargetAssemblyTypeName: upgradeGPU, Assembly-CSharp
+        m_MethodName: OnClickEvent
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &364542898
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4311,7 +4351,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 409855931}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277198298253244335}
+        m_TargetAssemblyTypeName: upgradeGPU, Assembly-CSharp
+        m_MethodName: OnClickEvent
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &409855931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4951,7 +5003,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 476693066}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277198298253244335}
+        m_TargetAssemblyTypeName: upgradeGPU, Assembly-CSharp
+        m_MethodName: OnClickEvent
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 8
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &476693066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5814,7 +5878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &575696597
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6683,7 +6747,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 669430566}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277198298253244335}
+        m_TargetAssemblyTypeName: upgradeGPU, Assembly-CSharp
+        m_MethodName: OnClickEvent
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 7
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &669430566
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7581,7 +7657,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 782909461}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277198298253244335}
+        m_TargetAssemblyTypeName: upgradeGPU, Assembly-CSharp
+        m_MethodName: OnClickEvent
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 6
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &782909461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8565,10 +8653,10 @@ RectTransform:
   m_Father: {fileID: 1018420357}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 390, y: -610}
-  m_SizeDelta: {x: 760, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &860614713
 MonoBehaviour:
@@ -8917,10 +9005,10 @@ RectTransform:
   m_Father: {fileID: 1018420357}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 390, y: -280}
-  m_SizeDelta: {x: 760, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &887179512
 MonoBehaviour:
@@ -9272,10 +9360,10 @@ RectTransform:
   m_Father: {fileID: 1018420357}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 390, y: -830}
-  m_SizeDelta: {x: 760, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &960668424
 MonoBehaviour:
@@ -9925,7 +10013,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: -0.000061035156}
-  m_SizeDelta: {x: 0, y: 439.62903}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1018420358
 MonoBehaviour:
@@ -10036,10 +10124,10 @@ RectTransform:
   m_Father: {fileID: 1018420357}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 390, y: -940}
-  m_SizeDelta: {x: 760, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1042027484
 MonoBehaviour:
@@ -10529,10 +10617,10 @@ RectTransform:
   m_Father: {fileID: 1018420357}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 390, y: -60}
-  m_SizeDelta: {x: 760, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1085299890
 MonoBehaviour:
@@ -14048,10 +14136,10 @@ RectTransform:
   m_Father: {fileID: 1018420357}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 390, y: -720}
-  m_SizeDelta: {x: 760, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1384688845
 MonoBehaviour:
@@ -14328,10 +14416,10 @@ RectTransform:
   m_Father: {fileID: 1018420357}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 390, y: -390}
-  m_SizeDelta: {x: 760, y: 100}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1437142148
 MonoBehaviour:
@@ -14880,7 +14968,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1484338282}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277198298253244335}
+        m_TargetAssemblyTypeName: upgradeGPU, Assembly-CSharp
+        m_MethodName: OnClickEvent
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1484338282
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20248,7 +20348,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2013645407}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277198298253244335}
+        m_TargetAssemblyTypeName: upgradeGPU, Assembly-CSharp
+        m_MethodName: OnClickEvent
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2013645407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20925,7 +21037,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2091961017}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1277198298253244335}
+        m_TargetAssemblyTypeName: upgradeGPU, Assembly-CSharp
+        m_MethodName: OnClickEvent
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 5
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2091961017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21119,6 +21243,18 @@ PrefabInstance:
     - {fileID: 1277198297499427129, guid: 92e2b98d4d90fa6428f01b0efccca427, type: 3}
     - {fileID: 1277198297499427125, guid: 92e2b98d4d90fa6428f01b0efccca427, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 92e2b98d4d90fa6428f01b0efccca427, type: 3}
+--- !u!114 &1277198298253244335 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4630271517840167586, guid: 92e2b98d4d90fa6428f01b0efccca427,
+    type: 3}
+  m_PrefabInstance: {fileID: 1277198298253244334}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966200470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 088da8901e1509c42abefce7284bf900, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6208207133068525888
 PrefabInstance:
   m_ObjectHideFlags: 0

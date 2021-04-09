@@ -17,17 +17,15 @@ public class system : MonoBehaviour
     public float VALUE_TIME_SLICE_BITCOIN; //1=> 1초에 1번씩 비트코인 갱신
     public float VALUE_TIME_SLICE_SAVE; //1=> 1초에 1번씩 비트코인 갱신
     public float VALUE_TIME_SLICE_CRAWLING; //60=> 1분에 1번씩 비트코인 크롤링
-    public float[,] BITCOIN_PER_SECOND = new float[4, 1] {
-        { 0.00000001f },
-        { 0.0000025f },
-        { 0.0000125f },
-        { 0.000625f }
-    };
 
-    //TODO: Game Load할 때 불러오기
+    public float[] PC_BITCOIN_PER_SECOND;
+    public float[] GPU_RATES;
+
+    //Game Load할 때 불러오기
     public float curBitcoin;
     public UInt64 curMoney;
     public List<PC> PCs;
+    public int curGPULevel;
 
     //불러오기 않아도 됨        
     public float gameBitcoinPerSecond;
@@ -165,7 +163,7 @@ public class system : MonoBehaviour
             {
                 scriptComMenuSpawner.makeNewButton(PCs.Count);
                 scriptTabpanel.setButtonExceptLastInteractableFalse();
-                scriptAddPC.addNewPC(1);
+                scriptAddPC.addNewPC();
             }
         }
         catch
