@@ -146,6 +146,7 @@ public class system : MonoBehaviour
     {
         this.PCs = new List<PC>();
         this.gameBitcoinPerSecond = 0f;
+        this.curGPULevel = 0;
 
         GameObject[] PCs = GameObject.FindGameObjectsWithTag("pc");
 
