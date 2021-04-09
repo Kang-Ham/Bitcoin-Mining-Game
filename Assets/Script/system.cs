@@ -34,6 +34,7 @@ public class system : MonoBehaviour
     private curBitcoin scriptCurBitcoin;
     private curMoney scriptCurMoney;
     private Json scriptJson;
+    public float hitPower;
 
     // Start is called before the first frame update
     void Start()
@@ -50,6 +51,7 @@ public class system : MonoBehaviour
         StartCoroutine("setCurBitcoinOnRunning", VALUE_TIME_SLICE_BITCOIN);
         StartCoroutine("savePeriodically", VALUE_TIME_SLICE_SAVE);
         StartCoroutine("setCurBitcoinPriceWithCrawling", VALUE_TIME_SLICE_CRAWLING);
+        hitPower = 0.0000008f;
     }
 
     // Update is called once per frame
