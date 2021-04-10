@@ -12,14 +12,16 @@ public class SystemInfo
     public int cntPC;
     public int curGPULevel; //TODO
     public DateTime recentlyTerminatedAt;
+    public double hitPower;
 
-    public SystemInfo(double _curBitcoin, UInt64 _curMoney, int _cntPC, int _curGPULevel, DateTime _recentlyTerminatedAt)
+    public SystemInfo(double _curBitcoin, UInt64 _curMoney, int _cntPC, int _curGPULevel, DateTime _recentlyTerminatedAt, double _hitPower)
     {
         curBitcoin = _curBitcoin;
         curMoney = _curMoney;
         cntPC = _cntPC;
         curGPULevel = _curGPULevel;
         recentlyTerminatedAt = _recentlyTerminatedAt;
+        hitPower = _hitPower;
     }
 }
 
@@ -45,7 +47,7 @@ public class Json : MonoBehaviour
     {
         if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
 
-        systemInfo = new SystemInfo(Convert.ToDouble(scriptSystem.curBitcoin), scriptSystem.curMoney, scriptSystem.PCs.Count, scriptSystem.curGPULevel, DateTime.Now);
+        systemInfo = new SystemInfo(Convert.ToDouble(scriptSystem.curBitcoin), scriptSystem.curMoney, scriptSystem.PCs.Count, scriptSystem.curGPULevel, DateTime.Now, Convert.ToDouble(scriptSystem.hitPower));
         JsonData jsonSystemInfo = JsonMapper.ToJson(systemInfo);
         File.WriteAllText(Application.dataPath + "/Resources/SystemInfo.json", jsonSystemInfo.ToString());
     }
@@ -60,6 +62,7 @@ public class Json : MonoBehaviour
         scriptSystem.curMoney = Convert.ToUInt64(jsonSystemInfo["curMoney"].ToString());
         scriptSystem.curBitcoin = Convert.ToSingle(jsonSystemInfo["curBitcoin"].ToString());
         scriptSystem.curGPULevel = Convert.ToInt16(jsonSystemInfo["curGPULevel"].ToString());
+        scriptSystem.hitPower = Convert.ToSingle(jsonSystemInfo["hitPower"].ToString());
 
         //PC Load & 시간에 따라 Bitcoin 추가
         DateTime recentlyTerminatedAt = Convert.ToDateTime(jsonSystemInfo["recentlyTerminatedAt"].ToString());

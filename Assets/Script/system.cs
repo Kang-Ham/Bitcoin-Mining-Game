@@ -51,7 +51,6 @@ public class system : MonoBehaviour
         StartCoroutine("setCurBitcoinOnRunning", VALUE_TIME_SLICE_BITCOIN);
         StartCoroutine("savePeriodically", VALUE_TIME_SLICE_SAVE);
         StartCoroutine("setCurBitcoinPriceWithCrawling", VALUE_TIME_SLICE_CRAWLING);
-        hitPower = 0.0000008f;
     }
 
     // Update is called once per frame
