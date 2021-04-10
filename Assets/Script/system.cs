@@ -26,6 +26,7 @@ public class system : MonoBehaviour
     public UInt64 curMoney;
     public List<PC> PCs;
     public int curGPULevel;
+    public float hitPower;
 
     //불러오기 않아도 됨        
     public float gameBitcoinPerSecond;
@@ -50,6 +51,7 @@ public class system : MonoBehaviour
         StartCoroutine("setCurBitcoinOnRunning", VALUE_TIME_SLICE_BITCOIN);
         StartCoroutine("savePeriodically", VALUE_TIME_SLICE_SAVE);
         StartCoroutine("setCurBitcoinPriceWithCrawling", VALUE_TIME_SLICE_CRAWLING);
+        hitPower = 0.0000008f;
     }
 
     // Update is called once per frame
