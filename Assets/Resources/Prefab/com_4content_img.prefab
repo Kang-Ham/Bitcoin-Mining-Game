@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6752555332393687207}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: PC_text
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 6752555331793951557}
   m_Layer: 5
   m_Name: com_4content_img
-  m_TagString: comContent
+  m_TagString: PC_text
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 3956281875324483070}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: PC_text
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

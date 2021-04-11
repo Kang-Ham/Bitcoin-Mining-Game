@@ -11,6 +11,7 @@ TagManager:
   - comContent
   - content
   - addBtn
+  - GPU_text
   layers:
   - Default
   - TransparentFX

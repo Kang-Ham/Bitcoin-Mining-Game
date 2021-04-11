@@ -7,6 +7,7 @@ public class com_menu_spawner : MonoBehaviour
 {
     public GameObject[] com_content_imgPrefabs;
     private system scriptSystem;
+    private tabpanel scriptTabpanel;
 
     void Start()
     {
@@ -16,6 +17,8 @@ public class com_menu_spawner : MonoBehaviour
     public void makeNewButton(int PCCount)
     {
         if(!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+        if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<tabpanel>();
+
 
         if (PCCount >= scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptSystem.LENGTH_OF_TABLE * scriptSystem.NUMBER_OF_MENU - 1)
         {        // 추가 가능한 마지막 PC의 경우 추가 안 함
@@ -35,6 +38,7 @@ public class com_menu_spawner : MonoBehaviour
             spawn_content.transform.localScale = new Vector3(1f, 1f, 1f);
             spawn_content.transform.GetChild(1).gameObject.SetActive(false);
         }
+        scriptTabpanel.loadPCPrice(PCCount+1);
     }
 
 }

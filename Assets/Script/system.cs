@@ -37,6 +37,7 @@ public class system : MonoBehaviour
     private curBitcoin scriptCurBitcoin;
     private curMoney scriptCurMoney;
     private Json scriptJson;
+    private addPC scriptAddPC;
 
     // Start is called before the first frame update
     void Start()
@@ -44,12 +45,15 @@ public class system : MonoBehaviour
         scriptCurBitcoin = GameObject.Find("curBitcoin").GetComponent<curBitcoin>();
         scriptCurMoney = GameObject.Find("curMoney").GetComponent<curMoney>();
         scriptJson = GameObject.Find("json").GetComponent<Json>();
+        scriptAddPC = GameObject.Find("EventSystem").GetComponent<addPC>();
 
         //BTC, Money 등 로컬 파일에서 불러오기
         scriptJson.load();
         scriptCurMoney.doUpdate();
         scriptCurBitcoin.doUpdate();
-        
+
+        if (PCs.Count == 0) scriptAddPC.addNewPC();
+
         StartCoroutine("setCurBitcoinOnRunning", VALUE_TIME_SLICE_BITCOIN);
         StartCoroutine("savePeriodically", VALUE_TIME_SLICE_SAVE);
         StartCoroutine("setCurBitcoinPriceWithCrawling", VALUE_TIME_SLICE_CRAWLING);

@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class tabpanel : MonoBehaviour
 {
-    public List<tabbutton> tabButtons;
     public List<GameObject> contentsPanels;
     private system scriptSystem;
     private GameObject[] objMenuTexts;
     private Text[] menuTexts;
 
     private int isComputerClicked = 0;
+    private int isGPUClicked = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -61,7 +61,13 @@ public class tabpanel : MonoBehaviour
                 {
                     loadAddPCButtons();
                     setButtonExceptLastInteractableFalse();
+                    loadPCPrice(0);
                     isComputerClicked = 1;
+                }
+                else if(i==2&& isGPUClicked == 0) //GPU ÅÇ
+                {
+                    loadGPUPrices();
+                    isGPUClicked = 1;
                 }
             }
             else
@@ -75,10 +81,8 @@ public class tabpanel : MonoBehaviour
 
     public void loadAddPCButtons()
     {
-        int i;
-        //PC °¹¼ö¸¸Å­ ¹öÆ° Ãß°¡
         com_menu_spawner scriptComMenuSpawner = GameObject.FindGameObjectWithTag("content").GetComponent<com_menu_spawner>();
-        for (i = 0; i < scriptSystem.PCs.Count; i++) scriptComMenuSpawner.makeNewButton(i);
+        for (int i = 0; i < scriptSystem.PCs.Count; i++) scriptComMenuSpawner.makeNewButton(i);
     }
 
     public void setButtonExceptLastInteractableFalse()
@@ -92,5 +96,22 @@ public class tabpanel : MonoBehaviour
         {
             addPCBtns[scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptSystem.LENGTH_OF_TABLE * scriptSystem.NUMBER_OF_MENU-1].GetComponent<Button>().interactable = false;
         }
+    }
+    public void loadPCPrice(int PCCount)
+    {
+        int pcType = PCCount / 16;
+        GameObject addPCBtn = GameObject.FindGameObjectsWithTag("addBtn")[PCCount];
+        
+        Transform curPCText = addPCBtn.transform.GetChild(0);
+        curPCText.GetComponent<Text>().text = scriptSystem.PC_PRICES[pcType].ToString();
+    }
+    public void loadGPUPrices()
+    {
+        GameObject[] GPUTexts = GameObject.FindGameObjectsWithTag("GPU_text");
+        for(int i = 1; i < GPUTexts.Length+1; i++)
+        {
+            GPUTexts[i-1].GetComponent<Text>().text = scriptSystem.GPU_PRICES[i].ToString();
+        }
+        
     }
 }
