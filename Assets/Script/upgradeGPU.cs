@@ -28,7 +28,17 @@ public class upgradeGPU : MonoBehaviour
 
         if (curGPULevel == scriptSystem.curGPULevel)
         {
-            askForAddPC(curGPULevel);
+            if (scriptSystem.curMoney >= scriptSystem.GPU_PRICES[curGPULevel+1])
+            {
+                askForAddPC(curGPULevel);
+            }
+            else
+            {
+                scriptMsgbox.showMsgbox("현금이 부족합니다.", "예");
+                var task = Task.Run(() => scriptMsgbox.getClickedBtn());
+                int clickedBtn = await task;
+            }
+                
         }
         else
         {
@@ -48,6 +58,8 @@ public class upgradeGPU : MonoBehaviour
 
         if (clickedBtn == 1)
         {
+            scriptSystem.setCurMoney(scriptSystem.curMoney - scriptSystem.GPU_PRICES[curGPULevel+1]);
+
             upgradeCurrentGPU(curGPULevel);
         }
     }

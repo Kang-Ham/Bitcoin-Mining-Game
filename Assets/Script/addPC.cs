@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class addPC : MonoBehaviour
 {
     private system scriptSystem;
+    private curMoney scriptCurMoney;
+
     public GameObject prefabPC;
     private msgboxYesOrNo scriptMsgboxYesOrNo;
     private msgbox scriptMsgbox;
@@ -31,7 +33,17 @@ public class addPC : MonoBehaviour
         if (scriptSystem.PCs.Count >= 0 + 16 * (pcType - 1) && scriptSystem.PCs.Count < 16 + 16 * (pcType - 1)
             )
         {
-            askForAddPC();
+            if(scriptSystem.curMoney >= scriptSystem.PC_PRICES[pcType-1])
+            {
+                askForAddPC();
+            }
+            else
+            {
+                scriptMsgbox.showMsgbox("현금이 부족합니다.", "예");
+                var task = Task.Run(() => scriptMsgbox.getClickedBtn());
+                int clickedBtn = await task;
+            }
+            
         }
         else
         {
@@ -45,6 +57,8 @@ public class addPC : MonoBehaviour
     {
         if (!scriptMsgboxYesOrNo) scriptMsgboxYesOrNo = GameObject.Find("EventSystem").GetComponent<msgboxYesOrNo>();
         if (!scriptComMenuSpawner) scriptComMenuSpawner = GameObject.FindGameObjectWithTag("content").GetComponent<com_menu_spawner>();
+  
+        int pcType = (int)(scriptSystem.PCs.Count / 16) + 1;
 
         scriptMsgboxYesOrNo.showMsgboxYesOrNo("해당 PC를 구입하시겠습니까?", "예", "아니오");
         var task = Task.Run(() => scriptMsgboxYesOrNo.getClickedBtn());
@@ -52,10 +66,12 @@ public class addPC : MonoBehaviour
 
         if (clickedBtn == 1)
         {
-            
             GameObject[] addPCBtns = GameObject.FindGameObjectsWithTag("addBtn");
             addPCBtns[addPCBtns.Length - 1].GetComponent<Button>().interactable = false;
             scriptComMenuSpawner.makeNewButton(scriptSystem.PCs.Count);
+
+            scriptSystem.setCurMoney(scriptSystem.curMoney - scriptSystem.PC_PRICES[pcType - 1]);
+
             addNewPC();
         }
     }

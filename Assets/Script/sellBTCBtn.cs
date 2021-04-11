@@ -68,8 +68,7 @@ public class sellBTCBtn : MonoBehaviour
             if (clickedBtn == 1)
             {
                 scriptSystem.curBitcoin -= sellInput;
-                scriptSystem.curMoney += moneyToGet;
-                scriptCurMoney.doUpdate();
+                scriptSystem.setCurMoney(scriptSystem.curMoney + moneyToGet);
                 sellInputField.text = "";
             }
         }

@@ -480,6 +480,7 @@ MonoBehaviour:
   - 0.0000025
   - 0.0000125
   - 0.000625
+  PC_PRICES: 50c300000000000040420f0000000000002d3101000000000084d71700000000
   GPU_RATES:
   - 1
   - 1.3
@@ -491,6 +492,7 @@ MonoBehaviour:
   - 2.4
   - 2.7
   - 3
+  GPU_PRICES: 000000000000000020a1070000000000a02526000000000020bcbe0000000000a0acb90300000000205fa01200000000a0db215d00000000204aa9d101000000a0724e1809000000203d88792d000000
   curBitcoin: 0
   curMoney: 100000000
   PCs: []
@@ -11930,7 +11932,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!222 &1127406325
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21097,7 +21099,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000022888, y: -36.183}
+  m_AnchoredPosition: {x: 0.000022888, y: -36.194}
   m_SizeDelta: {x: 800, y: 1349.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2091230371

@@ -19,7 +19,9 @@ public class system : MonoBehaviour
     public float VALUE_TIME_SLICE_CRAWLING; //60=> 1분에 1번씩 비트코인 크롤링
 
     public float[] PC_BITCOIN_PER_SECOND;
+    public UInt64[] PC_PRICES;
     public float[] GPU_RATES;
+    public UInt64[] GPU_PRICES;
 
     //Game Load할 때 불러오기
     public float curBitcoin;
@@ -43,7 +45,7 @@ public class system : MonoBehaviour
         scriptCurMoney = GameObject.Find("curMoney").GetComponent<curMoney>();
         scriptJson = GameObject.Find("json").GetComponent<Json>();
 
-        //TODO: BTC, Money 등 로컬 파일에서 불러오기
+        //BTC, Money 등 로컬 파일에서 불러오기
         scriptJson.load();
         scriptCurMoney.doUpdate();
         scriptCurBitcoin.doUpdate();
@@ -53,9 +55,10 @@ public class system : MonoBehaviour
         StartCoroutine("setCurBitcoinPriceWithCrawling", VALUE_TIME_SLICE_CRAWLING);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void setCurMoney(UInt64 money)
     {
+        this.curMoney = money;
+        scriptCurMoney.doUpdate();
     }
 
     void OnApplicationQuit()
