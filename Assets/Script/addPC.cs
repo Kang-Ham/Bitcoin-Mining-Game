@@ -57,7 +57,7 @@ public class addPC : MonoBehaviour
     {
         if (!scriptMsgboxYesOrNo) scriptMsgboxYesOrNo = GameObject.Find("EventSystem").GetComponent<msgboxYesOrNo>();
         if (!scriptComMenuSpawner) scriptComMenuSpawner = GameObject.FindGameObjectWithTag("content").GetComponent<com_menu_spawner>();
-  
+
         int pcType = (int)(scriptSystem.PCs.Count / 16) + 1;
 
         scriptMsgboxYesOrNo.showMsgboxYesOrNo("해당 PC를 구입하시겠습니까?", "예", "아니오");

@@ -12,6 +12,7 @@ TagManager:
   - content
   - addBtn
   - GPU_text
+  - PC_text
   layers:
   - Default
   - TransparentFX
