@@ -3837,13 +3837,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1966200470}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1277198298253244336}
+        m_TargetAssemblyTypeName: settingBtn, Assembly-CSharp
+        m_MethodName: OnClickEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -5174,8 +5174,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1966200475}
-        m_TargetAssemblyTypeName: msgbox, Assembly-CSharp
+      - m_Target: {fileID: 1277198298253244336}
+        m_TargetAssemblyTypeName: settingBtn, Assembly-CSharp
         m_MethodName: OnClickEventBtn1
         m_Mode: 1
         m_Arguments:
@@ -12478,9 +12478,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1966200475}
-        m_TargetAssemblyTypeName: msgbox, Assembly-CSharp
-        m_MethodName: OnClickEventBtn1
+      - m_Target: {fileID: 1277198298253244336}
+        m_TargetAssemblyTypeName: settingBtn, Assembly-CSharp
+        m_MethodName: OnClickEventBtn2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22012,9 +22012,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1966200471}
-        m_TargetAssemblyTypeName: clicker_event, Assembly-CSharp
-        m_MethodName: clicker
+      - m_Target: {fileID: 1277198298253244336}
+        m_TargetAssemblyTypeName: settingBtn, Assembly-CSharp
+        m_MethodName: OnClickEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22360,6 +22360,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 088da8901e1509c42abefce7284bf900, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1277198298253244336 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -3096530249897850376, guid: 92e2b98d4d90fa6428f01b0efccca427,
+    type: 3}
+  m_PrefabInstance: {fileID: 1277198298253244334}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1966200470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7865ac62628b3f4294a127aad54cd21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6208207133068525888
