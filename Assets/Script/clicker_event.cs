@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine.UI;
 public class clicker_event : MonoBehaviour
 {
     private system scriptSystem;
+    private msgbox scriptMsgbox;
 
     // Start is called before the first frame update
     void Start()
@@ -16,16 +18,33 @@ public class clicker_event : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void clicker()
     {
-        scriptSystem.curBitcoin += scriptSystem.hitPower;
+        scriptSystem.curBitcoin += 1.002f * 0.0000008f * (scriptSystem.hitPower - 1) + 0.0000008f;
     }
 
     public void clicker_upgrade()
     {
-        scriptSystem.hitPower = 1.002f * scriptSystem.hitPower + 0.0000008f;
+        if (!scriptMsgbox) scriptMsgbox = GameObject.Find("EventSystem").GetComponent<msgbox>();
+
+        if (scriptSystem.curMoney >= 600 * scriptSystem.hitPower)
+        {
+            scriptSystem.setCurMoney(scriptSystem.curMoney - Convert.ToUInt64(600 * scriptSystem.hitPower));
+            scriptSystem.hitPower += 1;
+        }
+        else
+        {
+            scriptMsgbox.showMsgbox("You Can't Do That.", "¿¹");
+        }
+    }
+
+    public void hitPowerReset()
+    {
+        scriptSystem.curBitcoin = 0;
+        scriptSystem.setCurMoney(scriptSystem.curMoney - scriptSystem.curMoney);
+        scriptSystem.hitPower = 1;
     }
 }
