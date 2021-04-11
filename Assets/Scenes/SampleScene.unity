@@ -483,15 +483,15 @@ MonoBehaviour:
   PC_PRICES: 50c300000000000040420f0000000000002d3101000000000084d71700000000
   GPU_RATES:
   - 1
-  - 1.3
   - 1.5
-  - 1.6
-  - 1.8
-  - 1.9
-  - 2.1
-  - 2.4
-  - 2.7
+  - 2
+  - 2.5
   - 3
+  - 3.5
+  - 4
+  - 4.5
+  - 5
+  - 5.5
   GPU_PRICES: 000000000000000020a1070000000000a02526000000000020bcbe0000000000a0acb90300000000205fa01200000000a0db215d00000000204aa9d101000000a0724e1809000000203d88792d000000
   curBitcoin: 0
   curMoney: 100000000
@@ -10156,7 +10156,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1017973618}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1966200471}
+        m_TargetAssemblyTypeName: clicker_event, Assembly-CSharp
+        m_MethodName: clickerUpgrade10
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1017973618
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20299,11 +20311,11 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1277198298253244334}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1966200471
+--- !u!114 &1966200471 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3619051498725239298, guid: 92e2b98d4d90fa6428f01b0efccca427,
+    type: 3}
+  m_PrefabInstance: {fileID: 1277198298253244334}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1966200470}
   m_Enabled: 1

@@ -23,21 +23,49 @@ public class clicker_event : MonoBehaviour
 
     public void clicker()
     {
-        scriptSystem.curBitcoin += 1.002f * 0.0000008f * (scriptSystem.hitPower - 1) + 0.0000008f;
+        if(!scriptSystem) GameObject.Find("system").GetComponent<system>();
+        scriptSystem.curBitcoin += Convert.ToInt64(0.0000008f * (Math.Pow(1.05, 50) - 1) * scriptSystem.hitPower / 75) + (20 * 0.0000008f / 21);
     }
 
     public void clicker_upgrade()
     {
         if (!scriptMsgbox) scriptMsgbox = GameObject.Find("EventSystem").GetComponent<msgbox>();
 
-        if (scriptSystem.curMoney >= 600 * scriptSystem.hitPower)
+        if (scriptSystem.hitPower < 51)
         {
-            scriptSystem.setCurMoney(scriptSystem.curMoney - Convert.ToUInt64(600 * scriptSystem.hitPower));
-            scriptSystem.hitPower += 1;
+            if (scriptSystem.curMoney >= Convert.ToUInt64(0.0000008 * scriptSystem.curBitcoinPrice * Math.Pow(1.05, scriptSystem.hitPower - 50 * Math.Truncate(scriptSystem.hitPower/50) - 1)))
+            {
+                scriptSystem.setCurMoney(scriptSystem.curMoney - Convert.ToUInt64(0.0000008 * scriptSystem.curBitcoinPrice * Math.Pow(1.05, scriptSystem.hitPower - 50 * Math.Truncate(scriptSystem.hitPower / 50) - 1)));
+                scriptSystem.hitPower += 1;
+            }
+            else
+            {
+                scriptMsgbox.showMsgbox("You Can't Do That.", "¿¹");
+            }
         }
         else
         {
-            scriptMsgbox.showMsgbox("You Can't Do That.", "¿¹");
+            if (scriptSystem.curMoney >= Convert.ToUInt64(0.0000008 * scriptSystem.curBitcoinPrice * Math.Pow(1.05, scriptSystem.hitPower - 50 * Math.Truncate(scriptSystem.hitPower / 50) - 1) + 0.0000008 * scriptSystem.curBitcoinPrice * Math.Pow(1.05, 50 * Math.Truncate(scriptSystem.hitPower/50))))
+            {
+                scriptSystem.setCurMoney(scriptSystem.curMoney - Convert.ToUInt64(0.0000008 * scriptSystem.curBitcoinPrice * Math.Pow(1.05, scriptSystem.hitPower - 50 * Math.Truncate(scriptSystem.hitPower / 50) - 1) + 0.0000008 * scriptSystem.curBitcoinPrice * Math.Pow(1.05, 50 * Math.Truncate(scriptSystem.hitPower / 50))));
+                scriptSystem.hitPower += 1;
+            }
+            else
+            {
+                scriptMsgbox.showMsgbox("You Can't Do That.", "¿¹");
+            }
+        }
+
+
+
+
+    }
+
+    public void clickerUpgrade10()
+    {
+        for(int i = 1; i < 11; i++)
+        {
+            this.clicker_upgrade();
         }
     }
 
