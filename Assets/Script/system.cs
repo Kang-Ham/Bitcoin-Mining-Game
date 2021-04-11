@@ -17,12 +17,15 @@ public class system : MonoBehaviour
     public float VALUE_TIME_SLICE_BITCOIN; //1=> 1초에 1번씩 비트코인 갱신
     public float VALUE_TIME_SLICE_SAVE; //1=> 1초에 1번씩 비트코인 갱신
     public float VALUE_TIME_SLICE_CRAWLING; //60=> 1분에 1번씩 비트코인 크롤링
+    public int BIFURCATION_OF_OVERCLOCK;
+    public float BITCOIN_AT_FIRST_TOUCH;
+    public float COEFFICIENT_OF_OVERCLOCK;
 
     public float[] PC_BITCOIN_PER_SECOND;
     public UInt64[] PC_PRICES;
     public float[] GPU_RATES;
     public UInt64[] GPU_PRICES;
-
+                                                                                                              
     //Game Load할 때 불러오기
     public float curBitcoin;
     public UInt64 curMoney;

@@ -10,7 +10,7 @@ public class SystemInfo
     public double curBitcoin; //float을 json에 저장하는 것이 지원이 안 됨
     public UInt64 curMoney;
     public int cntPC;
-    public int curGPULevel; //TODO
+    public int curGPULevel;
     public DateTime recentlyTerminatedAt;
     public double hitPower;
 
@@ -69,10 +69,16 @@ public class Json : MonoBehaviour
             DateTime recentlyTerminatedAt = Convert.ToDateTime(jsonSystemInfo["recentlyTerminatedAt"].ToString());
             TimeSpan timeDifference = DateTime.Now - recentlyTerminatedAt;
 
+            if(timeDifference > new TimeSpan(3, 0, 0)) //최대 3시간까지만 저장
+            {
+                timeDifference = new TimeSpan(3, 0, 0);
+            }
+            Debug.Log(timeDifference.ToString());
+
             for (int i = 0; i < Convert.ToInt16(jsonSystemInfo["cntPC"].ToString()); i++)
             {
                 PC scriptNewPC = scriptAddPC.addNewPC();
-                scriptSystem.curBitcoin += timeDifference.Seconds * scriptNewPC.bitcoinPerSecond * scriptSystem.GPU_RATES[scriptSystem.curGPULevel];
+                scriptSystem.curBitcoin += (timeDifference.Seconds + timeDifference.Minutes*60 + timeDifference.Hours*3600) * scriptNewPC.bitcoinPerSecond * scriptSystem.GPU_RATES[scriptSystem.curGPULevel];
             }
         }
         catch //파일이 없을 경우

@@ -8,11 +8,12 @@ public class clicker_event : MonoBehaviour
 {
     private system scriptSystem;
     private msgbox scriptMsgbox;
+    private tabpanel scriptTabpanel;
 
     // Start is called before the first frame update
     void Start()
     {
-        scriptSystem = GameObject.Find("system").GetComponent<system>();
+        
     }
 
     // Update is called once per frame
@@ -23,19 +24,21 @@ public class clicker_event : MonoBehaviour
 
     public void clicker()
     {
-        if(!scriptSystem) GameObject.Find("system").GetComponent<system>();
-        scriptSystem.curBitcoin += Convert.ToInt64(0.0000008f * (Math.Pow(1.05, 50) - 1) * scriptSystem.hitPower / 75) + (20 * 0.0000008f / 21);
+        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+        scriptSystem.curBitcoin += Convert.ToInt64(scriptSystem.BITCOIN_AT_FIRST_TOUCH * (Math.Pow(scriptSystem.COEFFICIENT_OF_OVERCLOCK, scriptSystem.BIFURCATION_OF_OVERCLOCK) - 1) * scriptSystem.hitPower / 75) + (20 * scriptSystem.BITCOIN_AT_FIRST_TOUCH*10 / 21);
     }
 
     public void clicker_upgrade()
     {
         if (!scriptMsgbox) scriptMsgbox = GameObject.Find("EventSystem").GetComponent<msgbox>();
+        if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<tabpanel>();
+        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
 
-        if (scriptSystem.hitPower < 51)
+        if (scriptSystem.hitPower < scriptSystem.BIFURCATION_OF_OVERCLOCK+1)
         {
-            if (scriptSystem.curMoney >= Convert.ToUInt64(0.0000008 * scriptSystem.curBitcoinPrice * Math.Pow(1.05, scriptSystem.hitPower - 50 * Math.Truncate(scriptSystem.hitPower/50) - 1)))
+            if (scriptSystem.curMoney >= Convert.ToUInt64(scriptSystem.BITCOIN_AT_FIRST_TOUCH*10 * scriptSystem.curBitcoinPrice * Math.Pow(scriptSystem.COEFFICIENT_OF_OVERCLOCK, scriptSystem.hitPower - scriptSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptSystem.hitPower/scriptSystem.BIFURCATION_OF_OVERCLOCK) - 1)))
             {
-                scriptSystem.setCurMoney(scriptSystem.curMoney - Convert.ToUInt64(0.0000008 * scriptSystem.curBitcoinPrice * Math.Pow(1.05, scriptSystem.hitPower - 50 * Math.Truncate(scriptSystem.hitPower / 50) - 1)));
+                scriptSystem.setCurMoney(scriptSystem.curMoney - Convert.ToUInt64(scriptSystem.BITCOIN_AT_FIRST_TOUCH*10 * scriptSystem.curBitcoinPrice * Math.Pow(scriptSystem.COEFFICIENT_OF_OVERCLOCK, scriptSystem.hitPower - scriptSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptSystem.hitPower/scriptSystem.BIFURCATION_OF_OVERCLOCK) - 1)));
                 scriptSystem.hitPower += 1;
             }
             else
@@ -45,9 +48,9 @@ public class clicker_event : MonoBehaviour
         }
         else
         {
-            if (scriptSystem.curMoney >= Convert.ToUInt64(0.0000008 * scriptSystem.curBitcoinPrice * Math.Pow(1.05, scriptSystem.hitPower - 50 * Math.Truncate(scriptSystem.hitPower / 50) - 1) + 0.0000008 * scriptSystem.curBitcoinPrice * Math.Pow(1.05, 50 * Math.Truncate(scriptSystem.hitPower/50))))
+            if (scriptSystem.curMoney >= Convert.ToUInt64(scriptSystem.BITCOIN_AT_FIRST_TOUCH*10 * scriptSystem.curBitcoinPrice * Math.Pow(scriptSystem.COEFFICIENT_OF_OVERCLOCK, scriptSystem.hitPower - scriptSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptSystem.hitPower / scriptSystem.BIFURCATION_OF_OVERCLOCK) - 1) + scriptSystem.BITCOIN_AT_FIRST_TOUCH*10 * scriptSystem.curBitcoinPrice * Math.Pow(scriptSystem.COEFFICIENT_OF_OVERCLOCK, scriptSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptSystem.hitPower/scriptSystem.BIFURCATION_OF_OVERCLOCK))))
             {
-                scriptSystem.setCurMoney(scriptSystem.curMoney - Convert.ToUInt64(0.0000008 * scriptSystem.curBitcoinPrice * Math.Pow(1.05, scriptSystem.hitPower - 50 * Math.Truncate(scriptSystem.hitPower / 50) - 1) + 0.0000008 * scriptSystem.curBitcoinPrice * Math.Pow(1.05, 50 * Math.Truncate(scriptSystem.hitPower / 50))));
+                scriptSystem.setCurMoney(scriptSystem.curMoney - Convert.ToUInt64(scriptSystem.BITCOIN_AT_FIRST_TOUCH*10 * scriptSystem.curBitcoinPrice * Math.Pow(scriptSystem.COEFFICIENT_OF_OVERCLOCK, scriptSystem.hitPower - scriptSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptSystem.hitPower / scriptSystem.BIFURCATION_OF_OVERCLOCK) - 1) + scriptSystem.BITCOIN_AT_FIRST_TOUCH*10 * scriptSystem.curBitcoinPrice * Math.Pow(scriptSystem.COEFFICIENT_OF_OVERCLOCK, scriptSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptSystem.hitPower/scriptSystem.BIFURCATION_OF_OVERCLOCK))));
                 scriptSystem.hitPower += 1;
             }
             else
@@ -56,8 +59,7 @@ public class clicker_event : MonoBehaviour
             }
         }
 
-
-
+        scriptTabpanel.loadOverclockPrice();
 
     }
 
@@ -71,6 +73,8 @@ public class clicker_event : MonoBehaviour
 
     public void hitPowerReset()
     {
+        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+
         scriptSystem.curBitcoin = 0;
         scriptSystem.setCurMoney(scriptSystem.curMoney - scriptSystem.curMoney);
         scriptSystem.hitPower = 1;

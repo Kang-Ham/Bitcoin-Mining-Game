@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class tabpanel : MonoBehaviour
     private GameObject[] objMenuTexts;
     private Text[] menuTexts;
 
+    private int isOverclockClicked = 0;
     private int isComputerClicked = 0;
     private int isGPUClicked = 0;
 
@@ -57,14 +59,19 @@ public class tabpanel : MonoBehaviour
                 newColor.a = 1f;
                 menuTexts[i].color = newColor;
 
-                if (i == 1&&isComputerClicked==0) //Computer ÅÇ Ã³À½À¸·Î ´­·¶À» ¶§
+                if (i == 0&&isOverclockClicked == 0)
+                {
+                    loadOverclockPrice();
+                    isOverclockClicked = 1;
+                }
+                else if (i == 1&&isComputerClicked == 0) //Computer ÅÇ Ã³À½À¸·Î ´­·¶À» ¶§
                 {
                     loadAddPCButtons();
                     setButtonExceptLastInteractableFalse();
                     loadPCPrice(0);
                     isComputerClicked = 1;
                 }
-                else if(i==2&& isGPUClicked == 0) //GPU ÅÇ
+                else if(i == 2&&isGPUClicked == 0) //GPU ÅÇ
                 {
                     loadGPUPrices();
                     isGPUClicked = 1;
@@ -105,6 +112,7 @@ public class tabpanel : MonoBehaviour
         Transform curPCText = addPCBtn.transform.GetChild(0);
         curPCText.GetComponent<Text>().text = scriptSystem.PC_PRICES[pcType].ToString();
     }
+
     public void loadGPUPrices()
     {
         GameObject[] GPUTexts = GameObject.FindGameObjectsWithTag("GPU_text");
@@ -112,6 +120,20 @@ public class tabpanel : MonoBehaviour
         {
             GPUTexts[i-1].GetComponent<Text>().text = scriptSystem.GPU_PRICES[i].ToString();
         }
+    }
+
+
+    public void loadOverclockPrice()
+    {
+        GameObject overclockText = GameObject.Find("overclock_text");
         
+        if (scriptSystem.hitPower < scriptSystem.BIFURCATION_OF_OVERCLOCK+1)
+        {
+            overclockText.GetComponent<Text>().text = Convert.ToUInt64(scriptSystem.BITCOIN_AT_FIRST_TOUCH * 10 * scriptSystem.curBitcoinPrice * Math.Pow(scriptSystem.COEFFICIENT_OF_OVERCLOCK, scriptSystem.hitPower - scriptSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptSystem.hitPower / scriptSystem.BIFURCATION_OF_OVERCLOCK) - 1)).ToString();
+        }
+        else
+        {
+            overclockText.GetComponent<Text>().text = Convert.ToUInt64(scriptSystem.BITCOIN_AT_FIRST_TOUCH * 10 * scriptSystem.curBitcoinPrice * Math.Pow(scriptSystem.COEFFICIENT_OF_OVERCLOCK, scriptSystem.hitPower - scriptSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptSystem.hitPower / scriptSystem.BIFURCATION_OF_OVERCLOCK) - 1) + scriptSystem.BITCOIN_AT_FIRST_TOUCH * 10 * scriptSystem.curBitcoinPrice * Math.Pow(scriptSystem.COEFFICIENT_OF_OVERCLOCK, scriptSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptSystem.hitPower / scriptSystem.BIFURCATION_OF_OVERCLOCK))).ToString();
+        }  
     }
 }
