@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class tabpanel : MonoBehaviour
 {
-    public List<tabbutton> tabButtons;
     public List<GameObject> contentsPanels;
     private system scriptSystem;
     private GameObject[] objMenuTexts;
