@@ -11,6 +11,8 @@ public class Tabpanel : MonoBehaviour
     private GameObject[] objMenuTexts;
     private Text[] menuTexts;
 
+    private AddPc scriptAddPc;
+
     private int isOverclockClicked = 0;
     private int isComputerClicked = 0;
     private int isGpuClicked = 0;
@@ -88,15 +90,15 @@ public class Tabpanel : MonoBehaviour
 
     public void LoadAddPcButtons()
     {
-        AddPcSpawner scriptAddPcSpawner = GameObject.FindGameObjectWithTag("content").GetComponent<AddPcSpawner>();
-        for (int i = 0; i < scriptGameSystem.currentPcList.Count; i++) scriptAddPcSpawner.MakeNewButton(i);
+        if (!scriptAddPc) scriptAddPc = GameObject.Find("EventSystem").GetComponent<AddPc>();
+        for (int i = 0; i < scriptGameSystem.currentPcList.Count; i++) scriptAddPc.MakeNewButton(i);
     }
 
     public void SetButtonExceptLastInteractableFalse()
     {
         int i;
         //addButton 마지막 제외하고 전부 비활성화
-        GameObject[] addPcButtons = GameObject.FindGameObjectsWithTag("addBtn");
+        GameObject[] addPcButtons = GameObject.FindGameObjectsWithTag("AddButton");
         for (i = 0; i < addPcButtons.Length - 1; i++) addPcButtons[i].GetComponent<Button>().interactable = false;
 
         if(scriptGameSystem.currentPcList.Count >= scriptGameSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptGameSystem.LENGTH_OF_TABLE * scriptGameSystem.NUMBER_OF_MENU)
@@ -107,7 +109,7 @@ public class Tabpanel : MonoBehaviour
     public void LoadPcPrice(int pcCount)
     {
         int pcType = pcCount / 16;
-        GameObject addPcButton = GameObject.FindGameObjectsWithTag("addBtn")[pcCount];
+        GameObject addPcButton = GameObject.FindGameObjectsWithTag("AddButton")[pcCount];
         
         Text currentPcText = addPcButton.transform.GetChild(0).GetComponent<Text>();
         currentPcText.text = scriptGameSystem.PC_PRICES[pcType].ToString();
@@ -115,7 +117,7 @@ public class Tabpanel : MonoBehaviour
 
     public void LoadGpuPrices()
     {
-        GameObject[] GpuTexts = GameObject.FindGameObjectsWithTag("GPU_text");
+        GameObject[] GpuTexts = GameObject.FindGameObjectsWithTag("GpuPriceText");
         for(int i = 1; i < GpuTexts.Length+1; i++)
         {
             GpuTexts[i-1].GetComponent<Text>().text = scriptGameSystem.GPU_PRICES[i].ToString();

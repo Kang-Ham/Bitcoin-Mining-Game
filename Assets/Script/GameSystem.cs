@@ -161,21 +161,25 @@ public class GameSystem : MonoBehaviour
         this.gameBtcPerSecond = 0f;
         this.currentGpuLevel = 0;
 
-        GameObject[] currentPcList = GameObject.FindGameObjectsWithTag("pc");
+        GameObject[] currentPcList = GameObject.FindGameObjectsWithTag("Pc");
 
         for (int i = 1; i < currentPcList.Length; i++) Destroy(currentPcList[i]);
     }
-
+    public void ResetOverclockBtcMoney()
+    {
+        currentBtc = 0;
+        SetCurrentMoney(currentMoney - currentMoney);
+        currentOverclockLevel = 1;
+    }
     public void AddPc4()
     {
         try
         {
             scriptAddPc = GameObject.Find("EventSystem").GetComponent<AddPc>();
-            AddPcSpawner scriptAddPcSpawner = GameObject.FindGameObjectWithTag("content").GetComponent<AddPcSpawner>();
             Tabpanel scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
             for (int i = 0; i < 4; i++)
             {
-                scriptAddPcSpawner.MakeNewButton(currentPcList.Count);
+                scriptAddPc.MakeNewButton(currentPcList.Count);
                 scriptTabpanel.SetButtonExceptLastInteractableFalse();
                 scriptAddPc.AddNewPc();
             }
@@ -184,12 +188,10 @@ public class GameSystem : MonoBehaviour
         {
             Debug.Log("ERROR, system-AddPc4: panel - computer 탭 열어야함 또는 PC 갯수 초과");
         }
-
     }
-    public void ResetOverclockBtcMoney()
+    public void AddBtcMoney()
     {
-        currentBtc = 0;
-        SetCurrentMoney(currentMoney - currentMoney);
-        currentOverclockLevel = 1;
+        currentBtc += 1000000f;
+        SetCurrentMoney(currentMoney + 10000000000000);
     }
 }

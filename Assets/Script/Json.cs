@@ -73,7 +73,6 @@ public class Json : MonoBehaviour
             {
                 timeDifference = new TimeSpan(3, 0, 0);
             }
-            Debug.Log(timeDifference.ToString());
 
             for (int i = 0; i < Convert.ToInt16(jsonSystemInfo["pcCount"].ToString()); i++)
             {

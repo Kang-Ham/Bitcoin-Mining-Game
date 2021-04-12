@@ -10,7 +10,7 @@ public class YesOrNoMsgbox : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        yesOrNoMsgboxPanel = GameObject.Find("Canvas").transform.Find("YesOrNoMsgboxPanel").gameObject;
+        
     }
 
     // Update is called once per frame
@@ -27,6 +27,8 @@ public class YesOrNoMsgbox : MonoBehaviour
 
     public void ShowYesOrNoMsgbox(string strContent, string strButton1, string strButton2)
     {
+        if(!yesOrNoMsgboxPanel) yesOrNoMsgboxPanel = GameObject.Find("Canvas").transform.Find("YesOrNoMsgboxPanel").gameObject;
+        
         clickedButton = -1;
         yesOrNoMsgboxPanel.SetActive(true);
 
@@ -41,6 +43,8 @@ public class YesOrNoMsgbox : MonoBehaviour
 
     private void HideYesOrNoMsgbox()
     {
+        if (!yesOrNoMsgboxPanel) yesOrNoMsgboxPanel = GameObject.Find("Canvas").transform.Find("YesOrNoMsgboxPanel").gameObject;
+
         yesOrNoMsgboxPanel.SetActive(false);
     }
 

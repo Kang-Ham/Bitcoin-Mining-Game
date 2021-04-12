@@ -152,6 +152,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefabPc: {fileID: 6208207133460575460, guid: 6c96248434777aa40a9679f37fc19094,
     type: 3}
+  prefabAddPcImages:
+  - {fileID: 6752555331793951559, guid: f293effb7b441fa45a754cfbf82c360e, type: 3}
+  - {fileID: 5750510929272648300, guid: 17d68fefdd58a264c801c7332b21f801, type: 3}
+  - {fileID: 6583444321981261935, guid: 4206b17cf985eab4eab67d8e86f41f29, type: 3}
+  - {fileID: 7488701255861799164, guid: d81cf6ed38febaa42beecff4df3c38e3, type: 3}
 --- !u!114 &4630271517840167586
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,14 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Pc
+  - AddPcImage
+  - PcContent
+  - AddButton
+  - GpuPriceText
+  - Undefined
   - MenuText
-  - MenuContent
-  - curBTC_text
-  - pc
-  - comContent
-  - content
-  - addBtn
-  - GPU_text
   layers:
   - Default
   - TransparentFX

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 6208207133460575462}
   - component: {fileID: 6208207133460575461}
   m_Layer: 0
-  m_Name: pc
-  m_TagString: pc
+  m_Name: Pc
+  m_TagString: Pc
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,9 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteName: 
-  pos: 
-  level: 0
-  bitcoinPerSecond: 0
+  pos: ffffffffffffffffffffffffffffffff
+  btcPerSecond: 0
 --- !u!212 &6208207133460575461
 SpriteRenderer:
   m_ObjectHideFlags: 0

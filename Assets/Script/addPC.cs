@@ -6,13 +6,13 @@ using UnityEngine.UI;
 
 public class AddPc : MonoBehaviour
 {
-    private GameSystem scriptGameSystem;
-    private CurrentMoney scriptCurrentMoney;
-
     public GameObject prefabPc;
+    public GameObject[] prefabAddPcImages;
+
+    private GameSystem scriptGameSystem;
+    private Tabpanel scriptTabpanel;
     private YesOrNoMsgbox scriptYesOrNoMsgbox;
     private Msgbox scriptMsgbox;
-    private AddPcSpawner scriptAddPcSpawner;
 
     // Start is called before the first frame update
     void Start()
@@ -56,7 +56,6 @@ public class AddPc : MonoBehaviour
     async public void AskForAddPc()
     {
         if (!scriptYesOrNoMsgbox) scriptYesOrNoMsgbox = GameObject.Find("EventSystem").GetComponent<YesOrNoMsgbox>();
-        if (!scriptAddPcSpawner) scriptAddPcSpawner = GameObject.FindGameObjectWithTag("content").GetComponent<AddPcSpawner>();
 
         int pcType = (int)(scriptGameSystem.currentPcList.Count / 16) + 1;
 
@@ -66,14 +65,41 @@ public class AddPc : MonoBehaviour
 
         if (clickedButton == 0)
         {
-            GameObject[] addPcButtons = GameObject.FindGameObjectsWithTag("addBtn");
+            GameObject[] addPcButtons = GameObject.FindGameObjectsWithTag("AddButton");
             addPcButtons[addPcButtons.Length - 1].GetComponent<Button>().interactable = false;
-            scriptAddPcSpawner.MakeNewButton(scriptGameSystem.currentPcList.Count);
+            MakeNewButton(scriptGameSystem.currentPcList.Count);
 
             scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - scriptGameSystem.PC_PRICES[pcType - 1]);
 
             AddNewPc();
         }
+    }
+    public void MakeNewButton(int pcCount)
+    {
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+        if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
+
+
+        if (pcCount >= scriptGameSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptGameSystem.LENGTH_OF_TABLE * scriptGameSystem.NUMBER_OF_MENU - 1)
+        {        // 추가 가능한 마지막 PC의 경우 추가 안 함
+            return;
+        }
+
+        if (pcCount % 2 == 0)
+        {
+            GameObject[] AddPcImages = GameObject.FindGameObjectsWithTag("AddPcImage");
+            AddPcImages[AddPcImages.Length - 1].transform.GetChild(1).gameObject.SetActive(true);
+        }
+        else
+        {
+            GameObject PcContent = GameObject.Find("PcContent");
+
+            var newAddPcImage = Instantiate(prefabAddPcImages[(pcCount + 1) / 16]);
+            newAddPcImage.transform.SetParent(PcContent.transform);
+            newAddPcImage.transform.localScale = new Vector3(1f, 1f, 1f);
+            newAddPcImage.transform.GetChild(1).gameObject.SetActive(false);
+        }
+        scriptTabpanel.LoadPcPrice(pcCount + 1);
     }
 
     public Pc AddNewPc()

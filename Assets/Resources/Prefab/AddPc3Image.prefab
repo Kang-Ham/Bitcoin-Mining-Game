@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6752555331793951557}
   m_Layer: 5
   m_Name: AddPc3Image
-  m_TagString: comContent
+  m_TagString: AddPcImage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 6752555332393687207}
   m_Layer: 5
   m_Name: Text
-  m_TagString: PC_text
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 6752555332503881838}
   m_Layer: 5
   m_Name: AddPcButton
-  m_TagString: addBtn
+  m_TagString: AddButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 3956281875324483070}
   m_Layer: 5
   m_Name: Text
-  m_TagString: PC_text
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -383,7 +383,7 @@ GameObject:
   - component: {fileID: 491076816343184005}
   m_Layer: 5
   m_Name: AddPcButton
-  m_TagString: addBtn
+  m_TagString: AddButton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
