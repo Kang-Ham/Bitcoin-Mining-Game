@@ -28,7 +28,7 @@ public class SystemInfo
 public class Json : MonoBehaviour
 {
     private GameSystem scriptGameSystem;
-    private AddPc scriptAddPc;
+    private PcPanel scriptPcPanel;
 
     public SystemInfo systemInfo;
 
@@ -55,7 +55,7 @@ public class Json : MonoBehaviour
     public void Load()
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
-        if (!scriptAddPc) scriptAddPc = GameObject.Find("EventSystem").GetComponent<AddPc>();
+        if (!scriptPcPanel) scriptPcPanel = GameObject.Find("EventSystem").GetComponent<PcPanel>();
         try
         {
             string jsonString = File.ReadAllText(Application.dataPath + "/Resources/SystemInfo.json");
@@ -76,8 +76,8 @@ public class Json : MonoBehaviour
 
             for (int i = 0; i < Convert.ToInt16(jsonSystemInfo["pcCount"].ToString()); i++)
             {
-                Pc scriptNewPc = scriptAddPc.AddNewPc();
-                scriptGameSystem.currentBtc += (timeDifference.Seconds + timeDifference.Minutes*60 + timeDifference.Hours*3600) * scriptNewPc.btcPerSecond * scriptGameSystem.GPU_RATES[scriptGameSystem.currentGpuLevel];
+                Pc scriptNewPcPanel = scriptPcPanel.AddNewPc();
+                scriptGameSystem.currentBtc += (timeDifference.Seconds + timeDifference.Minutes*60 + timeDifference.Hours*3600) * scriptNewPcPanel.btcPerSecond * scriptGameSystem.GPU_RATES[scriptGameSystem.currentGpuLevel];
             }
         }
         catch //파일이 없을 경우

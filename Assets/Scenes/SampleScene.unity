@@ -1406,8 +1406,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1621712243}
-        m_TargetAssemblyTypeName: SellBtc, Assembly-CSharp
-        m_MethodName: OnClickEvent
+        m_TargetAssemblyTypeName: BtcPanel, Assembly-CSharp
+        m_MethodName: OnClickSellButtonEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8692,18 +8692,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5743f8044ba0ef4bba081d568bcb635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1621712242 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1260065709270414533, guid: 92e2b98d4d90fa6428f01b0efccca427,
-    type: 3}
-  m_PrefabInstance: {fileID: 96542184}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 651c9148bf4c623408102e3c2b2e6aaf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1621712243 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5274094697008604845, guid: 92e2b98d4d90fa6428f01b0efccca427,
@@ -9499,7 +9487,6 @@ GameObject:
   - component: {fileID: 1737589204}
   - component: {fileID: 1737589206}
   - component: {fileID: 1737589205}
-  - component: {fileID: 1737589207}
   m_Layer: 5
   m_Name: CurrentBtcPriceText
   m_TagString: Undefined
@@ -9568,18 +9555,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1737589203}
   m_CullTransparentMesh: 1
---- !u!114 &1737589207
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1737589203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1534a99fdfbf67d46bf1c016f33c6760, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1773422640
 GameObject:
   m_ObjectHideFlags: 0
@@ -10018,9 +9993,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1621712242}
-        m_TargetAssemblyTypeName: BuyBtc, Assembly-CSharp
-        m_MethodName: OnClickEvent
+      - m_Target: {fileID: 1621712243}
+        m_TargetAssemblyTypeName: BtcPanel, Assembly-CSharp
+        m_MethodName: OnClickBuyButtonEvent
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

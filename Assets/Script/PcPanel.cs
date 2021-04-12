@@ -4,7 +4,7 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine.UI;
 
-public class AddPc : MonoBehaviour
+public class PcPanel : MonoBehaviour
 {
     public GameObject prefabPc;
     public GameObject[] prefabAddPcImages;

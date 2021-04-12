@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class UpgradeGpu : MonoBehaviour
+public class GpuPanel : MonoBehaviour
 {
     private GameSystem scriptGameSystem;
     private YesOrNoMsgbox scriptYesOrNoMsgbox;

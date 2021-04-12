@@ -41,7 +41,8 @@ public class GameSystem : MonoBehaviour
     private CurrentBtc scriptCurrentBtc;
     private CurrentMoney scriptCurrentMoney;
     private Json scriptJson;
-    private AddPc scriptAddPc;
+    private PcPanel scriptPcPanel;
+    private BtcPanel scriptBtcPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -49,14 +50,14 @@ public class GameSystem : MonoBehaviour
         scriptCurrentBtc = GameObject.Find("CurrentBtcText").GetComponent<CurrentBtc>();
         scriptCurrentMoney = GameObject.Find("CurrentMoneyText").GetComponent<CurrentMoney>();
         scriptJson = GameObject.Find("Json").GetComponent<Json>();
-        scriptAddPc = GameObject.Find("EventSystem").GetComponent<AddPc>();
+        scriptPcPanel = GameObject.Find("EventSystem").GetComponent<PcPanel>();
 
         //Btc, Money 등 로컬 파일에서 불러오기
         scriptJson.Load();
         scriptCurrentMoney.DoUpdate();
         scriptCurrentBtc.DoUpdate();
 
-        if (currentPcList.Count == 0) scriptAddPc.AddNewPc();
+        if (currentPcList.Count == 0) scriptPcPanel.AddNewPc();
 
         StartCoroutine("SetCurrentBtcOnRunning", VALUE_TIME_SLICE_BTC);
         StartCoroutine("SavePeriodically", VALUE_TIME_SLICE_SAVE);
@@ -121,8 +122,8 @@ public class GameSystem : MonoBehaviour
 
                 try
                 {
-                    CurrentBtcPrice scriptCurrentBtcPrice = GameObject.Find("CurrentBtcText").GetComponent<CurrentBtcPrice>();
-                    scriptCurrentBtcPrice.DoUpdate(currentBtcPrice);
+                    if(!scriptBtcPanel) scriptBtcPanel = GameObject.Find("EventSystem").GetComponent<BtcPanel>();
+                    scriptBtcPanel.UpdateCurrentBtcPrice();
                 }
                 catch
                 {
@@ -175,13 +176,13 @@ public class GameSystem : MonoBehaviour
     {
         try
         {
-            scriptAddPc = GameObject.Find("EventSystem").GetComponent<AddPc>();
+            scriptPcPanel = GameObject.Find("EventSystem").GetComponent<PcPanel>();
             Tabpanel scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
             for (int i = 0; i < 4; i++)
             {
-                scriptAddPc.MakeNewButton(currentPcList.Count);
+                scriptPcPanel.MakeNewButton(currentPcList.Count);
                 scriptTabpanel.SetButtonExceptLastInteractableFalse();
-                scriptAddPc.AddNewPc();
+                scriptPcPanel.AddNewPc();
             }
         }
         catch

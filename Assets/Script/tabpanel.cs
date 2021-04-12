@@ -7,15 +7,17 @@ using UnityEngine.UI;
 public class Tabpanel : MonoBehaviour
 {
     public List<GameObject> contentsPanels;
-    private GameSystem scriptGameSystem;
     private GameObject[] objMenuTexts;
     private Text[] menuTexts;
 
-    private AddPc scriptAddPc;
+    private PcPanel scriptPcPanel;
+    private GameSystem scriptGameSystem;
+    private BtcPanel scriptBtcPanel;
 
     private int isOverclockClicked = 0;
     private int isComputerClicked = 0;
     private int isGpuClicked = 0;
+    private int isBtcClicked = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -61,12 +63,12 @@ public class Tabpanel : MonoBehaviour
                 newColor.a = 1f;
                 menuTexts[i].color = newColor;
 
-                if (i == 0&&isOverclockClicked == 0)
+                if (i == 0&&isOverclockClicked == 0) //Overclock ÅÇ
                 {
                     LoadOverclockPrice();
                     isOverclockClicked = 1;
                 }
-                else if (i == 1&&isComputerClicked == 0) //Computer ÅÇ Ã³À½À¸·Î ´­·¶À» ¶§
+                else if (i == 1&&isComputerClicked == 0) //Computer ÅÇ
                 {
                     LoadAddPcButtons();
                     SetButtonExceptLastInteractableFalse();
@@ -77,6 +79,11 @@ public class Tabpanel : MonoBehaviour
                 {
                     LoadGpuPrices();
                     isGpuClicked = 1;
+                }else if(i == 3&&isBtcClicked == 0) //Btc ÅÇ
+                {
+                    if (!scriptBtcPanel) scriptBtcPanel = GameObject.Find("EventSystem").GetComponent<BtcPanel>();
+                    scriptBtcPanel.UpdateCurrentBtcPrice();
+                    isBtcClicked = 1;
                 }
             }
             else
@@ -90,8 +97,8 @@ public class Tabpanel : MonoBehaviour
 
     public void LoadAddPcButtons()
     {
-        if (!scriptAddPc) scriptAddPc = GameObject.Find("EventSystem").GetComponent<AddPc>();
-        for (int i = 0; i < scriptGameSystem.currentPcList.Count; i++) scriptAddPc.MakeNewButton(i);
+        if (!scriptPcPanel) scriptPcPanel = GameObject.Find("EventSystem").GetComponent<PcPanel>();
+        for (int i = 0; i < scriptGameSystem.currentPcList.Count; i++) scriptPcPanel.MakeNewButton(i);
     }
 
     public void SetButtonExceptLastInteractableFalse()

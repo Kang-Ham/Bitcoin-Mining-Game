@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Overclock : MonoBehaviour
+public class OverclockPanel : MonoBehaviour
 {
     private GameSystem scriptGameSystem;
     private Msgbox scriptMsgbox;
