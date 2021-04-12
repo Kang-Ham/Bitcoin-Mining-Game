@@ -12,7 +12,7 @@ public class Setting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        settingPanel = GameObject.Find("Canvas").transform.Find("SettingPanel").gameObject;
+        settingPanel = GameObject.Find("PopupPanels").transform.Find("SettingPanel").gameObject;
     }
 
     // Update is called once per frame
