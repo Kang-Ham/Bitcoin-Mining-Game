@@ -7663,7 +7663,6 @@ GameObject:
   - component: {fileID: 1229239625}
   - component: {fileID: 1229239624}
   - component: {fileID: 1229239623}
-  - component: {fileID: 1229239627}
   m_Layer: 5
   m_Name: PcContent
   m_TagString: PcContent
@@ -7767,25 +7766,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1229239621}
   m_CullTransparentMesh: 1
---- !u!114 &1229239627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1229239621}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 061e148367b52354190c959ef63a2a9a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefabAddPcImages:
-  - {fileID: 6752555331793951559, guid: f293effb7b441fa45a754cfbf82c360e, type: 3}
-  - {fileID: 5750510929272648300, guid: 17d68fefdd58a264c801c7332b21f801, type: 3}
-  - {fileID: 6583444321981261935, guid: 4206b17cf985eab4eab67d8e86f41f29, type: 3}
-  - {fileID: 7488701255861799164, guid: d81cf6ed38febaa42beecff4df3c38e3, type: 3}
-  scriptGameSystem: {fileID: 0}
-  scriptTabpanel: {fileID: 0}
 --- !u!1 &1268819816
 GameObject:
   m_ObjectHideFlags: 0
