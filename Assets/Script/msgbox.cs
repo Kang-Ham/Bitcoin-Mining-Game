@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class msgbox : MonoBehaviour
+public class Msgbox : MonoBehaviour
 {
-    public int clickedBtn;
-    private GameObject msgboxPanel, msgboxContent, msgboxBtn1;
+    public int clickedButton;
+    private GameObject msgboxPanel, msgboxContent, msgboxButton1;
     // Start is called before the first frame update
     void Start()
     {
-        msgboxPanel = GameObject.Find("Canvas").transform.Find("msgbox_panel").gameObject;
+        msgboxPanel = GameObject.Find("Canvas").transform.Find("MsgboxPanel").gameObject;
     }
 
     // Update is called once per frame
@@ -19,34 +19,34 @@ public class msgbox : MonoBehaviour
 
     }
 
-    public void OnClickEventBtn1()
+    public void OnClickBoxButton()
     {
-        hideMsgbox();
-        clickedBtn = 1;
+        HideMsgbox();
+        clickedButton = 0;
     }
 
-    public void showMsgbox(string strContent, string strBtn1)
+    public void ShowMsgbox(string contentString, string button1String)
     {
-        clickedBtn = -1;
+        clickedButton = -1;
         msgboxPanel.SetActive(true);
 
-        msgboxContent = msgboxPanel.transform.Find("msgbox_content").gameObject;
-        msgboxBtn1 = msgboxPanel.transform.Find("msgbox_btn1").gameObject;
+        msgboxContent = msgboxPanel.transform.Find("MsgboxContent").gameObject;
+        msgboxButton1 = msgboxPanel.transform.Find("MsgboxButton1").gameObject;
 
-        msgboxContent.GetComponent<Text>().text = strContent;
-        msgboxBtn1.transform.Find("msgbox_btn1_text").GetComponent<Text>().text = strBtn1;
+        msgboxContent.GetComponent<Text>().text = contentString;
+        msgboxButton1.transform.Find("MsgboxButton1Text").GetComponent<Text>().text = button1String;
     }
 
-    private void hideMsgbox()
+    private void HideMsgbox()
     {
         msgboxPanel.SetActive(false);
     }
-    public int getClickedBtn()
+    public int GetClickedButton()
     {
-        while (clickedBtn == -1)
+        while (clickedButton == -1)
         {
 
         }
-        return clickedBtn;
+        return clickedButton;
     }
 }

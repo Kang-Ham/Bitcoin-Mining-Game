@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6752555331793951578}
   - component: {fileID: 6752555331793951557}
   m_Layer: 5
-  m_Name: com_2content_img
+  m_Name: AddPc2Image
   m_TagString: comContent
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 6752555332503881839}
   - component: {fileID: 6752555332503881838}
   m_Layer: 5
-  m_Name: add_pc_btn
+  m_Name: AddPcButton
   m_TagString: addBtn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -382,7 +382,7 @@ GameObject:
   - component: {fileID: 8450922533709307343}
   - component: {fileID: 491076816343184005}
   m_Layer: 5
-  m_Name: add_pc_btn
+  m_Name: AddPcButton
   m_TagString: addBtn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

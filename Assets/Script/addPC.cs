@@ -4,15 +4,15 @@ using System;
 using System.Threading.Tasks;
 using UnityEngine.UI;
 
-public class addPC : MonoBehaviour
+public class AddPc : MonoBehaviour
 {
-    private system scriptSystem;
-    private curMoney scriptCurMoney;
+    private GameSystem scriptGameSystem;
+    private CurrentMoney scriptCurrentMoney;
 
-    public GameObject prefabPC;
-    private msgboxYesOrNo scriptMsgboxYesOrNo;
-    private msgbox scriptMsgbox;
-    private com_menu_spawner scriptComMenuSpawner;
+    public GameObject prefabPc;
+    private YesOrNoMsgbox scriptYesOrNoMsgbox;
+    private Msgbox scriptMsgbox;
+    private AddPcSpawner scriptAddPcSpawner;
 
     // Start is called before the first frame update
     void Start()
@@ -27,94 +27,94 @@ public class addPC : MonoBehaviour
                                     
     async public void OnClickEvent(int pcType)
     {
-        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
-        if (!scriptMsgbox) scriptMsgbox = GameObject.Find("EventSystem").GetComponent<msgbox>();
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+        if (!scriptMsgbox) scriptMsgbox = GameObject.Find("EventSystem").GetComponent<Msgbox>();
 
-        if (scriptSystem.PCs.Count >= 0 + 16 * (pcType - 1) && scriptSystem.PCs.Count < 16 + 16 * (pcType - 1)
+        if (scriptGameSystem.currentPcList.Count >= 0 + 16 * (pcType - 1) && scriptGameSystem.currentPcList.Count < 16 + 16 * (pcType - 1)
             )
         {
-            if(scriptSystem.curMoney >= scriptSystem.PC_PRICES[pcType-1])
+            if(scriptGameSystem.currentMoney >= scriptGameSystem.PC_PRICES[pcType-1])
             {
-                askForAddPC();
+                AskForAddPc();
             }
             else
             {
-                scriptMsgbox.showMsgbox("현금이 부족합니다.", "예");
-                var task = Task.Run(() => scriptMsgbox.getClickedBtn());
-                int clickedBtn = await task;
+                scriptMsgbox.ShowMsgbox("현금이 부족합니다.", "예");
+                var task = Task.Run(() => scriptMsgbox.GetClickedButton());
+                int clickedButton = await task;
             }
             
         }
         else
         {
-            scriptMsgbox.showMsgbox("You Can't Do That.", "예");
-            var task = Task.Run(() => scriptMsgbox.getClickedBtn());
-            int clickedBtn = await task;
+            scriptMsgbox.ShowMsgbox("You Can't Do That.", "예");
+            var task = Task.Run(() => scriptMsgbox.GetClickedButton());
+            int clickedButton = await task;
         }
     }
 
-    async public void askForAddPC()
+    async public void AskForAddPc()
     {
-        if (!scriptMsgboxYesOrNo) scriptMsgboxYesOrNo = GameObject.Find("EventSystem").GetComponent<msgboxYesOrNo>();
-        if (!scriptComMenuSpawner) scriptComMenuSpawner = GameObject.FindGameObjectWithTag("content").GetComponent<com_menu_spawner>();
+        if (!scriptYesOrNoMsgbox) scriptYesOrNoMsgbox = GameObject.Find("EventSystem").GetComponent<YesOrNoMsgbox>();
+        if (!scriptAddPcSpawner) scriptAddPcSpawner = GameObject.FindGameObjectWithTag("content").GetComponent<AddPcSpawner>();
 
-        int pcType = (int)(scriptSystem.PCs.Count / 16) + 1;
+        int pcType = (int)(scriptGameSystem.currentPcList.Count / 16) + 1;
 
-        scriptMsgboxYesOrNo.showMsgboxYesOrNo("해당 PC를 구입하시겠습니까?", "예", "아니오");
-        var task = Task.Run(() => scriptMsgboxYesOrNo.getClickedBtn());
-        int clickedBtn = await task;
+        scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("해당 PC를 구입하시겠습니까?", "예", "아니오");
+        var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
+        int clickedButton = await task;
 
-        if (clickedBtn == 1)
+        if (clickedButton == 0)
         {
-            GameObject[] addPCBtns = GameObject.FindGameObjectsWithTag("addBtn");
-            addPCBtns[addPCBtns.Length - 1].GetComponent<Button>().interactable = false;
-            scriptComMenuSpawner.makeNewButton(scriptSystem.PCs.Count);
+            GameObject[] addPcButtons = GameObject.FindGameObjectsWithTag("addBtn");
+            addPcButtons[addPcButtons.Length - 1].GetComponent<Button>().interactable = false;
+            scriptAddPcSpawner.MakeNewButton(scriptGameSystem.currentPcList.Count);
 
-            scriptSystem.setCurMoney(scriptSystem.curMoney - scriptSystem.PC_PRICES[pcType - 1]);
+            scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - scriptGameSystem.PC_PRICES[pcType - 1]);
 
-            addNewPC();
+            AddNewPc();
         }
     }
 
-    public PC addNewPC()
+    public Pc AddNewPc()
     {
-        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
-        int pcType = (int)(scriptSystem.PCs.Count / 16) + 1;
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+        int pcType = (int)(scriptGameSystem.currentPcList.Count / 16) + 1;
 
-        List<int> nextPCPos = getPCPos(scriptSystem.PCs.Count + 1);
-        GameObject newPC = Instantiate(prefabPC, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-        PC scriptNewPC = newPC.GetComponent<PC>();
+        List<int> nextPcPos = GetPcPos(scriptGameSystem.currentPcList.Count + 1);
+        GameObject newPc = Instantiate(prefabPc, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        Pc scriptnewPc = newPc.GetComponent<Pc>();
 
         //Set Params
-        scriptNewPC.spriteName = "pc" + pcType.ToString();
-        scriptNewPC.pos = nextPCPos;
-        scriptNewPC.bitcoinPerSecond = scriptSystem.PC_BITCOIN_PER_SECOND[pcType - 1];
+        scriptnewPc.spriteName = "pc" + pcType.ToString();
+        scriptnewPc.pos = nextPcPos;
+        scriptnewPc.btcPerSecond = scriptGameSystem.PC_BTC_PER_SECOND[pcType - 1];
 
-        scriptSystem.PCs.Add(scriptNewPC);
-        return scriptNewPC;
+        scriptGameSystem.currentPcList.Add(scriptnewPc);
+        return scriptnewPc;
     }
 
-    List<int> getPCPos(int cnt)
+    List<int> GetPcPos(int pcCount)
     {
-        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
 
         List<int> RET = new List<int>();
-        List<int> tablePos = getTablePos(cnt);
-        int eachTableIndex = cnt - (tablePos[0] * scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptSystem.LENGTH_OF_TABLE + tablePos[1] * scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE) - 1;
+        List<int> tablePos = GetTablePos(pcCount);
+        int eachTableIndex = pcCount - (tablePos[0] * scriptGameSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptGameSystem.LENGTH_OF_TABLE + tablePos[1] * scriptGameSystem.NUMBER_OF_PC_AT_EACH_TABLE) - 1;
         RET.Add(tablePos[0]);
         RET.Add(tablePos[1]);
-        RET.Add((int)(eachTableIndex / Math.Sqrt(scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE)));
-        RET.Add((int)(eachTableIndex % Math.Sqrt(scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE)));
+        RET.Add((int)(eachTableIndex / Math.Sqrt(scriptGameSystem.NUMBER_OF_PC_AT_EACH_TABLE)));
+        RET.Add((int)(eachTableIndex % Math.Sqrt(scriptGameSystem.NUMBER_OF_PC_AT_EACH_TABLE)));
         return RET;
     }
 
-    List<int> getTablePos(int cnt)
+    List<int> GetTablePos(int pcCount)
     {
-        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
 
         List<int> RET = new List<int>();
-        RET.Add((cnt - 1) / (scriptSystem.LENGTH_OF_TABLE * scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE));
-        RET.Add(((cnt - 1) % (scriptSystem.LENGTH_OF_TABLE * scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE)) / scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE);
+        RET.Add((pcCount - 1) / (scriptGameSystem.LENGTH_OF_TABLE * scriptGameSystem.NUMBER_OF_PC_AT_EACH_TABLE));
+        RET.Add(((pcCount - 1) % (scriptGameSystem.LENGTH_OF_TABLE * scriptGameSystem.NUMBER_OF_PC_AT_EACH_TABLE)) / scriptGameSystem.NUMBER_OF_PC_AT_EACH_TABLE);
         return RET;
     }
 }

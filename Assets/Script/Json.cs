@@ -7,28 +7,28 @@ using LitJson;
 
 public class SystemInfo
 {
-    public double curBitcoin; //float을 json에 저장하는 것이 지원이 안 됨
-    public UInt64 curMoney;
-    public int cntPC;
-    public int curGPULevel;
+    public double currentBtc; //float을 json에 저장하는 것이 지원이 안 됨
+    public UInt64 currentMoney;
+    public int pcCount;
+    public int currentGpuLevel;
     public DateTime recentlyTerminatedAt;
-    public double hitPower;
+    public double currentOverclockLevel;
 
-    public SystemInfo(double _curBitcoin, UInt64 _curMoney, int _cntPC, int _curGPULevel, DateTime _recentlyTerminatedAt, double _hitPower)
+    public SystemInfo(double _currentBtc, UInt64 _currentMoney, int _pcCount, int _currentGpuLevel, DateTime _recentlyTerminatedAt, double _currentOverclockLevel)
     {
-        curBitcoin = _curBitcoin;
-        curMoney = _curMoney;
-        cntPC = _cntPC;
-        curGPULevel = _curGPULevel;
+        currentBtc = _currentBtc;
+        currentMoney = _currentMoney;
+        pcCount = _pcCount;
+        currentGpuLevel = _currentGpuLevel;
         recentlyTerminatedAt = _recentlyTerminatedAt;
-        hitPower = _hitPower;
+        currentOverclockLevel = _currentOverclockLevel;
     }
 }
 
 public class Json : MonoBehaviour
 {
-    private system scriptSystem;
-    private addPC scriptAddPC;
+    private GameSystem scriptGameSystem;
+    private AddPc scriptAddPc;
 
     public SystemInfo systemInfo;
 
@@ -43,29 +43,29 @@ public class Json : MonoBehaviour
         
     }
 
-    public void save()
+    public void Save()
     {
-        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
 
-        systemInfo = new SystemInfo(Convert.ToDouble(scriptSystem.curBitcoin), scriptSystem.curMoney, scriptSystem.PCs.Count, scriptSystem.curGPULevel, DateTime.Now, Convert.ToDouble(scriptSystem.hitPower));
+        systemInfo = new SystemInfo(Convert.ToDouble(scriptGameSystem.currentBtc), scriptGameSystem.currentMoney, scriptGameSystem.currentPcList.Count, scriptGameSystem.currentGpuLevel, DateTime.Now, Convert.ToDouble(scriptGameSystem.currentOverclockLevel));
         JsonData jsonSystemInfo = JsonMapper.ToJson(systemInfo);
         File.WriteAllText(Application.dataPath + "/Resources/SystemInfo.json", jsonSystemInfo.ToString());
     }
 
-    public void load()
+    public void Load()
     {
-        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
-        if (!scriptAddPC) scriptAddPC = GameObject.Find("EventSystem").GetComponent<addPC>();
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+        if (!scriptAddPc) scriptAddPc = GameObject.Find("EventSystem").GetComponent<AddPc>();
         try
         {
             string jsonString = File.ReadAllText(Application.dataPath + "/Resources/SystemInfo.json");
             JsonData jsonSystemInfo = JsonMapper.ToObject(jsonString);
-            scriptSystem.curMoney = Convert.ToUInt64(jsonSystemInfo["curMoney"].ToString());
-            scriptSystem.curBitcoin = Convert.ToSingle(jsonSystemInfo["curBitcoin"].ToString());
-            scriptSystem.curGPULevel = Convert.ToInt16(jsonSystemInfo["curGPULevel"].ToString());
-            scriptSystem.hitPower = Convert.ToSingle(jsonSystemInfo["hitPower"].ToString());
+            scriptGameSystem.currentMoney = Convert.ToUInt64(jsonSystemInfo["currentMoney"].ToString());
+            scriptGameSystem.currentBtc = Convert.ToSingle(jsonSystemInfo["currentBtc"].ToString());
+            scriptGameSystem.currentGpuLevel = Convert.ToInt16(jsonSystemInfo["currentGpuLevel"].ToString());
+            scriptGameSystem.currentOverclockLevel = Convert.ToSingle(jsonSystemInfo["currentOverclockLevel"].ToString());
 
-            //PC Load & 시간에 따라 Bitcoin 추가
+            //PC Load & 시간에 따라 Btc 추가
             DateTime recentlyTerminatedAt = Convert.ToDateTime(jsonSystemInfo["recentlyTerminatedAt"].ToString());
             TimeSpan timeDifference = DateTime.Now - recentlyTerminatedAt;
 
@@ -75,17 +75,15 @@ public class Json : MonoBehaviour
             }
             Debug.Log(timeDifference.ToString());
 
-            for (int i = 0; i < Convert.ToInt16(jsonSystemInfo["cntPC"].ToString()); i++)
+            for (int i = 0; i < Convert.ToInt16(jsonSystemInfo["pcCount"].ToString()); i++)
             {
-                PC scriptNewPC = scriptAddPC.addNewPC();
-                scriptSystem.curBitcoin += (timeDifference.Seconds + timeDifference.Minutes*60 + timeDifference.Hours*3600) * scriptNewPC.bitcoinPerSecond * scriptSystem.GPU_RATES[scriptSystem.curGPULevel];
+                Pc scriptNewPc = scriptAddPc.AddNewPc();
+                scriptGameSystem.currentBtc += (timeDifference.Seconds + timeDifference.Minutes*60 + timeDifference.Hours*3600) * scriptNewPc.btcPerSecond * scriptGameSystem.GPU_RATES[scriptGameSystem.currentGpuLevel];
             }
         }
         catch //파일이 없을 경우
         {
-            save();
-        }
-
-            
+            Save();
+        } 
     }
 }

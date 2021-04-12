@@ -2,26 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PC : MonoBehaviour
+public class Pc : MonoBehaviour
 {
-    private system scriptSystem;
+    private GameSystem scriptGameSystem;
     private SpriteRenderer spriteR;
 
     public string spriteName; //"pc1" 
     public List<int> pos = null;
 
-    public float bitcoinPerSecond;
+    public float btcPerSecond;
 
     // Start is called before the first frame update
     void Start()
     {
-        scriptSystem = GameObject.Find("system").GetComponent<system>();
+        scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
         spriteR = gameObject.GetComponent<SpriteRenderer>();
 
-        setSprite(spriteName);
-        setPos();
+        SetSprite(spriteName);
+        SetPos();
 
-        scriptSystem.gameBitcoinPerSecond += bitcoinPerSecond;
+        scriptGameSystem.gameBtcPerSecond += btcPerSecond;
     }
 
     // Update is called once per frame
@@ -30,18 +30,18 @@ public class PC : MonoBehaviour
         
     }
 
-    public void setSprite(string _spriteName)
+    public void SetSprite(string spriteName)
     {
-        spriteR.sprite = Resources.Load<Sprite>("Sprite/" + _spriteName);
+        spriteR.sprite = Resources.Load<Sprite>("Sprite/" + spriteName);
     }
 
-    private void setPos()
+    private void SetPos()
     {
-        if (!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
 
-        Vector3 scenePos = new Vector3((float)(scriptSystem.SCENE_DISTANCE_BETWEEN_TABLE * pos[1] + scriptSystem.SCENE_DISTANCE_BETWEEN_PC * pos[3]), (float)(-scriptSystem.SCENE_DISTANCE_BETWEEN_TABLE * pos[0] - scriptSystem.SCENE_DISTANCE_BETWEEN_PC * pos[2]), -1);
+        Vector3 scenePos = new Vector3((float)(scriptGameSystem.SCENE_DISTANCE_BETWEEN_TABLE * pos[1] + scriptGameSystem.SCENE_DISTANCE_BETWEEN_PC * pos[3]), (float)(-scriptGameSystem.SCENE_DISTANCE_BETWEEN_TABLE * pos[0] - scriptGameSystem.SCENE_DISTANCE_BETWEEN_PC * pos[2]), -1);
 
-        transform.position = scriptSystem.START_SCENE_POS + scenePos;
+        transform.position = scriptGameSystem.START_SCENE_POS + scenePos;
         if (pos[3] == 1)
         {
             Vector3 prevScale = transform.localScale;

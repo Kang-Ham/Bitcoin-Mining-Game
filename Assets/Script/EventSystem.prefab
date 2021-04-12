@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7865ac62628b3f4294a127aad54cd21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickedBtn: 0
+  clickedButton: -1
 --- !u!114 &5001905366857846154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 465edf54ebc7ca744b2e7c059395cc3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickedBtn: 0
+  clickedButton: -1
 --- !u!114 &5274094697008604845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5743f8044ba0ef4bba081d568bcb635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickedBtn: -1
+  clickedButton: -1
 --- !u!114 &5360129607200143924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63cf478a65be3f7409d9c37177e43d09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabPC: {fileID: 6208207133460575460, guid: 6c96248434777aa40a9679f37fc19094,
+  prefabPc: {fileID: 6208207133460575460, guid: 6c96248434777aa40a9679f37fc19094,
     type: 3}
 --- !u!114 &4630271517840167586
 MonoBehaviour:
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7865ac62628b3f4294a127aad54cd21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clickedBtn: -1
+  clickedButton: -1
 --- !u!114 &3619051498725239298
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class tabpanel : MonoBehaviour
+public class Tabpanel : MonoBehaviour
 {
     public List<GameObject> contentsPanels;
-    private system scriptSystem;
+    private GameSystem scriptGameSystem;
     private GameObject[] objMenuTexts;
     private Text[] menuTexts;
 
     private int isOverclockClicked = 0;
     private int isComputerClicked = 0;
-    private int isGPUClicked = 0;
+    private int isGpuClicked = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -26,9 +26,9 @@ public class tabpanel : MonoBehaviour
 
     }
 
-    public void selectMenu(int index)
+    public void SelectMenu(int index)
     {
-        if(!scriptSystem) scriptSystem = GameObject.Find("system").GetComponent<system>();
+        if(!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
 
         if (index == -1)
         {
@@ -42,16 +42,16 @@ public class tabpanel : MonoBehaviour
                 }
             }
 
-            selectMenu(scriptSystem.selectedMenu);
+            SelectMenu(scriptGameSystem.selectedMenu);
             return;
         }
 
-        scriptSystem.selectedMenu = index;
+        scriptGameSystem.selectedMenu = index;
         Color newColor = new Color();
         newColor.r = 1f;
         newColor.g = 1f;
         newColor.b = 1f;
-        for (int i = 0; i < scriptSystem.NUMBER_OF_MENU; i++)
+        for (int i = 0; i < scriptGameSystem.NUMBER_OF_MENU; i++)
         {
             if (i == index)
             {
@@ -61,20 +61,20 @@ public class tabpanel : MonoBehaviour
 
                 if (i == 0&&isOverclockClicked == 0)
                 {
-                    loadOverclockPrice();
+                    LoadOverclockPrice();
                     isOverclockClicked = 1;
                 }
                 else if (i == 1&&isComputerClicked == 0) //Computer 탭 처음으로 눌렀을 때
                 {
-                    loadAddPCButtons();
-                    setButtonExceptLastInteractableFalse();
-                    loadPCPrice(0);
+                    LoadAddPcButtons();
+                    SetButtonExceptLastInteractableFalse();
+                    LoadPcPrice(0);
                     isComputerClicked = 1;
                 }
-                else if(i == 2&&isGPUClicked == 0) //GPU 탭
+                else if(i == 2&&isGpuClicked == 0) //Gpu 탭
                 {
-                    loadGPUPrices();
-                    isGPUClicked = 1;
+                    LoadGpuPrices();
+                    isGpuClicked = 1;
                 }
             }
             else
@@ -86,54 +86,54 @@ public class tabpanel : MonoBehaviour
         }
     }
 
-    public void loadAddPCButtons()
+    public void LoadAddPcButtons()
     {
-        com_menu_spawner scriptComMenuSpawner = GameObject.FindGameObjectWithTag("content").GetComponent<com_menu_spawner>();
-        for (int i = 0; i < scriptSystem.PCs.Count; i++) scriptComMenuSpawner.makeNewButton(i);
+        AddPcSpawner scriptAddPcSpawner = GameObject.FindGameObjectWithTag("content").GetComponent<AddPcSpawner>();
+        for (int i = 0; i < scriptGameSystem.currentPcList.Count; i++) scriptAddPcSpawner.MakeNewButton(i);
     }
 
-    public void setButtonExceptLastInteractableFalse()
+    public void SetButtonExceptLastInteractableFalse()
     {
         int i;
-        //addBtn 마지막 제외하고 전부 비활성화
-        GameObject[] addPCBtns = GameObject.FindGameObjectsWithTag("addBtn");
-        for (i = 0; i < addPCBtns.Length - 1; i++) addPCBtns[i].GetComponent<Button>().interactable = false;
+        //addButton 마지막 제외하고 전부 비활성화
+        GameObject[] addPcButtons = GameObject.FindGameObjectsWithTag("addBtn");
+        for (i = 0; i < addPcButtons.Length - 1; i++) addPcButtons[i].GetComponent<Button>().interactable = false;
 
-        if(scriptSystem.PCs.Count >= scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptSystem.LENGTH_OF_TABLE * scriptSystem.NUMBER_OF_MENU)
+        if(scriptGameSystem.currentPcList.Count >= scriptGameSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptGameSystem.LENGTH_OF_TABLE * scriptGameSystem.NUMBER_OF_MENU)
         {
-            addPCBtns[scriptSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptSystem.LENGTH_OF_TABLE * scriptSystem.NUMBER_OF_MENU-1].GetComponent<Button>().interactable = false;
+            addPcButtons[scriptGameSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptGameSystem.LENGTH_OF_TABLE * scriptGameSystem.NUMBER_OF_MENU-1].GetComponent<Button>().interactable = false;
         }
     }
-    public void loadPCPrice(int PCCount)
+    public void LoadPcPrice(int pcCount)
     {
-        int pcType = PCCount / 16;
-        GameObject addPCBtn = GameObject.FindGameObjectsWithTag("addBtn")[PCCount];
+        int pcType = pcCount / 16;
+        GameObject addPcButton = GameObject.FindGameObjectsWithTag("addBtn")[pcCount];
         
-        Transform curPCText = addPCBtn.transform.GetChild(0);
-        curPCText.GetComponent<Text>().text = scriptSystem.PC_PRICES[pcType].ToString();
+        Text currentPcText = addPcButton.transform.GetChild(0).GetComponent<Text>();
+        currentPcText.text = scriptGameSystem.PC_PRICES[pcType].ToString();
     }
 
-    public void loadGPUPrices()
+    public void LoadGpuPrices()
     {
-        GameObject[] GPUTexts = GameObject.FindGameObjectsWithTag("GPU_text");
-        for(int i = 1; i < GPUTexts.Length+1; i++)
+        GameObject[] GpuTexts = GameObject.FindGameObjectsWithTag("GPU_text");
+        for(int i = 1; i < GpuTexts.Length+1; i++)
         {
-            GPUTexts[i-1].GetComponent<Text>().text = scriptSystem.GPU_PRICES[i].ToString();
+            GpuTexts[i-1].GetComponent<Text>().text = scriptGameSystem.GPU_PRICES[i].ToString();
         }
     }
 
 
-    public void loadOverclockPrice()
+    public void LoadOverclockPrice()
     {
-        GameObject overclockText = GameObject.Find("overclock_text");
+        GameObject overclockText = GameObject.Find("OverclockText");
         
-        if (scriptSystem.hitPower < scriptSystem.BIFURCATION_OF_OVERCLOCK+1)
+        if (scriptGameSystem.currentOverclockLevel < scriptGameSystem.BIFURCATION_OF_OVERCLOCK+1)
         {
-            overclockText.GetComponent<Text>().text = Convert.ToUInt64(scriptSystem.BITCOIN_AT_FIRST_TOUCH * 10 * scriptSystem.curBitcoinPrice * Math.Pow(scriptSystem.COEFFICIENT_OF_OVERCLOCK, scriptSystem.hitPower - scriptSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptSystem.hitPower / scriptSystem.BIFURCATION_OF_OVERCLOCK) - 1)).ToString();
+            overclockText.GetComponent<Text>().text = Convert.ToUInt64(scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1)).ToString();
         }
         else
         {
-            overclockText.GetComponent<Text>().text = Convert.ToUInt64(scriptSystem.BITCOIN_AT_FIRST_TOUCH * 10 * scriptSystem.curBitcoinPrice * Math.Pow(scriptSystem.COEFFICIENT_OF_OVERCLOCK, scriptSystem.hitPower - scriptSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptSystem.hitPower / scriptSystem.BIFURCATION_OF_OVERCLOCK) - 1) + scriptSystem.BITCOIN_AT_FIRST_TOUCH * 10 * scriptSystem.curBitcoinPrice * Math.Pow(scriptSystem.COEFFICIENT_OF_OVERCLOCK, scriptSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptSystem.hitPower / scriptSystem.BIFURCATION_OF_OVERCLOCK))).ToString();
+            overclockText.GetComponent<Text>().text = Convert.ToUInt64(scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1) + scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK))).ToString();
         }  
     }
 }
