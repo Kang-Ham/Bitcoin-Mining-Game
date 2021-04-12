@@ -38,8 +38,7 @@ public class GameSystem : MonoBehaviour
     public int selectedMenu;
     public int currentBtcPrice;
 
-    private CurrentBtc scriptCurrentBtc;
-    private CurrentMoney scriptCurrentMoney;
+    private TopAreaImage scriptTopAreaImage;
     private Json scriptJson;
     private PcPanel scriptPcPanel;
     private BtcPanel scriptBtcPanel;
@@ -47,15 +46,14 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scriptCurrentBtc = GameObject.Find("CurrentBtcText").GetComponent<CurrentBtc>();
-        scriptCurrentMoney = GameObject.Find("CurrentMoneyText").GetComponent<CurrentMoney>();
+        scriptTopAreaImage = GameObject.Find("TopAreaImage").GetComponent<TopAreaImage>();
         scriptJson = GameObject.Find("Json").GetComponent<Json>();
         scriptPcPanel = GameObject.Find("EventSystem").GetComponent<PcPanel>();
 
         //Btc, Money 등 로컬 파일에서 불러오기
         scriptJson.Load();
-        scriptCurrentMoney.DoUpdate();
-        scriptCurrentBtc.DoUpdate();
+        scriptTopAreaImage.UpdateCurrentBtcText();
+        scriptTopAreaImage.UpdateCurrentMoneyText();
 
         if (currentPcList.Count == 0) scriptPcPanel.AddNewPc();
 
@@ -67,7 +65,7 @@ public class GameSystem : MonoBehaviour
     public void SetCurrentMoney(UInt64 money)
     {
         this.currentMoney = money;
-        scriptCurrentMoney.DoUpdate();
+        scriptTopAreaImage.UpdateCurrentMoneyText();
     }
 
     void OnApplicationQuit()
@@ -79,7 +77,7 @@ public class GameSystem : MonoBehaviour
     IEnumerator SetCurrentBtcOnRunning(float delay)
     {
         currentBtc += gameBtcPerSecond*delay;
-        scriptCurrentBtc.DoUpdate();
+        scriptTopAreaImage.UpdateCurrentBtcText();
         yield return new WaitForSeconds(delay);
         StartCoroutine("SetCurrentBtcOnRunning", delay);
     }

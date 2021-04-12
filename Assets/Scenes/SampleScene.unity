@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 60290883}
   - component: {fileID: 60290882}
   m_Layer: 5
-  m_Name: BtcBackgroundImage
+  m_Name: BtcAreaImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -648,7 +648,6 @@ GameObject:
   - component: {fileID: 142253220}
   - component: {fileID: 142253222}
   - component: {fileID: 142253221}
-  - component: {fileID: 142253223}
   m_Layer: 5
   m_Name: CurrentBtcText
   m_TagString: Untagged
@@ -717,18 +716,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 142253219}
   m_CullTransparentMesh: 1
---- !u!114 &142253223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 142253219}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e2a68094d5fab043bc2a174b09fb3fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &170315733
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,8 +843,9 @@ GameObject:
   - component: {fileID: 189696627}
   - component: {fileID: 189696629}
   - component: {fileID: 189696628}
+  - component: {fileID: 189696630}
   m_Layer: 5
-  m_Name: TopBackgroundImage
+  m_Name: TopAreaImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -923,6 +911,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 189696626}
   m_CullTransparentMesh: 1
+--- !u!114 &189696630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 189696626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e2a68094d5fab043bc2a174b09fb3fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &205436476
 GameObject:
   m_ObjectHideFlags: 0
@@ -2150,7 +2150,6 @@ GameObject:
   - component: {fileID: 473360215}
   - component: {fileID: 473360218}
   - component: {fileID: 473360217}
-  - component: {fileID: 473360216}
   m_Layer: 5
   m_Name: CurrentMoneyText
   m_TagString: Untagged
@@ -2177,18 +2176,6 @@ RectTransform:
   m_AnchoredPosition: {x: 37.5, y: 0}
   m_SizeDelta: {x: -75, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &473360216
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 473360214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a3a08a12ef868446b9522edf9630e60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &473360217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10680,7 +10667,7 @@ GameObject:
   - component: {fileID: 2025550341}
   - component: {fileID: 2025550340}
   m_Layer: 5
-  m_Name: MoneyBackgroundImage
+  m_Name: MoneyAreaImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
