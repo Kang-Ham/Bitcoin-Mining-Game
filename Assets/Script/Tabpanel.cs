@@ -71,8 +71,8 @@ public class Tabpanel : MonoBehaviour
                 else if (i == 1&&isComputerClicked == 0) //Computer 탭
                 {
                     LoadAddPcButtons();
-                    SetButtonExceptLastInteractableFalse();
-                    LoadPcPrice(0);
+                    SetButtonInteractableFalse(true);
+                    LoadPcInformation(0);
                     isComputerClicked = 1;
                 }
                 else if(i == 2&&isGpuClicked == 0) //Gpu 탭
@@ -101,25 +101,38 @@ public class Tabpanel : MonoBehaviour
         for (int i = 0; i < scriptGameSystem.currentPcList.Count; i++) scriptPcPanel.MakeNewButton(i);
     }
 
-    public void SetButtonExceptLastInteractableFalse()
+    public void SetButtonInteractableFalse(Boolean flagIfSetAllButtons)
     {
-        int i;
-        //addButton 마지막 제외하고 전부 비활성화
-        GameObject[] addPcButtons = GameObject.FindGameObjectsWithTag("AddButton");
-        for (i = 0; i < addPcButtons.Length - 1; i++) addPcButtons[i].GetComponent<Button>().interactable = false;
+        GameObject[] buyPcButtons = GameObject.FindGameObjectsWithTag("BuyPcButton");
 
-        if(scriptGameSystem.currentPcList.Count >= scriptGameSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptGameSystem.LENGTH_OF_TABLE * scriptGameSystem.NUMBER_OF_MENU)
-        {
-            addPcButtons[scriptGameSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptGameSystem.LENGTH_OF_TABLE * scriptGameSystem.NUMBER_OF_MENU-1].GetComponent<Button>().interactable = false;
+        if(flagIfSetAllButtons)
+        {        //addButton 마지막 제외하고 전부 비활성화
+            for (int i = 0; i < buyPcButtons.Length - 1; i++)
+            {
+                buyPcButtons[i].GetComponent<Button>().interactable = false;
+            }
+
+            if (scriptGameSystem.currentPcList.Count >= scriptGameSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptGameSystem.LENGTH_OF_TABLE * scriptGameSystem.NUMBER_OF_MENU)
+            {
+                buyPcButtons[scriptGameSystem.NUMBER_OF_PC_AT_EACH_TABLE * scriptGameSystem.LENGTH_OF_TABLE * scriptGameSystem.NUMBER_OF_MENU - 1].GetComponent<Button>().interactable = false;
+            }
         }
+        else
+        {
+            buyPcButtons[buyPcButtons.Length - 1].GetComponent<Button>().interactable = false;
+        }
+        
     }
-    public void LoadPcPrice(int pcCount)
+    public void LoadPcInformation(int pcCount)
     {
         int pcType = pcCount / 16;
         GameObject addPcButton = GameObject.FindGameObjectsWithTag("AddButton")[pcCount];
-        
-        Text currentPcText = addPcButton.transform.GetChild(0).GetComponent<Text>();
-        currentPcText.text = scriptGameSystem.PC_PRICES[pcType].ToString();
+
+        Text currentPcBpsText = addPcButton.transform.GetChild(2).GetComponent<Text>();
+        Text currentPcPriceText = addPcButton.transform.GetChild(3).GetComponent<Text>();
+
+        currentPcBpsText.text = scriptGameSystem.PC_BTC_PER_SECOND[pcType].ToString("0." + new string('#', 8))+"BPS";
+        currentPcPriceText.text = string.Format("{0:n0}", scriptGameSystem.PC_PRICES[pcType])+"원";
     }
 
     public void LoadGpuPrices()

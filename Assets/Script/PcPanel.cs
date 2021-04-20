@@ -63,10 +63,10 @@ public class PcPanel : MonoBehaviour
         var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
         int clickedButton = await task;
 
-        if (clickedButton == 0)
+        if (clickedButton == 0)                                                                 
         {
-            GameObject[] addPcButtons = GameObject.FindGameObjectsWithTag("AddButton");
-            addPcButtons[addPcButtons.Length - 1].GetComponent<Button>().interactable = false;
+            scriptTabpanel.SetButtonInteractableFalse(false);
+
             MakeNewButton(scriptGameSystem.currentPcList.Count);
 
             scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - scriptGameSystem.PC_PRICES[pcType - 1]);
@@ -99,7 +99,7 @@ public class PcPanel : MonoBehaviour
             newAddPcImage.transform.localScale = new Vector3(1f, 1f, 1f);
             newAddPcImage.transform.GetChild(1).gameObject.SetActive(false);
         }
-        scriptTabpanel.LoadPcPrice(pcCount + 1);
+        scriptTabpanel.LoadPcInformation(pcCount + 1);
     }
 
     public Pc AddNewPc()

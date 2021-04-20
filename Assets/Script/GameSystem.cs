@@ -179,7 +179,7 @@ public class GameSystem : MonoBehaviour
             for (int i = 0; i < 4; i++)
             {
                 scriptPcPanel.MakeNewButton(currentPcList.Count);
-                scriptTabpanel.SetButtonExceptLastInteractableFalse();
+                scriptTabpanel.SetButtonInteractableFalse(true);
                 scriptPcPanel.AddNewPc();
             }
         }
