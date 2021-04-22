@@ -65,7 +65,7 @@ public class PcPanel : MonoBehaviour
 
         if (clickedButton == 0)                                                                 
         {
-            scriptTabpanel.SetButtonInteractableFalse(false);
+            scriptTabpanel.SetPcButtonInteractableFalse(false);
 
             MakeNewButton(scriptGameSystem.currentPcList.Count);
 

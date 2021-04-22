@@ -11,6 +11,10 @@ TagManager:
   - GpuPriceText
   - Undefined
   - MenuText
+  - BuyPcButton
+  - GpuRateText
+  - GpuNameText
+  - BuyGpuButton
   layers:
   - Default
   - TransparentFX

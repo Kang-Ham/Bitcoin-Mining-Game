@@ -71,13 +71,14 @@ public class Tabpanel : MonoBehaviour
                 else if (i == 1&&isComputerClicked == 0) //Computer ÅÇ
                 {
                     LoadAddPcButtons();
-                    SetButtonInteractableFalse(true);
+                    SetPcButtonInteractableFalse(true);
                     LoadPcInformation(0);
                     isComputerClicked = 1;
                 }
                 else if(i == 2&&isGpuClicked == 0) //Gpu ÅÇ
                 {
-                    LoadGpuPrices();
+                    LoadGpuInformation();
+                    SetGpuButtonInteractableFalse(true);
                     isGpuClicked = 1;
                 }else if(i == 3&&isBtcClicked == 0) //Btc ÅÇ
                 {
@@ -101,7 +102,7 @@ public class Tabpanel : MonoBehaviour
         for (int i = 0; i < scriptGameSystem.currentPcList.Count; i++) scriptPcPanel.MakeNewButton(i);
     }
 
-    public void SetButtonInteractableFalse(Boolean flagIfSetAllButtons)
+    public void SetPcButtonInteractableFalse(Boolean flagIfSetAllButtons)
     {
         GameObject[] buyPcButtons = GameObject.FindGameObjectsWithTag("BuyPcButton");
 
@@ -121,8 +122,8 @@ public class Tabpanel : MonoBehaviour
         {
             buyPcButtons[buyPcButtons.Length - 1].GetComponent<Button>().interactable = false;
         }
-        
     }
+
     public void LoadPcInformation(int pcCount)
     {
         int pcType = pcCount / 16;
@@ -135,12 +136,35 @@ public class Tabpanel : MonoBehaviour
         currentPcPriceText.text = string.Format("{0:n0}", scriptGameSystem.PC_PRICES[pcType])+"¿ø";
     }
 
-    public void LoadGpuPrices()
+
+    public void SetGpuButtonInteractableFalse(Boolean flagIfSetAllButtons)
     {
-        GameObject[] GpuTexts = GameObject.FindGameObjectsWithTag("GpuPriceText");
-        for(int i = 1; i < GpuTexts.Length+1; i++)
+        GameObject[] buyGpuButtons = GameObject.FindGameObjectsWithTag("BuyGpuButton");
+
+        if (flagIfSetAllButtons)
+        {        
+            for (int i = 0; i < scriptGameSystem.currentGpuLevel; i++)
+            {
+                buyGpuButtons[i].GetComponent<Button>().interactable = false;
+            }
+        }
+        else
         {
-            GpuTexts[i-1].GetComponent<Text>().text = scriptGameSystem.GPU_PRICES[i].ToString();
+            buyGpuButtons[scriptGameSystem.currentGpuLevel].GetComponent<Button>().interactable = false;
+        }
+    }
+
+    public void LoadGpuInformation()
+    {
+        GameObject[] GpuNameTexts = GameObject.FindGameObjectsWithTag("GpuNameText");
+        GameObject[] GpuRateTexts = GameObject.FindGameObjectsWithTag("GpuRateText");
+        GameObject[] GpuPriceTexts = GameObject.FindGameObjectsWithTag("GpuPriceText");
+
+        for (int i = 1; i < GpuNameTexts.Length+1; i++)
+        {
+            GpuNameTexts[i - 1].GetComponent<Text>().text = scriptGameSystem.GPU_NAMES[i].ToString();
+            GpuRateTexts[i-1].GetComponent<Text>().text = "BPS Áõ°¡À²: " + scriptGameSystem.GPU_RATES[i].ToString()+"¹è";
+            GpuPriceTexts[i - 1].GetComponent<Text>().text = string.Format("{0:n0}", scriptGameSystem.GPU_PRICES[i]) + "¿ø";
         }
     }
 
