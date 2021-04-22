@@ -22,6 +22,7 @@ public class GameSystem : MonoBehaviour
     public float COEFFICIENT_OF_OVERCLOCK;
     public int MAX_GPU_LEVEL;
 
+    public string[] PC_NAMES;
     public float[] PC_BTC_PER_SECOND;
     public UInt64[] PC_PRICES;
     public string[] GPU_NAMES;

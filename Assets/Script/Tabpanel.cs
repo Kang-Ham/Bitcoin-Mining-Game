@@ -77,7 +77,7 @@ public class Tabpanel : MonoBehaviour
                 }
                 else if(i == 2&&isGpuClicked == 0) //Gpu 탭
                 {
-                    LoadGpuInformation();
+                    LoadAllGpuInformation();
                     SetGpuButtonInteractableFalse(true);
                     isGpuClicked = 1;
                 }else if(i == 3&&isBtcClicked == 0) //Btc 탭
@@ -126,14 +126,16 @@ public class Tabpanel : MonoBehaviour
 
     public void LoadPcInformation(int pcCount)
     {
+        Debug.Log(pcCount);
         int pcType = pcCount / 16;
-        GameObject addPcButton = GameObject.FindGameObjectsWithTag("AddButton")[pcCount];
 
-        Text currentPcBpsText = addPcButton.transform.GetChild(2).GetComponent<Text>();
-        Text currentPcPriceText = addPcButton.transform.GetChild(3).GetComponent<Text>();
+        Text PcNameText = GameObject.FindGameObjectsWithTag("PcNameText")[pcCount].GetComponent<Text>();
+        Text PcBpsText = GameObject.FindGameObjectsWithTag("PcBpsText")[pcCount].GetComponent<Text>();
+        Text PcPriceText = GameObject.FindGameObjectsWithTag("PcPriceText")[pcCount].GetComponent<Text>();
 
-        currentPcBpsText.text = scriptGameSystem.PC_BTC_PER_SECOND[pcType].ToString("0." + new string('#', 8))+"BPS";
-        currentPcPriceText.text = string.Format("{0:n0}", scriptGameSystem.PC_PRICES[pcType])+"원";
+        PcNameText.text = scriptGameSystem.PC_NAMES[pcType];
+        PcBpsText.text = scriptGameSystem.PC_BTC_PER_SECOND[pcType].ToString("0." + new string('#', 8))+"BPS";
+        PcPriceText.text = string.Format("{0:n0}", scriptGameSystem.PC_PRICES[pcType])+"원";
     }
 
 
@@ -154,17 +156,17 @@ public class Tabpanel : MonoBehaviour
         }
     }
 
-    public void LoadGpuInformation()
+    public void LoadAllGpuInformation()
     {
-        GameObject[] GpuNameTexts = GameObject.FindGameObjectsWithTag("GpuNameText");
-        GameObject[] GpuRateTexts = GameObject.FindGameObjectsWithTag("GpuRateText");
-        GameObject[] GpuPriceTexts = GameObject.FindGameObjectsWithTag("GpuPriceText");
+        GameObject[] GpuNameTextGameObjects = GameObject.FindGameObjectsWithTag("GpuNameText");
+        GameObject[] GpuRateTextGameObjects = GameObject.FindGameObjectsWithTag("GpuRateText");
+        GameObject[] GpuPriceTextGameObjects = GameObject.FindGameObjectsWithTag("GpuPriceText");
 
-        for (int i = 1; i < GpuNameTexts.Length+1; i++)
+        for (int i = 1; i < GpuNameTextGameObjects.Length+1; i++)
         {
-            GpuNameTexts[i - 1].GetComponent<Text>().text = scriptGameSystem.GPU_NAMES[i].ToString();
-            GpuRateTexts[i-1].GetComponent<Text>().text = "BPS 증가율: " + scriptGameSystem.GPU_RATES[i].ToString()+"배";
-            GpuPriceTexts[i - 1].GetComponent<Text>().text = string.Format("{0:n0}", scriptGameSystem.GPU_PRICES[i]) + "원";
+            GpuNameTextGameObjects[i - 1].GetComponent<Text>().text = scriptGameSystem.GPU_NAMES[i].ToString();
+            GpuRateTextGameObjects[i-1].GetComponent<Text>().text = "BPS 증가율: " + scriptGameSystem.GPU_RATES[i].ToString()+"배";
+            GpuPriceTextGameObjects[i - 1].GetComponent<Text>().text = string.Format("{0:n0}", scriptGameSystem.GPU_PRICES[i]) + "원";
         }
     }
 

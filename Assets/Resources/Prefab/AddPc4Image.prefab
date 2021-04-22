@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 2386610562448726674}
   m_Layer: 5
   m_Name: Text (1)
-  m_TagString: Untagged
+  m_TagString: PcBpsText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -532,7 +532,7 @@ GameObject:
   - component: {fileID: 3906605172247904264}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: PcNameText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -611,7 +611,7 @@ GameObject:
   - component: {fileID: 4354162716537043488}
   m_Layer: 5
   m_Name: Text (1)
-  m_TagString: Untagged
+  m_TagString: PcBpsText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -844,7 +844,7 @@ GameObject:
   - component: {fileID: 3973595402987783590}
   m_Layer: 5
   m_Name: Text (2)
-  m_TagString: Untagged
+  m_TagString: PcPriceText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -923,7 +923,7 @@ GameObject:
   - component: {fileID: 8267849802393061001}
   m_Layer: 5
   m_Name: Text (2)
-  m_TagString: Untagged
+  m_TagString: PcPriceText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1292,7 +1292,7 @@ GameObject:
   - component: {fileID: 3956281875324483070}
   m_Layer: 5
   m_Name: Text
-  m_TagString: Untagged
+  m_TagString: PcNameText
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
