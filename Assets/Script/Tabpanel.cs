@@ -65,7 +65,7 @@ public class Tabpanel : MonoBehaviour
 
                 if (i == 0&&isOverclockClicked == 0) //Overclock 탭
                 {
-                    LoadOverclockPrice();
+                    LoadOverclockInformation();
                     isOverclockClicked = 1;
                 }
                 else if (i == 1&&isComputerClicked == 0) //Computer 탭
@@ -158,30 +158,36 @@ public class Tabpanel : MonoBehaviour
 
     public void LoadAllGpuInformation()
     {
-        GameObject[] GpuNameTextGameObjects = GameObject.FindGameObjectsWithTag("GpuNameText");
-        GameObject[] GpuRateTextGameObjects = GameObject.FindGameObjectsWithTag("GpuRateText");
-        GameObject[] GpuPriceTextGameObjects = GameObject.FindGameObjectsWithTag("GpuPriceText");
+        GameObject[] gpuNameTextGameObjects = GameObject.FindGameObjectsWithTag("GpuNameText");
+        GameObject[] gpuRateTextGameObjects = GameObject.FindGameObjectsWithTag("GpuRateText");
+        GameObject[] gpuPriceTextGameObjects = GameObject.FindGameObjectsWithTag("GpuPriceText");
 
-        for (int i = 1; i < GpuNameTextGameObjects.Length+1; i++)
+        for (int i = 1; i < gpuNameTextGameObjects.Length+1; i++)
         {
-            GpuNameTextGameObjects[i - 1].GetComponent<Text>().text = scriptGameSystem.GPU_NAMES[i].ToString();
-            GpuRateTextGameObjects[i-1].GetComponent<Text>().text = "BPS 증가율: " + scriptGameSystem.GPU_RATES[i].ToString()+"배";
-            GpuPriceTextGameObjects[i - 1].GetComponent<Text>().text = string.Format("{0:n0}", scriptGameSystem.GPU_PRICES[i]) + "원";
+            gpuNameTextGameObjects[i - 1].GetComponent<Text>().text = scriptGameSystem.GPU_NAMES[i].ToString();
+            gpuRateTextGameObjects[i-1].GetComponent<Text>().text = "BPS 증가율: " + scriptGameSystem.GPU_RATES[i].ToString()+"배";
+            gpuPriceTextGameObjects[i - 1].GetComponent<Text>().text = string.Format("{0:n0}", scriptGameSystem.GPU_PRICES[i]) + "원";
         }
     }
 
 
-    public void LoadOverclockPrice()
+    public void LoadOverclockInformation()
     {
-        GameObject overclockText = GameObject.Find("OverclockText");
-        
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+
+        Text overclockLevelText = GameObject.Find("OverclockLevelText").GetComponent<Text>();
+        Text overclockBtcText = GameObject.Find("OverclockBtcText").GetComponent<Text>();
+        Text overclockPriceText = GameObject.Find("OverclockPriceText").GetComponent<Text>();
+
+        overclockLevelText.text = "현재 오버클럭 "+scriptGameSystem.currentOverclockLevel.ToString()+"레벨";
+        overclockBtcText.text = "터치당 "+(scriptGameSystem.BTC_AT_FIRST_TOUCH * (Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1) * scriptGameSystem.currentOverclockLevel / 75 + (20 * scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 / 21)).ToString("0." + new string('#', 8)) + "BTC";
         if (scriptGameSystem.currentOverclockLevel < scriptGameSystem.BIFURCATION_OF_OVERCLOCK+1)
         {
-            overclockText.GetComponent<Text>().text = Convert.ToUInt64(scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1)).ToString();
+            overclockPriceText.text = Convert.ToUInt64(scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1)).ToString()+"원";
         }
         else
         {
-            overclockText.GetComponent<Text>().text = Convert.ToUInt64(scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1) + scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK))).ToString();
+            overclockPriceText.text = Convert.ToUInt64(scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1) + scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK))).ToString() + "원";
         }  
     }
 }

@@ -59,7 +59,7 @@ public class OverclockPanel : MonoBehaviour
             }
         }
 
-        scriptTabpanel.LoadOverclockPrice();
+        scriptTabpanel.LoadOverclockInformation();
 
     }
 
