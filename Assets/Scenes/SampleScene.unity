@@ -1125,6 +1125,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.0000018477
       objectReference: {fileID: 0}
+    - target: {fileID: 1286479525550586582, guid: f293effb7b441fa45a754cfbf82c360e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1288739616619962466, guid: f293effb7b441fa45a754cfbf82c360e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5822,7 +5827,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
