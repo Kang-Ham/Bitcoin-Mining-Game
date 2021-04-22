@@ -56,6 +56,7 @@ public class PcPanel : MonoBehaviour
     async public void AskForAddPc()
     {
         if (!scriptYesOrNoMsgbox) scriptYesOrNoMsgbox = GameObject.Find("EventSystem").GetComponent<YesOrNoMsgbox>();
+        if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
 
         int pcType = (int)(scriptGameSystem.currentPcList.Count / 16) + 1;
 
