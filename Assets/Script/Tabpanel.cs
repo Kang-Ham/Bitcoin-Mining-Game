@@ -65,19 +65,20 @@ public class Tabpanel : MonoBehaviour
 
                 if (i == 0&&isOverclockClicked == 0) //Overclock 탭
                 {
-                    LoadOverclockPrice();
+                    LoadOverclockInformation();
                     isOverclockClicked = 1;
                 }
                 else if (i == 1&&isComputerClicked == 0) //Computer 탭
                 {
                     LoadAddPcButtons();
-                    SetButtonInteractableFalse(true);
+                    SetPcButtonInteractableFalse(true);
                     LoadPcInformation(0);
                     isComputerClicked = 1;
                 }
                 else if(i == 2&&isGpuClicked == 0) //Gpu 탭
                 {
-                    LoadGpuPrices();
+                    LoadAllGpuInformation();
+                    SetGpuButtonInteractableFalse(true);
                     isGpuClicked = 1;
                 }else if(i == 3&&isBtcClicked == 0) //Btc 탭
                 {
@@ -101,7 +102,7 @@ public class Tabpanel : MonoBehaviour
         for (int i = 0; i < scriptGameSystem.currentPcList.Count; i++) scriptPcPanel.MakeNewButton(i);
     }
 
-    public void SetButtonInteractableFalse(Boolean flagIfSetAllButtons)
+    public void SetPcButtonInteractableFalse(Boolean flagIfSetAllButtons)
     {
         GameObject[] buyPcButtons = GameObject.FindGameObjectsWithTag("BuyPcButton");
 
@@ -121,41 +122,72 @@ public class Tabpanel : MonoBehaviour
         {
             buyPcButtons[buyPcButtons.Length - 1].GetComponent<Button>().interactable = false;
         }
-        
     }
+
     public void LoadPcInformation(int pcCount)
     {
+        Debug.Log(pcCount);
         int pcType = pcCount / 16;
-        GameObject addPcButton = GameObject.FindGameObjectsWithTag("AddButton")[pcCount];
 
-        Text currentPcBpsText = addPcButton.transform.GetChild(2).GetComponent<Text>();
-        Text currentPcPriceText = addPcButton.transform.GetChild(3).GetComponent<Text>();
+        Text PcNameText = GameObject.FindGameObjectsWithTag("PcNameText")[pcCount].GetComponent<Text>();
+        Text PcBpsText = GameObject.FindGameObjectsWithTag("PcBpsText")[pcCount].GetComponent<Text>();
+        Text PcPriceText = GameObject.FindGameObjectsWithTag("PcPriceText")[pcCount].GetComponent<Text>();
 
-        currentPcBpsText.text = scriptGameSystem.PC_BTC_PER_SECOND[pcType].ToString("0." + new string('#', 8))+"BPS";
-        currentPcPriceText.text = string.Format("{0:n0}", scriptGameSystem.PC_PRICES[pcType])+"원";
-    }
-
-    public void LoadGpuPrices()
-    {
-        GameObject[] GpuTexts = GameObject.FindGameObjectsWithTag("GpuPriceText");
-        for(int i = 1; i < GpuTexts.Length+1; i++)
-        {
-            GpuTexts[i-1].GetComponent<Text>().text = scriptGameSystem.GPU_PRICES[i].ToString();
-        }
+        PcNameText.text = scriptGameSystem.PC_NAMES[pcType];
+        PcBpsText.text = scriptGameSystem.PC_BTC_PER_SECOND[pcType].ToString("0." + new string('#', 8))+"BPS";
+        PcPriceText.text = string.Format("{0:n0}", scriptGameSystem.PC_PRICES[pcType])+"원";
     }
 
 
-    public void LoadOverclockPrice()
+    public void SetGpuButtonInteractableFalse(Boolean flagIfSetAllButtons)
     {
-        GameObject overclockText = GameObject.Find("OverclockText");
-        
-        if (scriptGameSystem.currentOverclockLevel < scriptGameSystem.BIFURCATION_OF_OVERCLOCK+1)
-        {
-            overclockText.GetComponent<Text>().text = Convert.ToUInt64(scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1)).ToString();
+        GameObject[] buyGpuButtons = GameObject.FindGameObjectsWithTag("BuyGpuButton");
+
+        if (flagIfSetAllButtons)
+        {        
+            for (int i = 0; i < scriptGameSystem.currentGpuLevel; i++)
+            {
+                buyGpuButtons[i].GetComponent<Button>().interactable = false;
+            }
         }
         else
         {
-            overclockText.GetComponent<Text>().text = Convert.ToUInt64(scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1) + scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK))).ToString();
+            buyGpuButtons[scriptGameSystem.currentGpuLevel].GetComponent<Button>().interactable = false;
+        }
+    }
+
+    public void LoadAllGpuInformation()
+    {
+        GameObject[] gpuNameTextGameObjects = GameObject.FindGameObjectsWithTag("GpuNameText");
+        GameObject[] gpuRateTextGameObjects = GameObject.FindGameObjectsWithTag("GpuRateText");
+        GameObject[] gpuPriceTextGameObjects = GameObject.FindGameObjectsWithTag("GpuPriceText");
+
+        for (int i = 1; i < gpuNameTextGameObjects.Length+1; i++)
+        {
+            gpuNameTextGameObjects[i - 1].GetComponent<Text>().text = scriptGameSystem.GPU_NAMES[i].ToString();
+            gpuRateTextGameObjects[i-1].GetComponent<Text>().text = "BPS 증가율: " + scriptGameSystem.GPU_RATES[i].ToString()+"배";
+            gpuPriceTextGameObjects[i - 1].GetComponent<Text>().text = string.Format("{0:n0}", scriptGameSystem.GPU_PRICES[i]) + "원";
+        }
+    }
+
+
+    public void LoadOverclockInformation()
+    {
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+
+        Text overclockLevelText = GameObject.Find("OverclockLevelText").GetComponent<Text>();
+        Text overclockBtcText = GameObject.Find("OverclockBtcText").GetComponent<Text>();
+        Text overclockPriceText = GameObject.Find("OverclockPriceText").GetComponent<Text>();
+
+        overclockLevelText.text = "현재 오버클럭 "+scriptGameSystem.currentOverclockLevel.ToString()+"레벨";
+        overclockBtcText.text = "터치당 "+(scriptGameSystem.BTC_AT_FIRST_TOUCH * (Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1) * scriptGameSystem.currentOverclockLevel / 75 + (20 * scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 / 21)).ToString("0." + new string('#', 8)) + "BTC";
+        if (scriptGameSystem.currentOverclockLevel < scriptGameSystem.BIFURCATION_OF_OVERCLOCK+1)
+        {
+            overclockPriceText.text = Convert.ToUInt64(scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1)).ToString()+"원";
+        }
+        else
+        {
+            overclockPriceText.text = Convert.ToUInt64(scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1) + scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK))).ToString() + "원";
         }  
     }
 }

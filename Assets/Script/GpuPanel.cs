@@ -8,6 +8,7 @@ public class GpuPanel : MonoBehaviour
     private GameSystem scriptGameSystem;
     private YesOrNoMsgbox scriptYesOrNoMsgbox;
     private Msgbox scriptMsgbox;
+    private Tabpanel scriptTabpanel;
 
     // Start is called before the first frame update
     void Start()
@@ -30,7 +31,7 @@ public class GpuPanel : MonoBehaviour
         {
             if (scriptGameSystem.currentMoney >= scriptGameSystem.GPU_PRICES[currentGpuLevel+1])
             {
-                AskForAddPc(currentGpuLevel);
+                AskForAddGpu(currentGpuLevel);
             }
             else
             {
@@ -48,9 +49,10 @@ public class GpuPanel : MonoBehaviour
         }
     }
 
-    async public void AskForAddPc(int currentGpuLevel)
+    async public void AskForAddGpu(int currentGpuLevel)
     {
         if (!scriptYesOrNoMsgbox) scriptYesOrNoMsgbox = GameObject.Find("EventSystem").GetComponent<YesOrNoMsgbox>();
+        if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
 
         scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("Gpu를 강화하시겠습니까?", "예", "아니오");
         var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
@@ -58,6 +60,8 @@ public class GpuPanel : MonoBehaviour
 
         if (clickedButton == 0)
         {
+            scriptTabpanel.SetGpuButtonInteractableFalse(false);
+
             scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - scriptGameSystem.GPU_PRICES[currentGpuLevel+1]);
 
             UpgradeCurrentGpu(currentGpuLevel);

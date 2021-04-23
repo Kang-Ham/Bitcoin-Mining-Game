@@ -7,10 +7,17 @@ TagManager:
   - Pc
   - AddPcImage
   - PcContent
-  - AddButton
   - GpuPriceText
   - Undefined
   - MenuText
+  - BuyPcButton
+  - GpuRateText
+  - GpuNameText
+  - BuyGpuButton
+  - PcNameText
+  - PcBpsText
+  - PcPriceText
+  - AddButton
   layers:
   - Default
   - TransparentFX

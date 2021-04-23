@@ -1,5 +1,1 @@
-<<<<<<< HEAD
-{"curBitcoin":0.0,"curMoney":0,"cntPC":0,"curGPULevel":0,"recentlyTerminatedAt":"04/11/2021 19:53:18","hitPower":1.0}
-=======
-{"curBitcoin":0.0,"curMoney":0,"cntPC":0,"curGPULevel":0,"recentlyTerminatedAt":"04/11/2021 19:08:43","hitPower":1.0}
->>>>>>> 7313ed8dd056dde616fd116e116bf72a094a095f
+{"currentBtc":9.69956588745117,"currentMoney":1158798,"pcCount":64,"currentGpuLevel":3,"recentlyTerminatedAt":"04/22/2021 22:03:43","currentOverclockLevel":117.0}

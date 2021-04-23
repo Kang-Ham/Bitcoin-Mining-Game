@@ -20,9 +20,12 @@ public class GameSystem : MonoBehaviour
     public int BIFURCATION_OF_OVERCLOCK;
     public float BTC_AT_FIRST_TOUCH;
     public float COEFFICIENT_OF_OVERCLOCK;
+    public int MAX_GPU_LEVEL;
 
+    public string[] PC_NAMES;
     public float[] PC_BTC_PER_SECOND;
     public UInt64[] PC_PRICES;
+    public string[] GPU_NAMES;
     public float[] GPU_RATES;
     public UInt64[] GPU_PRICES;
 
@@ -179,7 +182,7 @@ public class GameSystem : MonoBehaviour
             for (int i = 0; i < 4; i++)
             {
                 scriptPcPanel.MakeNewButton(currentPcList.Count);
-                scriptTabpanel.SetButtonInteractableFalse(true);
+                scriptTabpanel.SetPcButtonInteractableFalse(true);
                 scriptPcPanel.AddNewPc();
             }
         }
