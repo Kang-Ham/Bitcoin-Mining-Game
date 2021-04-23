@@ -625,6 +625,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: EventSystem
       objectReference: {fileID: 0}
+    - target: {fileID: 3619051498725239298, guid: 92e2b98d4d90fa6428f01b0efccca427,
+        type: 3}
+      propertyPath: itemBTC
+      value: 
+      objectReference: {fileID: 4847284365122644535, guid: ab47b80c9b927bd46bed0396d2cd355e,
+        type: 3}
+    - target: {fileID: 3619051498725239298, guid: 92e2b98d4d90fa6428f01b0efccca427,
+        type: 3}
+      propertyPath: prefabCoin
+      value: 
+      objectReference: {fileID: 4847284365122644535, guid: ab47b80c9b927bd46bed0396d2cd355e,
+        type: 3}
     - target: {fileID: 4101977875481036552, guid: 92e2b98d4d90fa6428f01b0efccca427,
         type: 3}
       propertyPath: clickedButton
@@ -11116,7 +11128,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1621712237}
-        m_TargetAssemblyTypeName: Overclock, Assembly-CSharp
+        m_TargetAssemblyTypeName: OverclockPanel, Assembly-CSharp
         m_MethodName: OnClickEvent
         m_Mode: 1
         m_Arguments:
