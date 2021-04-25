@@ -41,10 +41,10 @@ public class OverclockPanel : MonoBehaviour
 
         Rigidbody2D itemRigid = instantObject.GetComponent<Rigidbody2D>();
         X_VELOCITY = Random.Range(-5.0f, 5.0f);
-        Y_VELOCITY = Random.Range(30.0f, 50.0f);
+        Y_VELOCITY = Random.Range(60.0f, 80.0f);
         Vector2 velocityVector = new Vector2(X_VELOCITY, Y_VELOCITY);
         itemRigid.AddForce(velocityVector, ForceMode2D.Impulse);
-        Destroy(instantObject.gameObject, 1f);
+        Destroy(instantObject.gameObject, 1.5f);
     }
 
     public void UpgradeOverclock()

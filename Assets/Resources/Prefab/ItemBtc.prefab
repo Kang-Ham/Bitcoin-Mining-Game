@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 8102782036784384852}
   - component: {fileID: 4894026917910734248}
   - component: {fileID: 7070316980629893288}
+  - component: {fileID: 4203550063956620292}
   m_Layer: 5
-  m_Name: itemBTC
+  m_Name: ItemBtc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37,7 +38,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 10}
+  m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5305172811819513990
 CanvasRenderer:
@@ -109,3 +110,19 @@ ConstantForce2D:
   m_Force: {x: 0, y: -70}
   m_RelativeForce: {x: 0, y: 0}
   m_Torque: 0
+--- !u!111 &4203550063956620292
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4847284365122644535}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 4a89cc3d07b1b204aa7e3780a1d3e49a, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 4a89cc3d07b1b204aa7e3780a1d3e49a, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
