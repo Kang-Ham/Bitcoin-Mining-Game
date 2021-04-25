@@ -14,7 +14,6 @@ public class OverclockPanel : MonoBehaviour
     private float Y_VELOCITY;
     public GameObject itemBtc;
     public Vector3 mousePosition;
-    public Rigidbody2D rigid;
 
     // Start is called before the first frame update
     void Start()
