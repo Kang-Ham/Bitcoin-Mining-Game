@@ -62,7 +62,7 @@ public class BtcPanel : MonoBehaviour
                 return;
             }
 
-            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 매수하시겠습니까? (" + buyInputField.text + "Btc = " + string.Format("{0:n0}", moneyForBuy) + "원)", "예", "아니오");
+            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 매수하시겠습니까? (" + buyInputField.text + "BTC = " + string.Format("{0:n0}", moneyForBuy) + "원)", "예", "아니오");
             var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
             int clickedButton = await task;
 
@@ -71,6 +71,39 @@ public class BtcPanel : MonoBehaviour
                 scriptGameSystem.currentBtc += buyInput;
                 scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - moneyForBuy);
                 buyInputField.text = "";
+            }
+        }
+        catch
+        {
+            scriptMsgbox.ShowMsgbox("범위를 초과하였습니다.", "확인");
+            await Task.Run(() => scriptMsgbox.GetClickedButton());
+            return;
+        }
+
+    }
+
+    public async void OnClickBuyAllButtonEvent()
+    {
+        try
+        {
+            UInt64 moneyForBuy = System.Convert.ToUInt64(scriptGameSystem.currentMoney);
+            UInt64 btcToGet = moneyForBuy / Convert.ToUInt64(scriptGameSystem.currentBtcPrice);
+
+            if (btcToGet < 0.00000001)
+            {
+                scriptMsgbox.ShowMsgbox("최소 거래단위는 '0.00000001'입니다.", "확인");
+                await Task.Run(() => scriptMsgbox.GetClickedButton());
+                return;
+            }
+
+            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 전량 매수하시겠습니까? (" + btcToGet.ToString() + "BTC = " + string.Format("{0:n0}", moneyForBuy) + "원)", "예", "아니오");
+            var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
+            int clickedButton = await task;
+
+            if (clickedButton == 0)
+            {
+                scriptGameSystem.currentBtc += btcToGet;
+                scriptGameSystem.SetCurrentMoney(0);
             }
         }
         catch
@@ -115,15 +148,47 @@ public class BtcPanel : MonoBehaviour
                 return;
             }
 
-            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 매도하시겠습니까? (" + sellInputField.text + "Btc = " + string.Format("{0:n0}", moneyToGet)+ "원)", "예", "아니오");
+            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 매도하시겠습니까? (" + sellInputField.text + "BTC = " + string.Format("{0:n0}", moneyToGet)+ "원)", "예", "아니오");
             var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
             int clickedButton = await task;
 
             if (clickedButton == 0)
             {
-                scriptGameSystem.currentBtc -= sellInput;
                 scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney + moneyToGet);
+                scriptGameSystem.currentBtc -= sellInput;
                 sellInputField.text = "";
+            }
+        }
+        catch
+        {
+            scriptMsgbox.ShowMsgbox("범위를 초과하였습니다.", "확인");
+            await Task.Run(() => scriptMsgbox.GetClickedButton());
+            return;
+        }
+    }
+
+    public async void OnClickSellAllButtonEvent()
+    {
+        try
+        {
+            UInt64 btcForBuy = Convert.ToUInt64(scriptGameSystem.currentBtc);
+            UInt64 moneyToGet = btcForBuy*Convert.ToUInt64(scriptGameSystem.currentBtcPrice);
+
+            if (btcForBuy < 0.00000001)
+            {
+                scriptMsgbox.ShowMsgbox("최소 거래단위는 '0.00000001'입니다.", "확인");
+                await Task.Run(() => scriptMsgbox.GetClickedButton());
+                return;
+            }
+
+            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 전량 매도하시겠습니까? (" + btcForBuy + "BTC = " + string.Format("{0:n0}", moneyToGet) + "원)", "예", "아니오");
+            var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
+            int clickedButton = await task;
+
+            if (clickedButton == 0)
+            {
+                scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney + moneyToGet);
+                scriptGameSystem.currentBtc = 0;
             }
         }
         catch
