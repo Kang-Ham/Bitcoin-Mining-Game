@@ -650,6 +650,12 @@ PrefabInstance:
         type: 3}
     - target: {fileID: 3619051498725239298, guid: 92e2b98d4d90fa6428f01b0efccca427,
         type: 3}
+      propertyPath: itemBtc
+      value: 
+      objectReference: {fileID: 4847284365122644535, guid: ab47b80c9b927bd46bed0396d2cd355e,
+        type: 3}
+    - target: {fileID: 3619051498725239298, guid: 92e2b98d4d90fa6428f01b0efccca427,
+        type: 3}
       propertyPath: prefabCoin
       value: 
       objectReference: {fileID: 4847284365122644535, guid: ab47b80c9b927bd46bed0396d2cd355e,

@@ -10,10 +10,9 @@ public class OverclockPanel : MonoBehaviour
     private GameSystem scriptGameSystem;
     private Msgbox scriptMsgbox;
     private Tabpanel scriptTabpanel;
-    private Vector3 BTCPosition;
     private float X_VELOCITY;
     private float Y_VELOCITY;
-    public GameObject itemBTC;
+    public GameObject itemBtc;
     public Vector3 mousePosition;
     public Rigidbody2D rigid;
 
@@ -32,10 +31,14 @@ public class OverclockPanel : MonoBehaviour
     public void OnClickEvent()
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+
+        //Btc 증가
         scriptGameSystem.currentBtc += Convert.ToInt64(scriptGameSystem.BTC_AT_FIRST_TOUCH * (Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1) * scriptGameSystem.currentOverclockLevel / 75) + (20 * scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 / 21);
+       
+        //효과
         mousePosition = Input.mousePosition;
-        GameObject instantObject = Instantiate(itemBTC, this.mousePosition, transform.rotation) as GameObject;
-        instantObject.transform.parent = GameObject.Find("ClickerButton").transform;
+        GameObject instantObject = Instantiate(itemBtc, this.mousePosition, transform.rotation) as GameObject;
+        instantObject.transform.SetParent(GameObject.Find("ClickerButton").transform);
 
         Rigidbody2D itemRigid = instantObject.GetComponent<Rigidbody2D>();
         X_VELOCITY = Random.Range(-5.0f, 5.0f);
