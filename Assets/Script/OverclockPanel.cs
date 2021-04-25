@@ -62,7 +62,7 @@ public class OverclockPanel : MonoBehaviour
             }
             else
             {
-                scriptMsgbox.ShowMsgbox("You Can't Do That.", "예");
+                scriptMsgbox.ShowMsgbox("현금이 부족합니다.", "예");
             }
         }
         else
@@ -74,7 +74,7 @@ public class OverclockPanel : MonoBehaviour
             }
             else
             {
-                scriptMsgbox.ShowMsgbox("You Can't Do That.", "예");
+                scriptMsgbox.ShowMsgbox("현금이 부족합니다.", "예");
             }
         }
 

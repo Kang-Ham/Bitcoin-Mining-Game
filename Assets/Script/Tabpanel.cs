@@ -126,7 +126,6 @@ public class Tabpanel : MonoBehaviour
 
     public void LoadPcInformation(int pcCount)
     {
-        Debug.Log(pcCount);
         int pcType = pcCount / 16;
 
         Text PcNameText = GameObject.FindGameObjectsWithTag("PcNameText")[pcCount].GetComponent<Text>();
