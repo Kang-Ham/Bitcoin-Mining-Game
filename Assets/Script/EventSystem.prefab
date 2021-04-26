@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 4630271517840167586}
   - component: {fileID: -3096530249897850376}
   - component: {fileID: 3619051498725239298}
+  - component: {fileID: -29193370783994206}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -179,5 +180,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e3e3af9f5d205c47b9269fd91aa62cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemBtc: {fileID: 0}
+  mousePosition: {x: 0, y: 0, z: 0}
+--- !u!114 &-29193370783994206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277198297499427128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb2103e0adab76b4b9d1385099d8979a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
