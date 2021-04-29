@@ -96,7 +96,7 @@ public class BtcPanel : MonoBehaviour
                 return;
             }
 
-            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 전량 매수하시겠습니까? (" + btcToGet.ToString() + "BTC = " + string.Format("{0:n0}", moneyForBuy) + "원)", "예", "아니오");
+            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 전량 매수하시겠습니까? (" + btcToGet.ToString("0." + new string('#', 8)) + "BTC = " + string.Format("{0:n0}", moneyForBuy) + "원)", "예", "아니오");
             var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
             int clickedButton = await task;
 
@@ -181,7 +181,7 @@ public class BtcPanel : MonoBehaviour
                 return;
             }
 
-            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 전량 매도하시겠습니까? (" + btcForBuy + "BTC = " + string.Format("{0:n0}", moneyToGet) + "원)", "예", "아니오");
+            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 전량 매도하시겠습니까? (" + btcForBuy.ToString("0." + new string('#', 8)) + "BTC = " + string.Format("{0:n0}", moneyToGet) + "원)", "예", "아니오");
             var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
             int clickedButton = await task;
 
