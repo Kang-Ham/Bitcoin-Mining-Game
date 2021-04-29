@@ -47,7 +47,7 @@ public class BtcPanel : MonoBehaviour
 
         try
         {
-            UInt64 moneyForBuy = System.Convert.ToUInt64(scriptGameSystem.currentBtcPrice * buyInput);
+            UInt64 moneyForBuy = Convert.ToUInt64(scriptGameSystem.currentBtcPrice * buyInput);
 
             if (scriptGameSystem.currentMoney < moneyForBuy)
             {
@@ -86,7 +86,7 @@ public class BtcPanel : MonoBehaviour
     {
         try
         {
-            UInt64 moneyForBuy = System.Convert.ToUInt64(scriptGameSystem.currentMoney);
+            UInt64 moneyForBuy = scriptGameSystem.currentMoney;
             UInt64 btcToGet = moneyForBuy / Convert.ToUInt64(scriptGameSystem.currentBtcPrice);
 
             if (btcToGet < 0.00000001)
@@ -171,8 +171,8 @@ public class BtcPanel : MonoBehaviour
     {
         try
         {
-            UInt64 btcForBuy = Convert.ToUInt64(scriptGameSystem.currentBtc);
-            UInt64 moneyToGet = btcForBuy*Convert.ToUInt64(scriptGameSystem.currentBtcPrice);
+            float btcForBuy = scriptGameSystem.currentBtc;
+            UInt64 moneyToGet = Convert.ToUInt64(scriptGameSystem.currentBtcPrice* btcForBuy);
 
             if (btcForBuy < 0.00000001)
             {
