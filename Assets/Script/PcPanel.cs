@@ -110,6 +110,7 @@ public class PcPanel : MonoBehaviour
 
         List<int> nextPcPos = GetPcPos(scriptGameSystem.currentPcList.Count + 1);
         GameObject newPc = Instantiate(prefabPc, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+        newPc.transform.parent = GameObject.Find("PcList").transform;
         Pc scriptnewPc = newPc.GetComponent<Pc>();
 
         //Set Params

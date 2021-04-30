@@ -47,7 +47,7 @@ public class BtcPanel : MonoBehaviour
 
         try
         {
-            UInt64 moneyForBuy = System.Convert.ToUInt64(scriptGameSystem.currentBtcPrice * buyInput);
+            UInt64 moneyForBuy = Convert.ToUInt64(scriptGameSystem.currentBtcPrice * buyInput);
 
             if (scriptGameSystem.currentMoney < moneyForBuy)
             {
@@ -86,7 +86,7 @@ public class BtcPanel : MonoBehaviour
     {
         try
         {
-            UInt64 moneyForBuy = System.Convert.ToUInt64(scriptGameSystem.currentMoney);
+            UInt64 moneyForBuy = scriptGameSystem.currentMoney;
             UInt64 btcToGet = moneyForBuy / Convert.ToUInt64(scriptGameSystem.currentBtcPrice);
 
             if (btcToGet < 0.00000001)
@@ -96,7 +96,7 @@ public class BtcPanel : MonoBehaviour
                 return;
             }
 
-            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 전량 매수하시겠습니까? (" + btcToGet.ToString() + "BTC = " + string.Format("{0:n0}", moneyForBuy) + "원)", "예", "아니오");
+            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 전량 매수하시겠습니까? (" + btcToGet.ToString("0." + new string('#', 8)) + "BTC = " + string.Format("{0:n0}", moneyForBuy) + "원)", "예", "아니오");
             var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
             int clickedButton = await task;
 
@@ -171,8 +171,8 @@ public class BtcPanel : MonoBehaviour
     {
         try
         {
-            UInt64 btcForBuy = Convert.ToUInt64(scriptGameSystem.currentBtc);
-            UInt64 moneyToGet = btcForBuy*Convert.ToUInt64(scriptGameSystem.currentBtcPrice);
+            float btcForBuy = scriptGameSystem.currentBtc;
+            UInt64 moneyToGet = Convert.ToUInt64(scriptGameSystem.currentBtcPrice* btcForBuy);
 
             if (btcForBuy < 0.00000001)
             {
@@ -181,7 +181,7 @@ public class BtcPanel : MonoBehaviour
                 return;
             }
 
-            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 전량 매도하시겠습니까? (" + btcForBuy + "BTC = " + string.Format("{0:n0}", moneyToGet) + "원)", "예", "아니오");
+            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 전량 매도하시겠습니까? (" + btcForBuy.ToString("0." + new string('#', 8)) + "BTC = " + string.Format("{0:n0}", moneyToGet) + "원)", "예", "아니오");
             var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
             int clickedButton = await task;
 
