@@ -35,6 +35,7 @@ public class GameSystem : MonoBehaviour
     public List<Pc> currentPcList;
     public int currentGpuLevel;
     public float currentOverclockLevel;
+    public int selectedBGMVolume;
 
     //불러오기 않아도 됨        
     public float gameBtcPerSecond;
