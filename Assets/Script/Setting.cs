@@ -9,16 +9,6 @@ public class Setting : MonoBehaviour
     public int clickedButton;
     private GameObject settingPanel, settingButton1, settingButton2;
 
-    private GameSystem scriptGameSystem;
-
-    //private int isBGM = 0;
-    //private int isSoundEffect = 0;
-    //private int isNotice = 0;
-    //private int isGuide = 0;
-    //private int isCloud = 0;
-    //private int isEvaluation = 0;
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -67,41 +57,4 @@ public class Setting : MonoBehaviour
         }
         return clickedButton;
     }
-
-    public void BGM(int index)
-    {
-        //for (int i = 0; i < scriptGameSystem.selectedBGMVoulume; i++)
-        {
-
-        }
-
-
-
-    }
-
-    public void SoundEffect()
-    {
-
-    }
-
-    public void Notice()
-    {
-
-    }
-
-    public void Guide()
-    {
-
-    }
-
-    public void Cloud()
-    {
-
-    }
-
-    public void Evaluation()
-    {
-
-    }
-
 }
