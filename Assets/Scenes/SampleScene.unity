@@ -618,25 +618,25 @@ PrefabInstance:
         type: 3}
       propertyPath: bgmVolumeSprites.Array.data[0]
       value: 
-      objectReference: {fileID: 21300000, guid: 3874e62dd64ef8a4083db64b2adc64ec,
+      objectReference: {fileID: 21300000, guid: 2c0947246f56fef47b2d12f96c1a90a9,
         type: 3}
     - target: {fileID: -3096530249897850376, guid: 92e2b98d4d90fa6428f01b0efccca427,
         type: 3}
       propertyPath: bgmVolumeSprites.Array.data[1]
       value: 
-      objectReference: {fileID: 21300000, guid: 2b27fcdfeee1c004fa0d3b2bbd6382b8,
+      objectReference: {fileID: 21300000, guid: 9b508ba53280cba46934b99f07577951,
         type: 3}
     - target: {fileID: -3096530249897850376, guid: 92e2b98d4d90fa6428f01b0efccca427,
         type: 3}
       propertyPath: bgmVolumeSprites.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: 3a9091939e278a84daeeee6ec15249a5,
+      objectReference: {fileID: 21300000, guid: e90b330f226a2634bab5cdcab044fa78,
         type: 3}
     - target: {fileID: -3096530249897850376, guid: 92e2b98d4d90fa6428f01b0efccca427,
         type: 3}
       propertyPath: bgmVolumeSprites.Array.data[3]
       value: 
-      objectReference: {fileID: 21300000, guid: 5aceb790d1cca8946a69b0fd76b2acf8,
+      objectReference: {fileID: 21300000, guid: 560e339a15bc69e459d7322821631ec4,
         type: 3}
     - target: {fileID: -3096530249897850376, guid: 92e2b98d4d90fa6428f01b0efccca427,
         type: 3}
@@ -749,9 +749,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1277198297499427125, guid: 92e2b98d4d90fa6428f01b0efccca427,
         type: 3}
+      propertyPath: soundSprites.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1277198297499427125, guid: 92e2b98d4d90fa6428f01b0efccca427,
+        type: 3}
       propertyPath: bgmVolumeTexts.Array.size
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 1277198297499427125, guid: 92e2b98d4d90fa6428f01b0efccca427,
+        type: 3}
+      propertyPath: soundSprites.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 2c0947246f56fef47b2d12f96c1a90a9,
+        type: 3}
+    - target: {fileID: 1277198297499427125, guid: 92e2b98d4d90fa6428f01b0efccca427,
+        type: 3}
+      propertyPath: soundSprites.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 9b508ba53280cba46934b99f07577951,
+        type: 3}
+    - target: {fileID: 1277198297499427125, guid: 92e2b98d4d90fa6428f01b0efccca427,
+        type: 3}
+      propertyPath: soundSprites.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: e90b330f226a2634bab5cdcab044fa78,
+        type: 3}
+    - target: {fileID: 1277198297499427125, guid: 92e2b98d4d90fa6428f01b0efccca427,
+        type: 3}
+      propertyPath: soundSprites.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: 560e339a15bc69e459d7322821631ec4,
+        type: 3}
     - target: {fileID: 1277198297499427125, guid: 92e2b98d4d90fa6428f01b0efccca427,
         type: 3}
       propertyPath: bgmVolumeSprites.Array.size
@@ -6973,7 +7002,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1621712245}
         m_TargetAssemblyTypeName: Setting, Assembly-CSharp
-        m_MethodName: BgmVolume
+        m_MethodName: SetBgmVolume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10711,7 +10740,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1621712245}
         m_TargetAssemblyTypeName: Setting, Assembly-CSharp
-        m_MethodName: SoundEffectVolume
+        m_MethodName: SetSoundEffectVolume
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
