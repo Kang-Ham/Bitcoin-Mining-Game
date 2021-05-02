@@ -14,6 +14,8 @@ public class OverclockPanel : MonoBehaviour
     private float Y_VELOCITY;
     public GameObject itemBtc;
     public Vector3 mousePosition;
+    public AudioSource audioPlayer;
+    public AudioClip cointSoundEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -45,6 +47,9 @@ public class OverclockPanel : MonoBehaviour
         Vector2 velocityVector = new Vector2(X_VELOCITY, Y_VELOCITY);
         itemRigid.AddForce(velocityVector, ForceMode2D.Impulse);
         Destroy(instantObject.gameObject, 1.5f);
+
+        //소리 재생
+        audioPlayer.PlayOneShot(cointSoundEffect);
     }
 
     public void UpgradeOverclock()
