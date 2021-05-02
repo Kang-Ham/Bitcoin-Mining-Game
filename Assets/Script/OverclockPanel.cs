@@ -50,6 +50,7 @@ public class OverclockPanel : MonoBehaviour
 
         //소리 재생
         audioPlayer.PlayOneShot(cointSoundEffect);
+        audioPlayer.volume = 0.2f * Convert.ToSingle(scriptGameSystem.currentSoundEffectVolume);
     }
 
     public void UpgradeOverclock()
