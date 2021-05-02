@@ -37,6 +37,7 @@ public class GameSystem : MonoBehaviour
     public float currentOverclockLevel;
     public int currentBgmVolume;
     public int currentSoundEffectVolume;
+    public Boolean currentNotificationStatus;
 
     //불러오기 않아도 됨        
     public float gameBtcPerSecond;

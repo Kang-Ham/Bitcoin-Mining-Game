@@ -11,20 +11,19 @@ public class Setting : MonoBehaviour
     private GameObject settingPanel, settingButton1, settingButton2;
 
     public Sprite[] soundSprites;
+    public Sprite[] switchSprites;
 
-    public Image imageBgmVolume;
-    public Image imageSoundEffectVolume;
-    public AudioSource bgmVolume;
+    private Image imageBgmVolume;
+    private Image imageSoundEffectVolume;
+    private Image imageNotification;
+    private AudioSource bgmVolume;
 
-    public GameSystem scriptGameSystem;
+    private GameSystem scriptGameSystem;
 
     // Start is called before the first frame update
     void Start()
     {
-        settingPanel = GameObject.Find("PopupPanels").transform.Find("SettingPanel").gameObject;
-        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
-        if (!bgmVolume) bgmVolume = GameObject.Find("MainCamera").GetComponent<AudioSource>();
-        bgmVolume.GetComponent<AudioSource>().volume = 0.03f * Convert.ToSingle(scriptGameSystem.currentBgmVolume);
+    
     }
 
     // Update is called once per frame
@@ -50,19 +49,34 @@ public class Setting : MonoBehaviour
         HideYesOrNoMsgbox();
         clickedButton = index;
     }
+
+    public void SetSoundAfterJsonLoad()
+    {
+        if(!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+        bgmVolume = GameObject.Find("MainCamera").GetComponent<AudioSource>();
+        bgmVolume.GetComponent<AudioSource>().volume = 0.03f * Convert.ToSingle(scriptGameSystem.currentBgmVolume);
+    }
+
     public void ShowSetting()
     {
+        if (!settingPanel) settingPanel = GameObject.Find("PopupPanels").transform.Find("SettingPanel").gameObject;
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+
         clickedButton = -1;
         settingPanel.SetActive(true);
-        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+        
         //bgmVolume
         imageBgmVolume = GameObject.Find("BgmVolumeImage").GetComponent<Image>();
-        imageBgmVolume.GetComponent<Image>().sprite = soundSprites[scriptGameSystem.currentBgmVolume];
+        imageBgmVolume.sprite = soundSprites[scriptGameSystem.currentBgmVolume];
 
         //soundEffectVolume
         imageSoundEffectVolume = GameObject.Find("SoundEffectVolumeImage").GetComponent<Image>();
-        imageSoundEffectVolume.GetComponent<Image>().sprite = soundSprites[scriptGameSystem.currentSoundEffectVolume];
-        }
+        imageSoundEffectVolume.sprite = soundSprites[scriptGameSystem.currentSoundEffectVolume];
+
+        //notificationStatus
+        imageNotification = GameObject.Find("NotificationImage").GetComponent<Image>();
+        imageNotification.sprite = switchSprites[Convert.ToInt16(scriptGameSystem.currentNotificationStatus)];
+    }
 
     private void HideYesOrNoMsgbox()
     {
@@ -89,8 +103,8 @@ public class Setting : MonoBehaviour
         {
             scriptGameSystem.currentBgmVolume = 0;
         }
-        bgmVolume.GetComponent<AudioSource>().volume = 0.03f * Convert.ToSingle(scriptGameSystem.currentBgmVolume);
-        imageBgmVolume.GetComponent<Image>().sprite = soundSprites[scriptGameSystem.currentBgmVolume];
+        bgmVolume.volume = 0.03f * Convert.ToSingle(scriptGameSystem.currentBgmVolume);
+        imageBgmVolume.sprite = soundSprites[scriptGameSystem.currentBgmVolume];
     }
 
     public void SetSoundEffectVolume()
@@ -103,7 +117,22 @@ public class Setting : MonoBehaviour
         {
             scriptGameSystem.currentSoundEffectVolume = 0;
         }
-        imageSoundEffectVolume.GetComponent<Image>().sprite = soundSprites[scriptGameSystem.currentSoundEffectVolume];
-     
+        imageSoundEffectVolume.sprite = soundSprites[scriptGameSystem.currentSoundEffectVolume];
+    }
+
+    public void SetNotificationStatus()
+    {
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+
+        if (scriptGameSystem.currentNotificationStatus)
+        {
+            scriptGameSystem.currentNotificationStatus = false;
+            imageNotification.sprite = switchSprites[0];
+        }
+        else
+        {
+            scriptGameSystem.currentNotificationStatus = true;
+            imageNotification.sprite = switchSprites[1];
+        }
     }
 }

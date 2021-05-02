@@ -15,8 +15,9 @@ public class SystemInfo
     public double currentOverclockLevel;
     public int currentBgmVolume;
     public int currentSoundEffectVolume;
+    public Boolean currentNotificationStatus;
 
-    public SystemInfo(double _currentBtc, UInt64 _currentMoney, int _pcCount, int _currentGpuLevel, DateTime _recentlyTerminatedAt, double _currentOverclockLevel, int _currentBgmVolume, int _currentSoundEffectVolume)
+    public SystemInfo(double _currentBtc, UInt64 _currentMoney, int _pcCount, int _currentGpuLevel, DateTime _recentlyTerminatedAt, double _currentOverclockLevel, int _currentBgmVolume, int _currentSoundEffectVolume, Boolean _currentNotificationStatus)
     {
         currentBtc = _currentBtc;
         currentMoney = _currentMoney;
@@ -26,6 +27,7 @@ public class SystemInfo
         currentOverclockLevel = _currentOverclockLevel;
         currentBgmVolume = _currentBgmVolume;
         currentSoundEffectVolume = _currentSoundEffectVolume;
+        currentNotificationStatus = _currentNotificationStatus;
     }
 }
 
@@ -33,6 +35,7 @@ public class Json : MonoBehaviour
 {
     private GameSystem scriptGameSystem;
     private PcPanel scriptPcPanel;
+    private Setting scriptSetting;
 
     public SystemInfo systemInfo;
 
@@ -51,7 +54,7 @@ public class Json : MonoBehaviour
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
 
-        systemInfo = new SystemInfo(Convert.ToDouble(scriptGameSystem.currentBtc), scriptGameSystem.currentMoney, scriptGameSystem.currentPcList.Count, scriptGameSystem.currentGpuLevel, DateTime.Now, Convert.ToDouble(scriptGameSystem.currentOverclockLevel), scriptGameSystem.currentBgmVolume, scriptGameSystem.currentSoundEffectVolume);
+        systemInfo = new SystemInfo(Convert.ToDouble(scriptGameSystem.currentBtc), scriptGameSystem.currentMoney, scriptGameSystem.currentPcList.Count, scriptGameSystem.currentGpuLevel, DateTime.Now, Convert.ToDouble(scriptGameSystem.currentOverclockLevel), scriptGameSystem.currentBgmVolume, scriptGameSystem.currentSoundEffectVolume, scriptGameSystem.currentNotificationStatus);
         JsonData jsonSystemInfo = JsonMapper.ToJson(systemInfo);
         File.WriteAllText(Application.dataPath + "/Resources/SystemInfo.json", jsonSystemInfo.ToString());
     }
@@ -60,6 +63,7 @@ public class Json : MonoBehaviour
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
         if (!scriptPcPanel) scriptPcPanel = GameObject.Find("EventSystem").GetComponent<PcPanel>();
+        if (!scriptSetting) scriptSetting = GameObject.Find("EventSystem").GetComponent<Setting>();
         try
         {
             string jsonString = File.ReadAllText(Application.dataPath + "/Resources/SystemInfo.json");
@@ -70,6 +74,7 @@ public class Json : MonoBehaviour
             scriptGameSystem.currentOverclockLevel = Convert.ToSingle(jsonSystemInfo["currentOverclockLevel"].ToString());
             scriptGameSystem.currentBgmVolume = Convert.ToInt16(jsonSystemInfo["currentBgmVolume"].ToString());
             scriptGameSystem.currentSoundEffectVolume = Convert.ToInt16(jsonSystemInfo["currentSoundEffectVolume"].ToString());
+            scriptGameSystem.currentNotificationStatus = Convert.ToBoolean(jsonSystemInfo["currentNotificationStatus"].ToString());
 
             //PC Load & 시간에 따라 Btc 추가
             DateTime recentlyTerminatedAt = Convert.ToDateTime(jsonSystemInfo["recentlyTerminatedAt"].ToString());
@@ -85,6 +90,9 @@ public class Json : MonoBehaviour
                 Pc scriptNewPcPanel = scriptPcPanel.AddNewPc();
                 scriptGameSystem.currentBtc += (timeDifference.Seconds + timeDifference.Minutes*60 + timeDifference.Hours*3600) * scriptNewPcPanel.btcPerSecond * scriptGameSystem.GPU_RATES[scriptGameSystem.currentGpuLevel];
             }
+
+            //소리 세팅에 따라서 설정
+            scriptSetting.SetSoundAfterJsonLoad();
         }
         catch //파일이 없을 경우
         {
