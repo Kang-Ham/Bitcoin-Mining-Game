@@ -37,14 +37,9 @@ public class Setting : MonoBehaviour
         ShowSetting();
         var task = Task.Run(() => GetClickedButton());
         int clickedButton = await task;
-
-        if (clickedButton == 0)
-        {
-            //TODO: 세팅 저장
-        }
     }
 
-    public void OnClickBoxButton(int index)
+    public void CloseSetting(int index)
     {
         HideYesOrNoMsgbox();
         clickedButton = index;
