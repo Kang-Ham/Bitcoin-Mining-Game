@@ -11,15 +11,9 @@ public class Setting : MonoBehaviour
     private GameObject settingPanel, settingButton1, settingButton2;
 
     public Sprite[] soundSprites;
-    //bgm관련
+
     public Image imageBgmVolume;
-    public string[] bgmVolumeTexts;
-    public Text textBgmVolume;
-    //soundEffect관련
     public Image imageSoundEffectVolume;
-    public string[] soundEffectVolumeTexts;
-    public Text textSoundEffectVolume;
-    //Volume관련
     public AudioSource bgmVolume;
 
     public GameSystem scriptGameSystem;
@@ -64,14 +58,11 @@ public class Setting : MonoBehaviour
         //bgmVolume
         imageBgmVolume = GameObject.Find("BgmVolumeImage").GetComponent<Image>();
         imageBgmVolume.GetComponent<Image>().sprite = soundSprites[scriptGameSystem.currentBgmVolume];
-        textBgmVolume = GameObject.Find("BgmVolumeText").GetComponent<Text>();
-        textBgmVolume.GetComponent<Text>().text = bgmVolumeTexts[scriptGameSystem.currentBgmVolume];
+
         //soundEffectVolume
         imageSoundEffectVolume = GameObject.Find("SoundEffectVolumeImage").GetComponent<Image>();
         imageSoundEffectVolume.GetComponent<Image>().sprite = soundSprites[scriptGameSystem.currentSoundEffectVolume];
-        textSoundEffectVolume = GameObject.Find("SoundEffectVolumeText").GetComponent<Text>();
-        textSoundEffectVolume.GetComponent<Text>().text = soundEffectVolumeTexts[scriptGameSystem.currentSoundEffectVolume];
-    }
+        }
 
     private void HideYesOrNoMsgbox()
     {
@@ -91,7 +82,6 @@ public class Setting : MonoBehaviour
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
         if (!imageBgmVolume) imageBgmVolume = GameObject.Find("BgmVolumeImage").GetComponent<Image>();
-        if (!textBgmVolume) textBgmVolume = GameObject.Find("BgmVolumeText").GetComponent<Text>();
         if (!bgmVolume) bgmVolume = GameObject.Find("MainCamera").GetComponent<AudioSource>();
 
         scriptGameSystem.currentBgmVolume += 1;
@@ -101,14 +91,12 @@ public class Setting : MonoBehaviour
         }
         bgmVolume.GetComponent<AudioSource>().volume = 0.03f * Convert.ToSingle(scriptGameSystem.currentBgmVolume);
         imageBgmVolume.GetComponent<Image>().sprite = soundSprites[scriptGameSystem.currentBgmVolume];
-        textBgmVolume.GetComponent<Text>().text = bgmVolumeTexts[scriptGameSystem.currentBgmVolume];
     }
 
     public void SetSoundEffectVolume()
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
         if (!imageSoundEffectVolume) imageSoundEffectVolume = GameObject.Find("SoundEffectVolumeImage").GetComponent<Image>();
-        if (!textSoundEffectVolume) textSoundEffectVolume = GameObject.Find("SoundEffectVolumeText").GetComponent<Text>();
 
         scriptGameSystem.currentSoundEffectVolume += 1;
         if (soundSprites.Length == scriptGameSystem.currentSoundEffectVolume)
@@ -116,7 +104,6 @@ public class Setting : MonoBehaviour
             scriptGameSystem.currentSoundEffectVolume = 0;
         }
         imageSoundEffectVolume.GetComponent<Image>().sprite = soundSprites[scriptGameSystem.currentSoundEffectVolume];
-        textSoundEffectVolume.GetComponent<Text>().text = soundEffectVolumeTexts[scriptGameSystem.currentSoundEffectVolume];
-
+     
     }
 }
