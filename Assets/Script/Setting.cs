@@ -48,6 +48,7 @@ public class Setting : MonoBehaviour
     public void SetSoundAfterJsonLoad()
     {
         if(!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+
         bgmVolume = GameObject.Find("MainCamera").GetComponent<AudioSource>();
         bgmVolume.GetComponent<AudioSource>().volume = 0.03f * Convert.ToSingle(scriptGameSystem.currentBgmVolume);
     }

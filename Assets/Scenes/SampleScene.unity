@@ -438,8 +438,8 @@ MonoBehaviour:
   currentPcList: []
   currentGpuLevel: 0
   currentOverclockLevel: 0
-  currentBgmVolume: 0
-  currentSoundEffectVolume: 0
+  currentBgmVolume: 2
+  currentSoundEffectVolume: 2
   currentNotificationStatus: 1
   gameBtcPerSecond: 0
   selectedMenu: 0

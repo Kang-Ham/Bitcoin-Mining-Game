@@ -56,7 +56,15 @@ public class Json : MonoBehaviour
 
         systemInfo = new SystemInfo(Convert.ToDouble(scriptGameSystem.currentBtc), scriptGameSystem.currentMoney, scriptGameSystem.currentPcList.Count, scriptGameSystem.currentGpuLevel, DateTime.Now, Convert.ToDouble(scriptGameSystem.currentOverclockLevel), scriptGameSystem.currentBgmVolume, scriptGameSystem.currentSoundEffectVolume, scriptGameSystem.currentNotificationStatus);
         JsonData jsonSystemInfo = JsonMapper.ToJson(systemInfo);
-        File.WriteAllText(Application.dataPath + "/Resources/SystemInfo.json", jsonSystemInfo.ToString());
+
+        if(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            File.WriteAllText(Application.persistentDataPath + "/SystemInfo.json", jsonSystemInfo.ToString());
+        }
+        else
+        {
+            Debug.Log("Window, Android 외의 플랫폼에서 지원하지 않습니다.");
+        }
     }
 
     public void Load()
@@ -64,10 +72,21 @@ public class Json : MonoBehaviour
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
         if (!scriptPcPanel) scriptPcPanel = GameObject.Find("EventSystem").GetComponent<PcPanel>();
         if (!scriptSetting) scriptSetting = GameObject.Find("EventSystem").GetComponent<Setting>();
+
         try
         {
-            string jsonString = File.ReadAllText(Application.dataPath + "/Resources/SystemInfo.json");
+            string jsonString = null;
+            if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.WindowsEditor)
+            {
+                jsonString = File.ReadAllText(Application.persistentDataPath + "/SystemInfo.json");
+            }
+            else
+            {
+                Debug.Log("Window, Android 외의 플랫폼에서 지원하지 않습니다.");
+
+            }
             JsonData jsonSystemInfo = JsonMapper.ToObject(jsonString);
+
             scriptGameSystem.currentMoney = Convert.ToUInt64(jsonSystemInfo["currentMoney"].ToString());
             scriptGameSystem.currentBtc = Convert.ToSingle(jsonSystemInfo["currentBtc"].ToString());
             scriptGameSystem.currentGpuLevel = Convert.ToInt16(jsonSystemInfo["currentGpuLevel"].ToString());
