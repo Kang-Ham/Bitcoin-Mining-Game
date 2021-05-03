@@ -52,6 +52,8 @@ public class GameSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Camera.main.orthographicSize = 8.95f * ((Convert.ToSingle(Screen.height) / Convert.ToSingle(Screen.width)) / (16f / 9f));
+
         scriptTopAreaImage = GameObject.Find("TopAreaImage").GetComponent<TopAreaImage>();
         scriptJson = GameObject.Find("Json").GetComponent<Json>();
         scriptPcPanel = GameObject.Find("EventSystem").GetComponent<PcPanel>();
