@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Security.Cryptography;
 using LitJson;
 
 public class SystemInfo
@@ -33,21 +34,45 @@ public class SystemInfo
 
 public class Json : MonoBehaviour
 {
+    private static readonly string privateKey = "v8ntd6eqqcdxocqzovuq18m86v0nif03h2rtmjs";
+
     private GameSystem scriptGameSystem;
     private PcPanel scriptPcPanel;
     private Setting scriptSetting;
 
     public SystemInfo systemInfo;
 
-    // Start is called before the first frame update
-    void Start()
+
+    private string GetEncryptedString(string data)
     {
+        byte[] bytes = System.Text.Encoding.UTF8.GetBytes(data);
+        RijndaelManaged rm = CreateRijndaelManaged();
+        ICryptoTransform ct = rm.CreateEncryptor();
+        byte[] results = ct.TransformFinalBlock(bytes, 0, bytes.Length);
+        return System.Convert.ToBase64String(results, 0, results.Length);
     }
 
-    // Update is called once per frame
-    void Update()
+    private string GetDecryptedString(string data)
     {
-        
+        byte[] bytes = System.Convert.FromBase64String(data);
+        RijndaelManaged rm = CreateRijndaelManaged();
+        ICryptoTransform ct = rm.CreateDecryptor();
+        byte[] resultArray = ct.TransformFinalBlock(bytes, 0, bytes.Length);
+        return System.Text.Encoding.UTF8.GetString(resultArray);
+    }
+
+    private RijndaelManaged CreateRijndaelManaged()
+    {
+        byte[] keyArray = System.Text.Encoding.UTF8.GetBytes(privateKey);
+        RijndaelManaged result = new RijndaelManaged();
+
+        byte[] newKeysArray = new byte[16];
+        System.Array.Copy(keyArray, 0, newKeysArray, 0, 16);
+
+        result.Key = newKeysArray;
+        result.Mode = CipherMode.ECB;
+        result.Padding = PaddingMode.PKCS7;
+        return result;
     }
 
     public void Save()
@@ -56,10 +81,11 @@ public class Json : MonoBehaviour
 
         systemInfo = new SystemInfo(Convert.ToDouble(scriptGameSystem.currentBtc), scriptGameSystem.currentMoney, scriptGameSystem.currentPcList.Count, scriptGameSystem.currentGpuLevel, DateTime.Now, Convert.ToDouble(scriptGameSystem.currentOverclockLevel), scriptGameSystem.currentBgmVolume, scriptGameSystem.currentSoundEffectVolume, scriptGameSystem.currentNotificationStatus);
         JsonData jsonSystemInfo = JsonMapper.ToJson(systemInfo);
+        string encryptedData = GetEncryptedString(jsonSystemInfo.ToString());
 
-        if(Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.WindowsEditor)
+        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.WindowsEditor)
         {
-            File.WriteAllText(Application.persistentDataPath + "/SystemInfo.json", jsonSystemInfo.ToString());
+            File.WriteAllText(Application.persistentDataPath + "/SystemInfo.json", encryptedData);
         }
         else
         {
@@ -76,16 +102,18 @@ public class Json : MonoBehaviour
         try
         {
             string jsonString = null;
+            string decryptedData = null;
             if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.WindowsEditor)
             {
                 jsonString = File.ReadAllText(Application.persistentDataPath + "/SystemInfo.json");
+                decryptedData = GetDecryptedString(jsonString);
             }
             else
             {
                 Debug.Log("Window, Android 외의 플랫폼에서 지원하지 않습니다.");
 
             }
-            JsonData jsonSystemInfo = JsonMapper.ToObject(jsonString);
+            JsonData jsonSystemInfo = JsonMapper.ToObject(decryptedData);
 
             scriptGameSystem.currentMoney = Convert.ToUInt64(jsonSystemInfo["currentMoney"].ToString());
             scriptGameSystem.currentBtc = Convert.ToSingle(jsonSystemInfo["currentBtc"].ToString());
@@ -113,7 +141,7 @@ public class Json : MonoBehaviour
             //소리 세팅에 따라서 설정
             scriptSetting.SetSoundAfterJsonLoad();
         }
-        catch //파일이 없을 경우
+        catch //파일이 없을 경우 또는 데이터가 잘못된 경우
         {
             Save();
         } 
