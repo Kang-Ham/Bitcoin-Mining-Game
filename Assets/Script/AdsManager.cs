@@ -22,9 +22,9 @@ public class AdsManager : MonoBehaviour
     private void Awake()
     {
 #if UNITY_ANDROID
-        Advertisement.Initialize(ANDROID_GAME_ID, true);
+        Advertisement.Initialize(ANDROID_GAME_ID, false);
 #elif UNITY_IOS
-        Advertisement.Initialize(IOS_GAME_ID, true);
+        Advertisement.Initialize(IOS_GAME_ID, false);
 #endif        
     }
 
