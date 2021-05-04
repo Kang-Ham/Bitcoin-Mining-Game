@@ -29,7 +29,7 @@ public class BtcPanel : MonoBehaviour
         
     }
 
-    public async void OnClickBuyButtonEvent()
+    public void OnClickBuyButtonEvent()
     {
         buyInputField = GameObject.Find("BuyInput").GetComponent<InputField>();
         float buyInput;
@@ -59,16 +59,17 @@ public class BtcPanel : MonoBehaviour
                 return;
             }
 
-            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 매수하시겠습니까? (" + buyInputField.text + "BTC = " + string.Format("{0:n0}", moneyForBuy) + "원)", "예", "아니오");
-            var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
-            int clickedButton = await task;
-
-            if (clickedButton == 0)
-            {
-                scriptGameSystem.currentBtc += buyInput;
-                scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - moneyForBuy);
-                buyInputField.text = "";
-            }
+            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 매수하시겠습니까? (" + buyInputField.text + "BTC = " + string.Format("{0:n0}", moneyForBuy) + "원)", "예", "아니오",
+                (clickedButton) =>
+                {
+                    if (clickedButton == 0)
+                    {
+                        scriptGameSystem.currentBtc += buyInput;
+                        scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - moneyForBuy);
+                        buyInputField.text = "";
+                    }
+                }
+                );
         }
         catch
         {
@@ -78,7 +79,7 @@ public class BtcPanel : MonoBehaviour
 
     }
 
-    public async void OnClickBuyAllButtonEvent()
+    public void OnClickBuyAllButtonEvent()
     {
         try
         {
@@ -91,15 +92,16 @@ public class BtcPanel : MonoBehaviour
                 return;
             }
 
-            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 전량 매수하시겠습니까? (" + btcToGet.ToString("0." + new string('#', 8)) + "BTC = " + string.Format("{0:n0}", moneyForBuy) + "원)", "예", "아니오");
-            var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
-            int clickedButton = await task;
-
-            if (clickedButton == 0)
-            {
-                scriptGameSystem.currentBtc += btcToGet;
-                scriptGameSystem.SetCurrentMoney(0);
-            }
+            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 전량 매수하시겠습니까? (" + btcToGet.ToString("0." + new string('#', 8)) + "BTC = " + string.Format("{0:n0}", moneyForBuy) + "원)", "예", "아니오",
+                (clickedButton) =>
+                {
+                    if (clickedButton == 0)
+                    {
+                        scriptGameSystem.currentBtc += btcToGet;
+                        scriptGameSystem.SetCurrentMoney(0);
+                    }
+                }
+                );
         }
         catch
         {
@@ -109,7 +111,7 @@ public class BtcPanel : MonoBehaviour
 
     }
 
-    public async void OnClickSellButtonEvent()
+    public void OnClickSellButtonEvent()
     {
         sellInputField = GameObject.Find("SellInput").GetComponent<InputField>();
         float sellInput;
@@ -139,16 +141,17 @@ public class BtcPanel : MonoBehaviour
                 return;
             }
 
-            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 매도하시겠습니까? (" + sellInputField.text + "BTC = " + string.Format("{0:n0}", moneyToGet)+ "원)", "예", "아니오");
-            var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
-            int clickedButton = await task;
-
-            if (clickedButton == 0)
-            {
-                scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney + moneyToGet);
-                scriptGameSystem.currentBtc -= sellInput;
-                sellInputField.text = "";
-            }
+            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 매도하시겠습니까? (" + sellInputField.text + "BTC = " + string.Format("{0:n0}", moneyToGet)+ "원)", "예", "아니오",
+                (clickedButton) =>
+                {
+                    if (clickedButton == 0)
+                    {
+                        scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney + moneyToGet);
+                        scriptGameSystem.currentBtc -= sellInput;
+                        sellInputField.text = "";
+                    }
+                }
+                );
         }
         catch
         {
@@ -157,7 +160,7 @@ public class BtcPanel : MonoBehaviour
         }
     }
 
-    public async void OnClickSellAllButtonEvent()
+    public void OnClickSellAllButtonEvent()
     {
         try
         {
@@ -170,15 +173,16 @@ public class BtcPanel : MonoBehaviour
                 return;
             }
 
-            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 전량 매도하시겠습니까? (" + btcForBuy.ToString("0." + new string('#', 8)) + "BTC = " + string.Format("{0:n0}", moneyToGet) + "원)", "예", "아니오");
-            var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
-            int clickedButton = await task;
-
-            if (clickedButton == 0)
-            {
-                scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney + moneyToGet);
-                scriptGameSystem.currentBtc = 0;
-            }
+            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 전량 매도하시겠습니까? (" + btcForBuy.ToString("0." + new string('#', 8)) + "BTC = " + string.Format("{0:n0}", moneyToGet) + "원)", "예", "아니오",
+                (clickedButton) =>
+                {
+                    if (clickedButton == 0)
+                    {
+                        scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney + moneyToGet);
+                        scriptGameSystem.currentBtc = 0;
+                    }
+                }
+                );
         }
         catch
         {

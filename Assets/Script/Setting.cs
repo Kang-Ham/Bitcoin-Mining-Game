@@ -32,11 +32,9 @@ public class Setting : MonoBehaviour
 
     }
 
-    async public void OnClickEvent()
+    public void OnClickEvent()
     {
         ShowSetting();
-        var task = Task.Run(() => GetClickedButton());
-        int clickedButton = await task;
     }
 
     public void CloseSetting(int index)

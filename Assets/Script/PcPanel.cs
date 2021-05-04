@@ -25,7 +25,7 @@ public class PcPanel : MonoBehaviour
 
     }
                                     
-    async public void OnClickEvent(int pcType)
+    public void OnClickEvent(int pcType)
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
         if (!scriptMsgbox) scriptMsgbox = GameObject.Find("EventSystem").GetComponent<Msgbox>();
@@ -49,27 +49,28 @@ public class PcPanel : MonoBehaviour
         }
     }
 
-    async public void AskForAddPc()
+    public void AskForAddPc()
     {
         if (!scriptYesOrNoMsgbox) scriptYesOrNoMsgbox = GameObject.Find("EventSystem").GetComponent<YesOrNoMsgbox>();
         if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
 
         int pcType = (int)(scriptGameSystem.currentPcList.Count / 16) + 1;
 
-        scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("해당 PC를 구입하시겠습니까?", "예", "아니오");
-        var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
-        int clickedButton = await task;
+        scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("해당 PC를 구입하시겠습니까?", "예", "아니오",
+            (clickedButton) =>
+            {
+                if (clickedButton == 0)
+                {
+                    scriptTabpanel.SetPcButtonInteractableFalse(false);
 
-        if (clickedButton == 0)                                                                 
-        {
-            scriptTabpanel.SetPcButtonInteractableFalse(false);
+                    MakeNewButton(scriptGameSystem.currentPcList.Count);
 
-            MakeNewButton(scriptGameSystem.currentPcList.Count);
+                    scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - scriptGameSystem.PC_PRICES[pcType - 1]);
 
-            scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - scriptGameSystem.PC_PRICES[pcType - 1]);
-
-            AddNewPc();
-        }
+                    AddNewPc();
+                }
+            }
+            );
     }
     public void MakeNewButton(int pcCount)
     {

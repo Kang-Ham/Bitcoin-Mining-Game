@@ -22,7 +22,7 @@ public class GpuPanel : MonoBehaviour
         
     }
 
-    async public void OnClickEvent(int currentGpuLevel)
+    public void OnClickEvent(int currentGpuLevel)
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
         if (!scriptMsgbox) scriptMsgbox = GameObject.Find("EventSystem").GetComponent<Msgbox>();
@@ -45,23 +45,24 @@ public class GpuPanel : MonoBehaviour
         }
     }
 
-    async public void AskForAddGpu(int currentGpuLevel)
+    public void AskForAddGpu(int currentGpuLevel)
     {
         if (!scriptYesOrNoMsgbox) scriptYesOrNoMsgbox = GameObject.Find("EventSystem").GetComponent<YesOrNoMsgbox>();
         if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
 
-        scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("Gpu를 강화하시겠습니까?", "예", "아니오");
-        var task = Task.Run(() => scriptYesOrNoMsgbox.GetClickedButton());
-        int clickedButton = await task;
+        scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("해당 Gpu를 구입하시겠습니까?", "예", "아니오",
+            (clickedButton) =>
+            {
+                if (clickedButton == 0)
+                {
+                    scriptTabpanel.SetGpuButtonInteractableFalse(false);
 
-        if (clickedButton == 0)
-        {
-            scriptTabpanel.SetGpuButtonInteractableFalse(false);
+                    scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - scriptGameSystem.GPU_PRICES[currentGpuLevel + 1]);
 
-            scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - scriptGameSystem.GPU_PRICES[currentGpuLevel+1]);
-
-            UpgradeCurrentGpu(currentGpuLevel);
-        }
+                    UpgradeCurrentGpu(currentGpuLevel);
+                }
+            }
+            );
     }
 
     public void UpgradeCurrentGpu(int currentGpuLevel)
