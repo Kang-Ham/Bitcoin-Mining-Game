@@ -43,7 +43,7 @@ public class GpuPanel : MonoBehaviour
         }
         else
         {
-            scriptMsgbox.ShowMsgbox("You Can't Do That.", "예");
+            scriptMsgbox.ShowMsgbox("아직 구입할 수 없습니다.", "예");
             var task = Task.Run(() => scriptMsgbox.GetClickedButton());
             int clickedButton = await task;
         }
