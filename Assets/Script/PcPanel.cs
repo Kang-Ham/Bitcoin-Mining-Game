@@ -40,16 +40,12 @@ public class PcPanel : MonoBehaviour
             else
             {
                 scriptMsgbox.ShowMsgbox("현금이 부족합니다.", "예");
-                var task = Task.Run(() => scriptMsgbox.GetClickedButton());
-                int clickedButton = await task;
             }
             
         }
         else
         {
             scriptMsgbox.ShowMsgbox("You Can't Do That.", "예");
-            var task = Task.Run(() => scriptMsgbox.GetClickedButton());
-            int clickedButton = await task;
         }
     }
 

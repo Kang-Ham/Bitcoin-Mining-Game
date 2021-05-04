@@ -36,16 +36,12 @@ public class GpuPanel : MonoBehaviour
             else
             {
                 scriptMsgbox.ShowMsgbox("현금이 부족합니다.", "예");
-                var task = Task.Run(() => scriptMsgbox.GetClickedButton());
-                int clickedButton = await task;
             }
                 
         }
         else
         {
             scriptMsgbox.ShowMsgbox("아직 구입할 수 없습니다.", "예");
-            var task = Task.Run(() => scriptMsgbox.GetClickedButton());
-            int clickedButton = await task;
         }
     }
 

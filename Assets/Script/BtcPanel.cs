@@ -41,7 +41,6 @@ public class BtcPanel : MonoBehaviour
         catch
         {
             scriptMsgbox.ShowMsgbox("입력값이 잘못되었습니다.", "확인");
-            await Task.Run(() => scriptMsgbox.GetClickedButton());
             return;
         }
 
@@ -52,13 +51,11 @@ public class BtcPanel : MonoBehaviour
             if (scriptGameSystem.currentMoney < moneyForBuy)
             {
                 scriptMsgbox.ShowMsgbox("현금이 부족합니다.", "확인");
-                await Task.Run(() => scriptMsgbox.GetClickedButton());
                 return;
             }
             else if (buyInput < 0.00000001)
             {
                 scriptMsgbox.ShowMsgbox("최소 거래단위는 '0.00000001'입니다.", "확인");
-                await Task.Run(() => scriptMsgbox.GetClickedButton());
                 return;
             }
 
@@ -76,7 +73,6 @@ public class BtcPanel : MonoBehaviour
         catch
         {
             scriptMsgbox.ShowMsgbox("범위를 초과하였습니다.", "확인");
-            await Task.Run(() => scriptMsgbox.GetClickedButton());
             return;
         }
 
@@ -92,7 +88,6 @@ public class BtcPanel : MonoBehaviour
             if (btcToGet < 0.00000001)
             {
                 scriptMsgbox.ShowMsgbox("최소 거래단위는 '0.00000001'입니다.", "확인");
-                await Task.Run(() => scriptMsgbox.GetClickedButton());
                 return;
             }
 
@@ -109,7 +104,6 @@ public class BtcPanel : MonoBehaviour
         catch
         {
             scriptMsgbox.ShowMsgbox("범위를 초과하였습니다.", "확인");
-            await Task.Run(() => scriptMsgbox.GetClickedButton());
             return;
         }
 
@@ -127,7 +121,6 @@ public class BtcPanel : MonoBehaviour
         catch
         {
             scriptMsgbox.ShowMsgbox("입력값이 잘못되었습니다.", "확인");
-            await Task.Run(() => scriptMsgbox.GetClickedButton());
             return;
         }
 
@@ -138,13 +131,11 @@ public class BtcPanel : MonoBehaviour
             if (scriptGameSystem.currentBtc < sellInput)
             {
                 scriptMsgbox.ShowMsgbox("비트코인이 부족합니다.", "확인");
-                await Task.Run(() => scriptMsgbox.GetClickedButton());
                 return;
             }
             else if (sellInput < 0.00000001)
             {
                 scriptMsgbox.ShowMsgbox("최소 거래단위는 '0.00000001'입니다.", "확인");
-                await Task.Run(() => scriptMsgbox.GetClickedButton());
                 return;
             }
 
@@ -162,7 +153,6 @@ public class BtcPanel : MonoBehaviour
         catch
         {
             scriptMsgbox.ShowMsgbox("범위를 초과하였습니다.", "확인");
-            await Task.Run(() => scriptMsgbox.GetClickedButton());
             return;
         }
     }
@@ -177,7 +167,6 @@ public class BtcPanel : MonoBehaviour
             if (btcForBuy < 0.00000001)
             {
                 scriptMsgbox.ShowMsgbox("최소 거래단위는 '0.00000001'입니다.", "확인");
-                await Task.Run(() => scriptMsgbox.GetClickedButton());
                 return;
             }
 
@@ -194,7 +183,6 @@ public class BtcPanel : MonoBehaviour
         catch
         {
             scriptMsgbox.ShowMsgbox("범위를 초과하였습니다.", "확인");
-            await Task.Run(() => scriptMsgbox.GetClickedButton());
             return;
         }
     }
