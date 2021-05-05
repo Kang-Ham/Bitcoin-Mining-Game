@@ -97,7 +97,7 @@ public class Setting : MonoBehaviour
         {
             scriptGameSystem.currentBgmVolume = 0;
         }
-        bgmVolume.volume = 0.03f * Convert.ToSingle(scriptGameSystem.currentBgmVolume);
+        bgmVolume.volume = 0.02f * Convert.ToSingle(scriptGameSystem.currentBgmVolume);
         imageBgmVolume.sprite = soundSprites[scriptGameSystem.currentBgmVolume];
     }
 
