@@ -5,6 +5,7 @@ using UnityEngine;
 using System.IO;
 using System.Security.Cryptography;
 using LitJson;
+using UnityEngine.UI;
 
 public class SystemInfo
 {
@@ -41,6 +42,10 @@ public class Json : MonoBehaviour
     private Setting scriptSetting;
 
     public SystemInfo systemInfo;
+
+    GameObject loadedBtcPanel;
+    public Image loadedBtcBackgroundImageImage;
+    public Text loadedBtcTextText;
 
 
     private string GetEncryptedString(string data)
@@ -127,16 +132,21 @@ public class Json : MonoBehaviour
             DateTime recentlyTerminatedAt = Convert.ToDateTime(jsonSystemInfo["recentlyTerminatedAt"].ToString());
             TimeSpan timeDifference = DateTime.Now - recentlyTerminatedAt;
 
-            if(timeDifference > new TimeSpan(scriptGameSystem.MAX_BTC_STORING_HOUR, 0, 0)) //최대 3시간까지만 저장
+            if (timeDifference > new TimeSpan(scriptGameSystem.MAX_BTC_STORING_HOUR, 0, 0)) //최대 3시간까지만 저장
             {
                 timeDifference = new TimeSpan(scriptGameSystem.MAX_BTC_STORING_HOUR, 0, 0);
             }
 
+            float btcToGet = 0f;
             for (int i = 0; i < Convert.ToInt16(jsonSystemInfo["pcCount"].ToString()); i++)
             {
                 Pc scriptNewPcPanel = scriptPcPanel.AddNewPc();
-                scriptGameSystem.currentBtc += (timeDifference.Seconds + timeDifference.Minutes*60 + timeDifference.Hours*3600) * scriptNewPcPanel.btcPerSecond * scriptGameSystem.GPU_RATES[scriptGameSystem.currentGpuLevel];
+                btcToGet = (timeDifference.Seconds + timeDifference.Minutes * 60 + timeDifference.Hours * 3600) * scriptNewPcPanel.btcPerSecond * scriptGameSystem.GPU_RATES[scriptGameSystem.currentGpuLevel];
+                scriptGameSystem.currentBtc += btcToGet;
             }
+
+            //부재하는 동안 얼마 벌었는지 알려주는 메시지 표시
+            ShowLoadedBtcPanel(btcToGet);
 
             //소리 세팅에 따라서 설정
             scriptSetting.SetSoundAfterJsonLoad();
@@ -145,5 +155,35 @@ public class Json : MonoBehaviour
         {
             Save();
         } 
+    }
+
+    private void ShowLoadedBtcPanel(float btcToGet)
+    {
+        loadedBtcPanel = GameObject.Find("PopupPanels").transform.Find("LoadedBtcPanel").gameObject;
+        Text loadedBtcPanelText = loadedBtcPanel.transform.Find("LoadedBtcText").GetComponent<Text>();
+
+        loadedBtcPanel.SetActive(true);
+        loadedBtcPanelText.text = "그동안 " + btcToGet.ToString("0." + new string('#', 8)) + "BTC를 채굴하였습니다!";
+
+        loadedBtcBackgroundImageImage = loadedBtcPanel.transform.Find("LoadedBtcBackgroundImage").GetComponent<Image>();
+        loadedBtcTextText = loadedBtcPanelText.GetComponent<Text>();
+
+        StartCoroutine(SetLoadedBtcPanelFadeOut(3f, 1f));
+    }
+
+    IEnumerator SetLoadedBtcPanelFadeOut(float delay, float duration)
+    {
+        yield return new WaitForSeconds(delay);
+
+        Color curColor = loadedBtcBackgroundImageImage.color;
+        while (curColor.a > 0f) {
+            curColor.a -= Time.deltaTime / duration;
+            loadedBtcBackgroundImageImage.color = curColor;
+            loadedBtcTextText.color = curColor;
+
+            yield return null;
+        }
+
+        loadedBtcPanel.SetActive(false);
     }
 }
