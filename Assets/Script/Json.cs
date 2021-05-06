@@ -127,9 +127,9 @@ public class Json : MonoBehaviour
             DateTime recentlyTerminatedAt = Convert.ToDateTime(jsonSystemInfo["recentlyTerminatedAt"].ToString());
             TimeSpan timeDifference = DateTime.Now - recentlyTerminatedAt;
 
-            if(timeDifference > new TimeSpan(3, 0, 0)) //최대 3시간까지만 저장
+            if(timeDifference > new TimeSpan(scriptGameSystem.MAX_BTC_STORING_HOUR, 0, 0)) //최대 3시간까지만 저장
             {
-                timeDifference = new TimeSpan(3, 0, 0);
+                timeDifference = new TimeSpan(scriptGameSystem.MAX_BTC_STORING_HOUR, 0, 0);
             }
 
             for (int i = 0; i < Convert.ToInt16(jsonSystemInfo["pcCount"].ToString()); i++)

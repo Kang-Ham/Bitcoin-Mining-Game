@@ -14,13 +14,15 @@ public class GameSystem : MonoBehaviour
     public Vector3 START_SCENE_POS;
     public float SCENE_DISTANCE_BETWEEN_TABLE;
     public float SCENE_DISTANCE_BETWEEN_PC;
+
     public float VALUE_TIME_SLICE_BTC; //1=> 1초에 1번씩 비트코인 갱신
     public float VALUE_TIME_SLICE_SAVE; //1=> 1초에 1번씩 비트코인 갱신
     public float VALUE_TIME_SLICE_CRAWLING; //60=> 1분에 1번씩 비트코인 크롤링
     public int BIFURCATION_OF_OVERCLOCK;
     public float BTC_AT_FIRST_TOUCH;
     public float COEFFICIENT_OF_OVERCLOCK;
-    public int MAX_GPU_LEVEL;
+
+    public int MAX_BTC_STORING_HOUR; //3 => 게임 껐을 때 최대 3시간 분량의 BTC 저장 가능
 
     public string[] PC_NAMES;
     public float[] PC_BTC_PER_SECOND;
