@@ -15,7 +15,7 @@ public class OverclockPanel : MonoBehaviour
     public GameObject itemBtc;
     public Vector3 mousePosition;
     public AudioSource audioPlayer;
-    public AudioClip cointSoundEffect;
+    public AudioClip coinSoundEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -49,7 +49,7 @@ public class OverclockPanel : MonoBehaviour
         Destroy(instantObject.gameObject, 1.5f);
 
         //소리 재생
-        audioPlayer.PlayOneShot(cointSoundEffect);
+        audioPlayer.PlayOneShot(coinSoundEffect);
         audioPlayer.volume = 0.2f * Convert.ToSingle(scriptGameSystem.currentSoundEffectVolume);
     }
 
