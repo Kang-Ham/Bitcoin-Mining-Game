@@ -18,6 +18,7 @@ public class SystemInfo
     public int currentBgmVolume;
     public int currentSoundEffectVolume;
     public Boolean currentNotificationStatus;
+    public GameObject itemBtc;
 
     public SystemInfo(double _currentBtc, UInt64 _currentMoney, int _pcCount, int _currentGpuLevel, DateTime _recentlyTerminatedAt, double _currentOverclockLevel, int _currentBgmVolume, int _currentSoundEffectVolume, Boolean _currentNotificationStatus)
     {
@@ -159,6 +160,8 @@ public class Json : MonoBehaviour
 
     private void ShowLoadedBtcPanel(float btcToGet)
     {
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+
         loadedBtcPanel = GameObject.Find("PopupPanels").transform.Find("LoadedBtcPanel").gameObject;
         Text loadedBtcPanelText = loadedBtcPanel.transform.Find("LoadedBtcText").GetComponent<Text>();
 
