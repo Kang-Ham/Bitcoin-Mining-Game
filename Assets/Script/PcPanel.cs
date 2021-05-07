@@ -111,7 +111,7 @@ public class PcPanel : MonoBehaviour
         Pc scriptnewPc = newPc.GetComponent<Pc>();
 
         //Set Params
-        scriptnewPc.spriteName = "pc" + pcType.ToString();
+        scriptnewPc.spriteType = pcType;
         scriptnewPc.pos = nextPcPos;
         scriptnewPc.btcPerSecond = scriptGameSystem.PC_BTC_PER_SECOND[pcType - 1];
 
