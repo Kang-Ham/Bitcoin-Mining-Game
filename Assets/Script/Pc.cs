@@ -7,7 +7,7 @@ public class Pc : MonoBehaviour
     private GameSystem scriptGameSystem;
     private SpriteRenderer spriteR;
 
-    public string spriteName; //"pc1" 
+    public int spriteType; //1 
     public List<int> pos = null;
 
     public float btcPerSecond;
@@ -18,7 +18,7 @@ public class Pc : MonoBehaviour
         scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
         spriteR = gameObject.GetComponent<SpriteRenderer>();
 
-        SetSprite(spriteName);
+        SetSprite(spriteType);
         SetPos();
 
         scriptGameSystem.gameBtcPerSecond += btcPerSecond;
@@ -30,9 +30,11 @@ public class Pc : MonoBehaviour
         
     }
 
-    public void SetSprite(string spriteName)
+    public void SetSprite(int spriteType)
     {
-        spriteR.sprite = Resources.Load<Sprite>("Sprite/" + spriteName);
+        //TODO: PC234 구분해서 적용
+        Animator animator = gameObject.GetComponent<Animator>();
+        animator.runtimeAnimatorController = Resources.Load("Animation/Pc"+ spriteType.ToString() + "AnimatorController") as RuntimeAnimatorController;
     }
 
     private void SetPos()
