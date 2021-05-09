@@ -182,11 +182,11 @@ public class Json : MonoBehaviour
             instantObject.transform.SetParent(GameObject.Find("ClickerButton").transform);
 
             Rigidbody2D itemRigid = instantObject.GetComponent<Rigidbody2D>();
-            X_VELOCITY = Random.Range(-45.0f, 45.0f);
+            X_VELOCITY = Random.Range(-30.0f, 30.0f);
             Y_VELOCITY = Random.Range(110.0f, 170.0f);
             Vector2 velocityVector = new Vector2(X_VELOCITY, Y_VELOCITY);
             itemRigid.AddForce(velocityVector, ForceMode2D.Impulse);
-            Destroy(instantObject.gameObject, 2.5f);
+            Destroy(instantObject.gameObject, 5.0f);
         }
 
     }
