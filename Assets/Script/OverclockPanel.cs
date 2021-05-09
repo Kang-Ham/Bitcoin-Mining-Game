@@ -15,7 +15,7 @@ public class OverclockPanel : MonoBehaviour
     public GameObject itemBtc;
     public Vector3 mousePosition;
     public AudioSource audioPlayer;
-    public AudioClip cointSoundEffect;
+    public AudioClip coinSoundEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -42,14 +42,14 @@ public class OverclockPanel : MonoBehaviour
         instantObject.transform.SetParent(GameObject.Find("ClickerButton").transform);
 
         Rigidbody2D itemRigid = instantObject.GetComponent<Rigidbody2D>();
-        X_VELOCITY = Random.Range(-5.0f, 5.0f);
-        Y_VELOCITY = Random.Range(120.0f, 160.0f);
+        X_VELOCITY = Random.Range(-7.0f, 7.0f);
+        Y_VELOCITY = Random.Range(80.0f, 110.0f);
         Vector2 velocityVector = new Vector2(X_VELOCITY, Y_VELOCITY);
         itemRigid.AddForce(velocityVector, ForceMode2D.Impulse);
         Destroy(instantObject.gameObject, 1.5f);
 
         //소리 재생
-        audioPlayer.PlayOneShot(cointSoundEffect);
+        audioPlayer.PlayOneShot(coinSoundEffect);
         audioPlayer.volume = 0.2f * Convert.ToSingle(scriptGameSystem.currentSoundEffectVolume);
     }
 

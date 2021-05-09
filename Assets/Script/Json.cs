@@ -6,6 +6,7 @@ using System.IO;
 using System.Security.Cryptography;
 using LitJson;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class SystemInfo
 {
@@ -40,12 +41,15 @@ public class Json : MonoBehaviour
     private GameSystem scriptGameSystem;
     private PcPanel scriptPcPanel;
     private Setting scriptSetting;
+    private float X_VELOCITY;
+    private float Y_VELOCITY;
 
     public SystemInfo systemInfo;
 
     GameObject loadedBtcPanel;
     public Image loadedBtcBackgroundImageImage;
     public Text loadedBtcTextText;
+    public GameObject itemBtc;
 
 
     private string GetEncryptedString(string data)
@@ -159,6 +163,8 @@ public class Json : MonoBehaviour
 
     private void ShowLoadedBtcPanel(float btcToGet)
     {
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+
         loadedBtcPanel = GameObject.Find("PopupPanels").transform.Find("LoadedBtcPanel").gameObject;
         Text loadedBtcPanelText = loadedBtcPanel.transform.Find("LoadedBtcText").GetComponent<Text>();
 
@@ -169,6 +175,20 @@ public class Json : MonoBehaviour
         loadedBtcTextText = loadedBtcPanelText.GetComponent<Text>();
 
         StartCoroutine(SetLoadedBtcPanelFadeOut(3f, 1f));
+
+        for (int i = 1; i < 80; i++)
+        {
+            GameObject instantObject = Instantiate(itemBtc, new Vector2(125, 230), transform.rotation) as GameObject;
+            instantObject.transform.SetParent(GameObject.Find("ClickerButton").transform);
+
+            Rigidbody2D itemRigid = instantObject.GetComponent<Rigidbody2D>();
+            X_VELOCITY = Random.Range(-45.0f, 45.0f);
+            Y_VELOCITY = Random.Range(110.0f, 170.0f);
+            Vector2 velocityVector = new Vector2(X_VELOCITY, Y_VELOCITY);
+            itemRigid.AddForce(velocityVector, ForceMode2D.Impulse);
+            Destroy(instantObject.gameObject, 2.5f);
+        }
+
     }
 
     IEnumerator SetLoadedBtcPanelFadeOut(float delay, float duration)

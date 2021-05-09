@@ -884,7 +884,7 @@ PrefabInstance:
         type: 3}
       propertyPath: coinSoundEffect
       value: 
-      objectReference: {fileID: 2091230374}
+      objectReference: {fileID: 8300000, guid: 4c3cd8adf1c44ef408552dfa7bd98787, type: 3}
     - target: {fileID: 3619051498725239298, guid: 92e2b98d4d90fa6428f01b0efccca427,
         type: 3}
       propertyPath: cointSoundEffect
@@ -9603,6 +9603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   loadedBtcBackgroundImageImage: {fileID: 0}
   loadedBtcTextText: {fileID: 0}
+  itemBtc: {fileID: 4847284365122644535, guid: ab47b80c9b927bd46bed0396d2cd355e, type: 3}
 --- !u!4 &1169596765
 Transform:
   m_ObjectHideFlags: 0
