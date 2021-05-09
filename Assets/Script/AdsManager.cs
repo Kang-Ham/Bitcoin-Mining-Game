@@ -7,36 +7,28 @@ public class AdsManager : MonoBehaviour
 {
     private const string ANDROID_GAME_ID = "4105315";
     private const string IOS_GAME_ID = "4105314";
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    private string placementId = "BannerBMG";
+    private bool testMode = true;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    private void Awake()
+    private void Start()
     {
 #if UNITY_ANDROID
-        Advertisement.Initialize(ANDROID_GAME_ID, false);
+         Advertisement.Initialize(ANDROID_GAME_ID, testMode);
+         StartCoroutine(ShowBannerWhenReady());
 #elif UNITY_IOS
-        Advertisement.Initialize(IOS_GAME_ID, false);
-#endif        
+        Advertisement.Initialize(IOS_GAME_ID, testMode);
+        StartCoroutine(ShowBannerWhenReady());
+#endif
     }
 
-    public void ShowAds()
+    IEnumerator ShowBannerWhenReady()
     {
-        if (Advertisement.IsReady())
+        while (!Advertisement.IsReady(placementId))
         {
-            Advertisement.Show("video");
+            yield return new WaitForSeconds(0.5f);
         }
-        else
-        {
-            Debug.Log("Advertisement.IsReady() returned False");
-        }
+        Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
+        Advertisement.Banner.Show(placementId);
     }
 }
