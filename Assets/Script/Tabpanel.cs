@@ -13,6 +13,7 @@ public class Tabpanel : MonoBehaviour
     private PcPanel scriptPcPanel;
     private GameSystem scriptGameSystem;
     private BtcPanel scriptBtcPanel;
+    private OverclockPanel scriptOverclockPanel;
 
     private int isOverclockClicked = 0;
     private int isComputerClicked = 0;
@@ -173,20 +174,15 @@ public class Tabpanel : MonoBehaviour
     public void LoadOverclockInformation()
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+        if (!scriptOverclockPanel) scriptOverclockPanel = GameObject.Find("EventSystem").GetComponent<OverclockPanel>();
 
         Text overclockLevelText = GameObject.Find("OverclockLevelText").GetComponent<Text>();
         Text overclockBtcText = GameObject.Find("OverclockBtcText").GetComponent<Text>();
         Text overclockPriceText = GameObject.Find("OverclockPriceText").GetComponent<Text>();
 
         overclockLevelText.text = "현재 오버클럭 "+scriptGameSystem.currentOverclockLevel.ToString()+"레벨";
-        overclockBtcText.text = "터치당 "+(scriptGameSystem.BTC_AT_FIRST_TOUCH * (Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1) * scriptGameSystem.currentOverclockLevel / 75 + (20 * scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 / 21)).ToString("0." + new string('#', 8)) + "BTC";
-        if (scriptGameSystem.currentOverclockLevel < scriptGameSystem.BIFURCATION_OF_OVERCLOCK+1)
-        {
-            overclockPriceText.text = Convert.ToUInt64(scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1)).ToString()+"원";
-        }
-        else
-        {
-            overclockPriceText.text = Convert.ToUInt64(scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1) + scriptGameSystem.BTC_AT_FIRST_TOUCH * 10 * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(scriptGameSystem.currentOverclockLevel / scriptGameSystem.BIFURCATION_OF_OVERCLOCK))).ToString() + "원";
-        }  
+        overclockBtcText.text = "터치당 "+ scriptOverclockPanel.currentOverclockPerTouch.ToString("0." + new string('#', 8)) + "BTC";
+        overclockPriceText.text = scriptOverclockPanel.currentOverclockPrice.ToString()+"원";
+
     }
 }
