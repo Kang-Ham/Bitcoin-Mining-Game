@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "625564498970",
+    "project_id": "bitcoin-mining-game-b3040",
+    "storage_bucket": "bitcoin-mining-game-b3040.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:625564498970:android:3ee316223790e4470825a3",
+        "android_client_info": {
+          "package_name": "com.KangHam.BitcoinMiningGame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "625564498970-0l8omon270glq53k41ljm6vapceuoj8i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.KangHam.BitcoinMiningGame",
+            "certificate_hash": "4e343c5bd9f556b73ffece35744285ae12c70fb1"
+          }
+        },
+        {
+          "client_id": "625564498970-lqfd7v7va5pd5e0gda2u1r8mg1qskjul.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.KangHam.BitcoinMiningGame",
+            "certificate_hash": "dacb374299f5f044d951e58c1af264dc1b4a3d3b"
+          }
+        },
+        {
+          "client_id": "625564498970-0kmdcos6otppoiaehfu7offnq5qc567l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1zW8acWDAMjjdYDNwE3gW5cmQtWcxCfI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "625564498970-0kmdcos6otppoiaehfu7offnq5qc567l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

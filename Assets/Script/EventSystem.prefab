@@ -20,6 +20,7 @@ GameObject:
   - component: {fileID: 3619051498725239298}
   - component: {fileID: -29193370783994206}
   - component: {fileID: -3087614172039043160}
+  - component: {fileID: -1974540449123585124}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -179,7 +180,7 @@ MonoBehaviour:
   itemBtc: {fileID: 4847284365122644535, guid: ab47b80c9b927bd46bed0396d2cd355e, type: 3}
   mousePosition: {x: 0, y: 0, z: 0}
   audioPlayer: {fileID: 0}
-  cointSoundEffect: {fileID: 8300000, guid: 4c3cd8adf1c44ef408552dfa7bd98787, type: 3}
+  coinSoundEffect: {fileID: 0}
 --- !u!114 &-29193370783994206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,3 +205,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe152c15eed273e459256bb8bca3ee51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-1974540449123585124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277198297499427128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1772f7c6e624ba1429943c96bdf104f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  authCode: 

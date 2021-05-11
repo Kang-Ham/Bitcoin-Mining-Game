@@ -13,6 +13,7 @@ public class PcPanel : MonoBehaviour
     private Tabpanel scriptTabpanel;
     private YesOrNoMsgbox scriptYesOrNoMsgbox;
     private Msgbox scriptMsgbox;
+    private GooglePlayManager scriptGooglePlaymanager;
 
     // Start is called before the first frame update
     void Start()
@@ -103,6 +104,9 @@ public class PcPanel : MonoBehaviour
     public Pc AddNewPc()
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+        if (!scriptGooglePlaymanager) scriptGooglePlaymanager = GameObject.Find("EventSystem").GetComponent<GooglePlayManager>();
+
+
         int pcType = (int)(scriptGameSystem.currentPcList.Count / 16) + 1;
 
         List<int> nextPcPos = GetPcPos(scriptGameSystem.currentPcList.Count + 1);
@@ -116,6 +120,10 @@ public class PcPanel : MonoBehaviour
         scriptnewPc.btcPerSecond = scriptGameSystem.PC_BTC_PER_SECOND[pcType - 1];
 
         scriptGameSystem.currentPcList.Add(scriptnewPc);
+
+        //Pc 추가 후 업적 갱신
+        scriptGooglePlaymanager.SetPcAchievement();
+
         return scriptnewPc;
     }
 
