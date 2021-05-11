@@ -77,7 +77,7 @@ public class GooglePlayManager : MonoBehaviour
         auth.SignOut();
     }
 
-    //업적
+
     public void SetPcAchievement()
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
@@ -91,5 +91,15 @@ public class GooglePlayManager : MonoBehaviour
         {
             Social.ReportProgress(GPGSIds.achievementPc1, 100f, null);
         }
+    }
+
+    public void OpenStoreLink()
+    {
+        //TODO: iOS 개발 시 앱스토어로 링크
+        Application.OpenURL("market://details?id=com.KangHam.BitcoinMiningGame");
+
+#if UNITY_ANDROID
+        Application.OpenURL("market://details?id=com.KangHam.BitcoinMiningGame");
+#endif
     }
 }
