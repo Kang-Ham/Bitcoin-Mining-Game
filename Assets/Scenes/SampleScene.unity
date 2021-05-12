@@ -370,6 +370,8 @@ MonoBehaviour:
   gameBtcPerSecond: 0
   selectedMenu: 0
   currentBtcPrice: 0
+  currentOverclockPrice: 0
+  currentOverclockPerTouch: 0
 --- !u!4 &57641490
 Transform:
   m_ObjectHideFlags: 0
@@ -3844,7 +3846,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
