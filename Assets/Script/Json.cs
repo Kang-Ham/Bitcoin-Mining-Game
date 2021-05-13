@@ -41,6 +41,8 @@ public class Json : MonoBehaviour
     private GameSystem scriptGameSystem;
     private PcPanel scriptPcPanel;
     private Setting scriptSetting;
+    private GooglePlayManager scriptGooglePlayManager;
+
     private float X_VELOCITY;
     private float Y_VELOCITY;
 
@@ -50,6 +52,8 @@ public class Json : MonoBehaviour
     public Image loadedBtcBackgroundImageImage;
     public Text loadedBtcTextText;
     public GameObject itemBtc;
+
+    public bool isDataLoaded = false;
 
 
     private string GetEncryptedString(string data)
@@ -87,10 +91,15 @@ public class Json : MonoBehaviour
     public void Save()
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+        if (!scriptGooglePlayManager) scriptGooglePlayManager = GameObject.Find("EventSystem").GetComponent<GooglePlayManager>();
 
         systemInfo = new SystemInfo(Convert.ToDouble(scriptGameSystem.currentBtc), scriptGameSystem.currentMoney, scriptGameSystem.currentPcList.Count, scriptGameSystem.currentGpuLevel, DateTime.Now, Convert.ToDouble(scriptGameSystem.currentOverclockLevel), scriptGameSystem.currentBgmVolume, scriptGameSystem.currentSoundEffectVolume, scriptGameSystem.currentNotificationStatus);
         JsonData jsonSystemInfo = JsonMapper.ToJson(systemInfo);
-        string encryptedData = GetEncryptedString(jsonSystemInfo.ToString());
+        string data = jsonSystemInfo.ToString();
+
+        scriptGooglePlayManager.SaveToCloud(data);
+
+        string encryptedData = GetEncryptedString(data);
 
         if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.WindowsEditor)
         {
@@ -122,43 +131,51 @@ public class Json : MonoBehaviour
                 Debug.Log("Window, Android 외의 플랫폼에서 지원하지 않습니다.");
 
             }
-            JsonData jsonSystemInfo = JsonMapper.ToObject(decryptedData);
-
-            scriptGameSystem.currentMoney = Convert.ToUInt64(jsonSystemInfo["currentMoney"].ToString());
-            scriptGameSystem.currentBtc = Convert.ToSingle(jsonSystemInfo["currentBtc"].ToString());
-            scriptGameSystem.currentGpuLevel = Convert.ToInt16(jsonSystemInfo["currentGpuLevel"].ToString());
-            scriptGameSystem.currentOverclockLevel = Convert.ToSingle(jsonSystemInfo["currentOverclockLevel"].ToString());
-            scriptGameSystem.currentBgmVolume = Convert.ToInt16(jsonSystemInfo["currentBgmVolume"].ToString());
-            scriptGameSystem.currentSoundEffectVolume = Convert.ToInt16(jsonSystemInfo["currentSoundEffectVolume"].ToString());
-            scriptGameSystem.currentNotificationStatus = Convert.ToBoolean(jsonSystemInfo["currentNotificationStatus"].ToString());
-
-            //PC Load & 시간에 따라 Btc 추가
-            DateTime recentlyTerminatedAt = Convert.ToDateTime(jsonSystemInfo["recentlyTerminatedAt"].ToString());
-            TimeSpan timeDifference = DateTime.Now - recentlyTerminatedAt;
-
-            if (timeDifference > new TimeSpan(scriptGameSystem.MAX_BTC_STORING_HOUR, 0, 0)) //최대 3시간까지만 저장
-            {
-                timeDifference = new TimeSpan(scriptGameSystem.MAX_BTC_STORING_HOUR, 0, 0);
-            }
-
-            float btcToGet = 0f;
-            for (int i = 0; i < Convert.ToInt16(jsonSystemInfo["pcCount"].ToString()); i++)
-            {
-                Pc scriptNewPcPanel = scriptPcPanel.AddNewPc();
-                btcToGet = (timeDifference.Seconds + timeDifference.Minutes * 60 + timeDifference.Hours * 3600) * scriptNewPcPanel.btcPerSecond * scriptGameSystem.GPU_RATES[scriptGameSystem.currentGpuLevel];
-                scriptGameSystem.currentBtc += btcToGet;
-            }
-
-            //부재하는 동안 얼마 벌었는지 알려주는 메시지 표시
-            ShowLoadedBtcPanel(btcToGet);
-
-            //소리 세팅에 따라서 설정
-            scriptSetting.SetSoundAfterJsonLoad();
+            OnDataLoad(decryptedData);
         }
         catch //파일이 없을 경우 또는 데이터가 잘못된 경우
         {
             Save();
         } 
+    }
+
+    public void OnDataLoad(string data)
+    {
+        if (isDataLoaded) return;
+
+        isDataLoaded = true;
+        JsonData jsonSystemInfo = JsonMapper.ToObject(data);
+
+        scriptGameSystem.currentMoney = Convert.ToUInt64(jsonSystemInfo["currentMoney"].ToString());
+        scriptGameSystem.currentBtc = Convert.ToSingle(jsonSystemInfo["currentBtc"].ToString());
+        scriptGameSystem.currentGpuLevel = Convert.ToInt16(jsonSystemInfo["currentGpuLevel"].ToString());
+        scriptGameSystem.currentOverclockLevel = Convert.ToSingle(jsonSystemInfo["currentOverclockLevel"].ToString());
+        scriptGameSystem.currentBgmVolume = Convert.ToInt16(jsonSystemInfo["currentBgmVolume"].ToString());
+        scriptGameSystem.currentSoundEffectVolume = Convert.ToInt16(jsonSystemInfo["currentSoundEffectVolume"].ToString());
+        scriptGameSystem.currentNotificationStatus = Convert.ToBoolean(jsonSystemInfo["currentNotificationStatus"].ToString());
+
+        //PC Load & 시간에 따라 Btc 추가
+        DateTime recentlyTerminatedAt = Convert.ToDateTime(jsonSystemInfo["recentlyTerminatedAt"].ToString());
+        TimeSpan timeDifference = DateTime.Now - recentlyTerminatedAt;
+
+        if (timeDifference > new TimeSpan(scriptGameSystem.MAX_BTC_STORING_HOUR, 0, 0)) //최대 3시간까지만 저장
+        {
+            timeDifference = new TimeSpan(scriptGameSystem.MAX_BTC_STORING_HOUR, 0, 0);
+        }
+
+        float btcToGet = 0f;
+        for (int i = 0; i < Convert.ToInt16(jsonSystemInfo["pcCount"].ToString()); i++)
+        {
+            Pc scriptNewPcPanel = scriptPcPanel.AddNewPc();
+            btcToGet = (timeDifference.Seconds + timeDifference.Minutes * 60 + timeDifference.Hours * 3600) * scriptNewPcPanel.btcPerSecond * scriptGameSystem.GPU_RATES[scriptGameSystem.currentGpuLevel];
+            scriptGameSystem.currentBtc += btcToGet;
+        }
+
+        //부재하는 동안 얼마 벌었는지 알려주는 메시지 표시
+        ShowLoadedBtcPanel(btcToGet);
+
+        //소리 세팅에 따라서 설정
+        scriptSetting.SetSoundAfterJsonLoad();
     }
 
     private void ShowLoadedBtcPanel(float btcToGet)
