@@ -164,7 +164,7 @@ public class BtcPanel : MonoBehaviour
     {
         try
         {
-            double btcForBuy = scriptGameSystem.currentBtc;
+            float btcForBuy = scriptGameSystem.currentBtc;
             UInt64 moneyToGet = Convert.ToUInt64(scriptGameSystem.currentBtcPrice* btcForBuy);
 
             if (btcForBuy < 0.00000001)

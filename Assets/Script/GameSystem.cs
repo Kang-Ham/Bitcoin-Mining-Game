@@ -7,23 +7,22 @@ using UnityEngine.UI;
 
 public class GameSystem : MonoBehaviour
 {
-    //Warning: Unity - SampleScene - system - Inspector - System ì—ì„œ ì´ˆê¸°í™” í•´ì¤˜ì•¼í•¨
+    //Warning: Unity - SampleScene - system - Inspector - System ¿¡¼­ ÃÊ±âÈ­ ÇØÁà¾ßÇÔ
     public int NUMBER_OF_PC_AT_EACH_TABLE;
-    public int LENGTH_OF_TABLE; //í…Œì´ë¸” 4*4    
-    public int NUMBER_OF_MENU; //ë©”ë‰´ë²„íŠ¼ ê°¯ìˆ˜
+    public int LENGTH_OF_TABLE; //Å×ÀÌºí 4*4    
+    public int NUMBER_OF_MENU; //¸Ş´º¹öÆ° °¹¼ö
     public Vector3 START_SCENE_POS;
     public float SCENE_DISTANCE_BETWEEN_TABLE;
     public float SCENE_DISTANCE_BETWEEN_PC;
 
-    public float VALUE_TIME_SLICE_BTC; //1=> 1ì´ˆì— 1ë²ˆì”© ë¹„íŠ¸ì½”ì¸ ê°±ì‹ 
-    public float VALUE_TIME_SLICE_SAVE; //1=> 1ì´ˆì— 1ë²ˆì”© ë¹„íŠ¸ì½”ì¸ ê°±ì‹ 
-    public float VALUE_TIME_SLICE_CRAWLING; //60=> 1ë¶„ì— 1ë²ˆì”© ë¹„íŠ¸ì½”ì¸ í¬ë¡¤ë§
+    public float VALUE_TIME_SLICE_BTC; //1=> 1ÃÊ¿¡ 1¹ø¾¿ ºñÆ®ÄÚÀÎ °»½Å
+    public float VALUE_TIME_SLICE_SAVE; //1=> 1ÃÊ¿¡ 1¹ø¾¿ ºñÆ®ÄÚÀÎ °»½Å
+    public float VALUE_TIME_SLICE_CRAWLING; //60=> 1ºĞ¿¡ 1¹ø¾¿ ºñÆ®ÄÚÀÎ Å©·Ñ¸µ
     public int BIFURCATION_OF_OVERCLOCK;
     public float BTC_AT_FIRST_TOUCH;
     public float COEFFICIENT_OF_OVERCLOCK;
-    public float OVERCLOCK_DIFFICULTY;
 
-    public int MAX_BTC_STORING_HOUR; //3 => ê²Œì„ ê»ì„ ë•Œ ìµœëŒ€ 3ì‹œê°„ ë¶„ëŸ‰ì˜ BTC ì €ì¥ ê°€ëŠ¥
+    public int MAX_BTC_STORING_HOUR; //3 => °ÔÀÓ ²°À» ¶§ ÃÖ´ë 3½Ã°£ ºĞ·®ÀÇ BTC ÀúÀå °¡´É
 
     public string[] PC_NAMES;
     public float[] PC_BTC_PER_SECOND;
@@ -32,8 +31,8 @@ public class GameSystem : MonoBehaviour
     public float[] GPU_RATES;
     public UInt64[] GPU_PRICES;
 
-    //Game Loadí•  ë•Œ ë¶ˆëŸ¬ì˜¤ê¸°
-    public double currentBtc;
+    //Game LoadÇÒ ¶§ ºÒ·¯¿À±â
+    public float currentBtc;
     public UInt64 currentMoney;
     public List<Pc> currentPcList;
     public int currentGpuLevel;
@@ -42,19 +41,16 @@ public class GameSystem : MonoBehaviour
     public int currentSoundEffectVolume;
     public Boolean currentNotificationStatus;
 
-    //ë¶ˆëŸ¬ì˜¤ê¸° ì•Šì•„ë„ ë¨        
+    //ºÒ·¯¿À±â ¾Ê¾Æµµ µÊ        
     public float gameBtcPerSecond;
     public int selectedMenu;
     public int currentBtcPrice;
-    public UInt64 currentOverclockPrice;
-    public double currentOverclockPerTouch;
 
     private TopAreaImage scriptTopAreaImage;
     private Json scriptJson;
     private PcPanel scriptPcPanel;
     private BtcPanel scriptBtcPanel;
-    private OverclockPanel scriptOverclockPanel;
-    private Tabpanel scriptTabpanel;
+    private GooglePlayManager scriptGooglePlayManager;
 
     // Start is called before the first frame update
     void Start()
@@ -65,7 +61,7 @@ public class GameSystem : MonoBehaviour
         scriptJson = GameObject.Find("Json").GetComponent<Json>();
         scriptPcPanel = GameObject.Find("EventSystem").GetComponent<PcPanel>();
 
-        //Btc, Money ë“± ë¡œì»¬ íŒŒì¼ì—ì„œ ë¶ˆëŸ¬ì˜¤ê¸°
+        //Btc, Money µî ·ÎÄÃ ÆÄÀÏ¿¡¼­ ºÒ·¯¿À±â
         scriptJson.Load();
         scriptTopAreaImage.UpdateCurrentBtcText();
         scriptTopAreaImage.UpdateCurrentMoneyText();
@@ -122,15 +118,15 @@ public class GameSystem : MonoBehaviour
             string htmlText = www.downloadHandler.text;     
             List<int> indexsBtcPrice = GetIndexOfBtcFromHTMLText(htmlText, "\"PRICE\":");
 
-            if (indexsBtcPrice.Count >= 2) //í•´ë‹¹ html ì†ŒìŠ¤ì— PRICEê°€ ì—¬ëŸ¬ê°œ ìˆìŒ... 2ë²ˆì§¸(ì¸ë±ìŠ¤ìƒ 1) Price ë’¤ì— Btc ê°€ê²© ìˆìŒ
+            if (indexsBtcPrice.Count >= 2) //ÇØ´ç html ¼Ò½º¿¡ PRICE°¡ ¿©·¯°³ ÀÖÀ½... 2¹øÂ°(ÀÎµ¦½º»ó 1) Price µÚ¿¡ Btc °¡°İ ÀÖÀ½
             {
-                int curIndex = indexsBtcPrice[1] + 8; //"PRICE":0000 ... 0000ë§Œ ì¶”ì¶œí•˜ê¸° ìœ„í•´ +8
-                while (htmlText[curIndex] != ',') //strBtcPriceì— í•œ ê¸€ìì”© ë„£ìŒ
+                int curIndex = indexsBtcPrice[1] + 8; //"PRICE":0000 ... 0000¸¸ ÃßÃâÇÏ±â À§ÇØ +8
+                while (htmlText[curIndex] != ',') //strBtcPrice¿¡ ÇÑ ±ÛÀÚ¾¿ ³ÖÀ½
                 {
                     strBtcPrice += htmlText[curIndex];
                     curIndex += 1;
                 }
-                //strBtcPrice ì˜ˆì‹œ: 70175252.53 ... string -> float -> int
+                //strBtcPrice ¿¹½Ã: 70175252.53 ... string -> float -> int
                 currentBtcPrice = (int)System.Convert.ToSingle(strBtcPrice);
 
                 try
@@ -144,11 +140,6 @@ public class GameSystem : MonoBehaviour
                 }
                 
                 Debug.Log("Btc Price Loaded: "+strBtcPrice);
-
-                if (!scriptOverclockPanel) scriptOverclockPanel = GameObject.Find("EventSystem").GetComponent<OverclockPanel>();
-                Debug.Log("updateOverclock");
-
-                scriptOverclockPanel.UpdateOverclock();
             }
             else
             {
@@ -186,14 +177,9 @@ public class GameSystem : MonoBehaviour
     }
     public void ResetOverclockBtcMoney()
     {
-        if (!scriptOverclockPanel) scriptOverclockPanel = GameObject.Find("EventSystem").GetComponent<OverclockPanel>();
-        if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
-
         currentBtc = 0;
         SetCurrentMoney(currentMoney - currentMoney);
         currentOverclockLevel = 1;
-        scriptOverclockPanel.UpdateOverclock();
-        scriptTabpanel.LoadOverclockInformation();
     }
     public void AddPc4()
     {
@@ -210,7 +196,7 @@ public class GameSystem : MonoBehaviour
         }
         catch
         {
-            Debug.Log("ERROR, system-AddPc4: panel - computer íƒ­ ì—´ì–´ì•¼í•¨ ë˜ëŠ” PC ê°¯ìˆ˜ ì´ˆê³¼");
+            Debug.Log("ERROR, system-AddPc4: panel - computer ÅÇ ¿­¾î¾ßÇÔ ¶Ç´Â PC °¹¼ö ÃÊ°ú");
         }
     }
     public void AddBtcMoney()

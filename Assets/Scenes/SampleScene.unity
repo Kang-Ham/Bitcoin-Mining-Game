@@ -323,7 +323,6 @@ MonoBehaviour:
   BIFURCATION_OF_OVERCLOCK: 50
   BTC_AT_FIRST_TOUCH: 0.00000008
   COEFFICIENT_OF_OVERCLOCK: 1.05
-  OVERCLOCK_DIFFICULTY: 1
   MAX_BTC_STORING_HOUR: 3
   PC_NAMES:
   - "\uAE30\uBCF8 \uCEF4\uD4E8\uD130"
@@ -370,8 +369,6 @@ MonoBehaviour:
   gameBtcPerSecond: 0
   selectedMenu: 0
   currentBtcPrice: 0
-  currentOverclockPrice: 0
-  currentOverclockPerTouch: 0
 --- !u!4 &57641490
 Transform:
   m_ObjectHideFlags: 0
@@ -3846,7 +3843,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
