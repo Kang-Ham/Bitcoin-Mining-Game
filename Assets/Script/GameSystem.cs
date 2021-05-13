@@ -50,6 +50,7 @@ public class GameSystem : MonoBehaviour
     private Json scriptJson;
     private PcPanel scriptPcPanel;
     private BtcPanel scriptBtcPanel;
+    private GooglePlayManager scriptGooglePlayManager;
 
     // Start is called before the first frame update
     void Start()
