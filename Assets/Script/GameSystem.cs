@@ -53,6 +53,7 @@ public class GameSystem : MonoBehaviour
     private Json scriptJson;
     private PcPanel scriptPcPanel;
     private BtcPanel scriptBtcPanel;
+    private GooglePlayManager scriptGooglePlayManager;
     private OverclockPanel scriptOverclockPanel;
     private Tabpanel scriptTabpanel;
 

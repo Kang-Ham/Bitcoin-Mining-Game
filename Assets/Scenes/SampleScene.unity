@@ -9323,6 +9323,7 @@ MonoBehaviour:
   loadedBtcBackgroundImageImage: {fileID: 0}
   loadedBtcTextText: {fileID: 0}
   itemBtc: {fileID: 4847284365122644535, guid: ab47b80c9b927bd46bed0396d2cd355e, type: 3}
+  isDataLoaded: 0
 --- !u!4 &1169596765
 Transform:
   m_ObjectHideFlags: 0
