@@ -21,7 +21,6 @@ public class GameSystem : MonoBehaviour
     public int BIFURCATION_OF_OVERCLOCK;
     public float BTC_AT_FIRST_TOUCH;
     public float COEFFICIENT_OF_OVERCLOCK;
-    public float OVERCLOCK_DIFFICULTY;
 
     public int MAX_BTC_STORING_HOUR; //3 => 게임 껐을 때 최대 3시간 분량의 BTC 저장 가능
 
@@ -33,7 +32,7 @@ public class GameSystem : MonoBehaviour
     public UInt64[] GPU_PRICES;
 
     //Game Load할 때 불러오기
-    public double currentBtc;
+    public float currentBtc;
     public UInt64 currentMoney;
     public List<Pc> currentPcList;
     public int currentGpuLevel;
