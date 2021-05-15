@@ -54,7 +54,6 @@ public class GameSystem : MonoBehaviour
     private PcPanel scriptPcPanel;
     private BtcPanel scriptBtcPanel;
     private OverclockPanel scriptOverclockPanel;
-    private Tabpanel scriptTabpanel;
 
     // Start is called before the first frame update
     void Start()
@@ -186,14 +185,9 @@ public class GameSystem : MonoBehaviour
     }
     public void ResetOverclockBtcMoney()
     {
-        if (!scriptOverclockPanel) scriptOverclockPanel = GameObject.Find("EventSystem").GetComponent<OverclockPanel>();
-        if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
-
         currentBtc = 0;
         SetCurrentMoney(currentMoney - currentMoney);
         currentOverclockLevel = 1;
-        scriptOverclockPanel.UpdateOverclock();
-        scriptTabpanel.LoadOverclockInformation();
     }
     public void AddPc4()
     {

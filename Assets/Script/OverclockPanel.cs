@@ -81,6 +81,8 @@ public class OverclockPanel : MonoBehaviour
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
         scriptGameSystem.currentOverclockPrice = Convert.ToUInt64(10 * scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate((scriptGameSystem.currentOverclockLevel - 1) / scriptGameSystem.BIFURCATION_OF_OVERCLOCK)) + 10 * scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.currentBtcPrice * (Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1) * Math.Truncate((scriptGameSystem.currentOverclockLevel - 1) / scriptGameSystem.BIFURCATION_OF_OVERCLOCK));
         scriptGameSystem.currentOverclockPerTouch = Convert.ToDouble((1 / scriptGameSystem.OVERCLOCK_DIFFICULTY) * scriptGameSystem.BTC_AT_FIRST_TOUCH * (Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - scriptGameSystem.COEFFICIENT_OF_OVERCLOCK) * scriptGameSystem.currentOverclockLevel / 50 + scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.COEFFICIENT_OF_OVERCLOCK);
+        Debug.Log(scriptGameSystem.currentOverclockPrice);
+        Debug.Log(scriptGameSystem.currentOverclockPerTouch);
     }
 
 
