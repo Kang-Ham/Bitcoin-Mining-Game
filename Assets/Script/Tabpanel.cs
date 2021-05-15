@@ -181,7 +181,8 @@ public class Tabpanel : MonoBehaviour
         Text overclockPriceText = GameObject.Find("OverclockPriceText").GetComponent<Text>();
 
         overclockLevelText.text = "현재 오버클럭 "+scriptGameSystem.currentOverclockLevel.ToString()+"레벨";
-        overclockBtcText.text = "터치당 "+ scriptGameSystem.currentOverclockPerTouch.ToString("0." + new string('#', 8)) + "BTC";
-        overclockPriceText.text = scriptGameSystem.currentOverclockPrice.ToString()+"원";
+        overclockBtcText.text = "터치당 "+ scriptOverclockPanel.currentOverclockPerTouch.ToString("0." + new string('#', 8)) + "BTC";
+        overclockPriceText.text = scriptOverclockPanel.currentOverclockPrice.ToString()+"원";
+
     }
 }

@@ -46,14 +46,11 @@ public class GameSystem : MonoBehaviour
     public float gameBtcPerSecond;
     public int selectedMenu;
     public int currentBtcPrice;
-    public UInt64 currentOverclockPrice;
-    public double currentOverclockPerTouch;
 
     private TopAreaImage scriptTopAreaImage;
     private Json scriptJson;
     private PcPanel scriptPcPanel;
     private BtcPanel scriptBtcPanel;
-    private OverclockPanel scriptOverclockPanel;
 
     // Start is called before the first frame update
     void Start()
@@ -143,11 +140,6 @@ public class GameSystem : MonoBehaviour
                 }
                 
                 Debug.Log("Btc Price Loaded: "+strBtcPrice);
-
-                if (!scriptOverclockPanel) scriptOverclockPanel = GameObject.Find("EventSystem").GetComponent<OverclockPanel>();
-                Debug.Log("updateOverclock");
-
-                scriptOverclockPanel.UpdateOverclock();
             }
             else
             {

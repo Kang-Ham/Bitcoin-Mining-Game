@@ -16,6 +16,8 @@ public class OverclockPanel : MonoBehaviour
     public Vector3 mousePosition;
     public AudioSource audioPlayer;
     public AudioClip coinSoundEffect;
+    public UInt64 currentOverclockPrice;
+    public double currentOverclockPerTouch;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +36,7 @@ public class OverclockPanel : MonoBehaviour
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
 
         //Btc 증가
-        scriptGameSystem.currentBtc += scriptGameSystem.currentOverclockPerTouch;
+        scriptGameSystem.currentBtc += currentOverclockPerTouch;
 
         //효과
         mousePosition = Input.mousePosition;
@@ -61,9 +63,9 @@ public class OverclockPanel : MonoBehaviour
 
         
 
-        if (scriptGameSystem.currentMoney >= scriptGameSystem.currentOverclockPrice)
+        if (scriptGameSystem.currentMoney >= currentOverclockPrice)
         {
-            scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - scriptGameSystem.currentOverclockPrice);
+            scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - currentOverclockPrice);
             scriptGameSystem.currentOverclockLevel += 1;
             UpdateOverclock();
         }
@@ -78,11 +80,8 @@ public class OverclockPanel : MonoBehaviour
 
     public void UpdateOverclock()
     {
-        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
-        scriptGameSystem.currentOverclockPrice = Convert.ToUInt64(10 * scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate((scriptGameSystem.currentOverclockLevel - 1) / scriptGameSystem.BIFURCATION_OF_OVERCLOCK)) + 10 * scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.currentBtcPrice * (Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1) * Math.Truncate((scriptGameSystem.currentOverclockLevel - 1) / scriptGameSystem.BIFURCATION_OF_OVERCLOCK));
-        scriptGameSystem.currentOverclockPerTouch = Convert.ToDouble((1 / scriptGameSystem.OVERCLOCK_DIFFICULTY) * scriptGameSystem.BTC_AT_FIRST_TOUCH * (Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - scriptGameSystem.COEFFICIENT_OF_OVERCLOCK) * scriptGameSystem.currentOverclockLevel / 50 + scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.COEFFICIENT_OF_OVERCLOCK);
-        Debug.Log(scriptGameSystem.currentOverclockPrice);
-        Debug.Log(scriptGameSystem.currentOverclockPerTouch);
+        currentOverclockPrice = Convert.ToUInt64(10 * scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate((scriptGameSystem.currentOverclockLevel - 1) / scriptGameSystem.BIFURCATION_OF_OVERCLOCK)) + 10 * scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.currentBtcPrice * (Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1) * Math.Truncate((scriptGameSystem.currentOverclockLevel - 1) / scriptGameSystem.BIFURCATION_OF_OVERCLOCK));
+        currentOverclockPerTouch = Convert.ToDouble((1 / scriptGameSystem.OVERCLOCK_DIFFICULTY) * scriptGameSystem.BTC_AT_FIRST_TOUCH * (Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - scriptGameSystem.COEFFICIENT_OF_OVERCLOCK) * scriptGameSystem.currentOverclockLevel / 50 + scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.COEFFICIENT_OF_OVERCLOCK);
     }
 
 
