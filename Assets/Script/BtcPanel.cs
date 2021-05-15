@@ -26,7 +26,7 @@ public class BtcPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OnClickBuyButtonEvent()
@@ -141,7 +141,7 @@ public class BtcPanel : MonoBehaviour
                 return;
             }
 
-            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 매도하시겠습니까? (" + sellInputField.text + "BTC = " + string.Format("{0:n0}", moneyToGet)+ "원)", "예", "아니오",
+            scriptYesOrNoMsgbox.ShowYesOrNoMsgbox("비트코인을 매도하시겠습니까? (" + sellInputField.text + "BTC = " + string.Format("{0:n0}", moneyToGet) + "원)", "예", "아니오",
                 (clickedButton) =>
                 {
                     if (clickedButton == 0)
@@ -164,8 +164,8 @@ public class BtcPanel : MonoBehaviour
     {
         try
         {
-            float btcForBuy = scriptGameSystem.currentBtc;
-            UInt64 moneyToGet = Convert.ToUInt64(scriptGameSystem.currentBtcPrice* btcForBuy);
+            double btcForBuy = scriptGameSystem.currentBtc;
+            UInt64 moneyToGet = Convert.ToUInt64(scriptGameSystem.currentBtcPrice * btcForBuy);
 
             if (btcForBuy < 0.00000001)
             {

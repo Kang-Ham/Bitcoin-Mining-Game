@@ -21,6 +21,7 @@ public class GameSystem : MonoBehaviour
     public int BIFURCATION_OF_OVERCLOCK;
     public float BTC_AT_FIRST_TOUCH;
     public float COEFFICIENT_OF_OVERCLOCK;
+    public float OVERCLOCK_DIFFICULTY;
 
     public int MAX_BTC_STORING_HOUR; //3 => 게임 껐을 때 최대 3시간 분량의 BTC 저장 가능
 
@@ -32,7 +33,7 @@ public class GameSystem : MonoBehaviour
     public UInt64[] GPU_PRICES;
 
     //Game Load할 때 불러오기
-    public float currentBtc;
+    public double currentBtc;
     public UInt64 currentMoney;
     public List<Pc> currentPcList;
     public int currentGpuLevel;
@@ -45,11 +46,15 @@ public class GameSystem : MonoBehaviour
     public float gameBtcPerSecond;
     public int selectedMenu;
     public int currentBtcPrice;
+    public UInt64 currentOverclockPrice;
+    public double currentOverclockPerTouch;
 
     private TopAreaImage scriptTopAreaImage;
     private Json scriptJson;
     private PcPanel scriptPcPanel;
     private BtcPanel scriptBtcPanel;
+    private OverclockPanel scriptOverclockPanel;
+    private Tabpanel scriptTabpanel;
 
     // Start is called before the first frame update
     void Start()
@@ -86,7 +91,7 @@ public class GameSystem : MonoBehaviour
 
     IEnumerator SetCurrentBtcOnRunning(float delay)
     {
-        currentBtc += gameBtcPerSecond*delay;
+        currentBtc += gameBtcPerSecond * delay;
         scriptTopAreaImage.UpdateCurrentBtcText();
         yield return new WaitForSeconds(delay);
         StartCoroutine("SetCurrentBtcOnRunning", delay);
@@ -114,7 +119,7 @@ public class GameSystem : MonoBehaviour
         }
         else
         {
-            string htmlText = www.downloadHandler.text;     
+            string htmlText = www.downloadHandler.text;
             List<int> indexsBtcPrice = GetIndexOfBtcFromHTMLText(htmlText, "\"PRICE\":");
 
             if (indexsBtcPrice.Count >= 2) //해당 html 소스에 PRICE가 여러개 있음... 2번째(인덱스상 1) Price 뒤에 Btc 가격 있음
@@ -130,15 +135,20 @@ public class GameSystem : MonoBehaviour
 
                 try
                 {
-                    if(!scriptBtcPanel) scriptBtcPanel = GameObject.Find("EventSystem").GetComponent<BtcPanel>();
+                    if (!scriptBtcPanel) scriptBtcPanel = GameObject.Find("EventSystem").GetComponent<BtcPanel>();
                     scriptBtcPanel.UpdateCurrentBtcPrice();
                 }
                 catch
                 {
                     Debug.Log("currentBtcPrice is Loaded, but CurrentBtcText is inactive");
                 }
-                
-                Debug.Log("Btc Price Loaded: "+strBtcPrice);
+
+                Debug.Log("Btc Price Loaded: " + strBtcPrice);
+
+                if (!scriptOverclockPanel) scriptOverclockPanel = GameObject.Find("EventSystem").GetComponent<OverclockPanel>();
+                Debug.Log("updateOverclock");
+
+                scriptOverclockPanel.UpdateOverclock();
             }
             else
             {
@@ -153,9 +163,9 @@ public class GameSystem : MonoBehaviour
     List<int> GetIndexOfBtcFromHTMLText(string htmlText, string target)
     {
         List<int> indexs = new List<int>();
-        for(int i = 0; i < htmlText.Length-target.Length; i++)
+        for (int i = 0; i < htmlText.Length - target.Length; i++)
         {
-            if(htmlText.Substring(i, target.Length).Equals(target))
+            if (htmlText.Substring(i, target.Length).Equals(target))
             {
                 indexs.Add(i);
             }
@@ -176,9 +186,14 @@ public class GameSystem : MonoBehaviour
     }
     public void ResetOverclockBtcMoney()
     {
+        if (!scriptOverclockPanel) scriptOverclockPanel = GameObject.Find("EventSystem").GetComponent<OverclockPanel>();
+        if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
+
         currentBtc = 0;
         SetCurrentMoney(currentMoney - currentMoney);
         currentOverclockLevel = 1;
+        scriptOverclockPanel.UpdateOverclock();
+        scriptTabpanel.LoadOverclockInformation();
     }
     public void AddPc4()
     {
