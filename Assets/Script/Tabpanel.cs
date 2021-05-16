@@ -13,7 +13,6 @@ public class Tabpanel : MonoBehaviour
     private PcPanel scriptPcPanel;
     private GameSystem scriptGameSystem;
     private BtcPanel scriptBtcPanel;
-    private OverclockPanel scriptOverclockPanel;
 
     private int isOverclockClicked = 0;
     private int isComputerClicked = 0;
@@ -175,7 +174,6 @@ public class Tabpanel : MonoBehaviour
     public void LoadOverclockInformation()
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
-        if (!scriptOverclockPanel) scriptOverclockPanel = GameObject.Find("EventSystem").GetComponent<OverclockPanel>();
 
         Text overclockLevelText = GameObject.Find("OverclockLevelText").GetComponent<Text>();
         Text overclockBtcText = GameObject.Find("OverclockBtcText").GetComponent<Text>();
