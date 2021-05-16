@@ -24,7 +24,14 @@
 
 public static class GPGSIds
 {
-        public const string achievementPc1 = "CgkImviytJoSEAIQAg"; // <GPGSID>
+    public const string achievementPc1 = "CgkImviytJoSEAIQAg"; // 기본 컴퓨터 오너
+    public const string achievementPc2 = "CgkImviytJoSEAIQAw"; // 고성능 컴퓨터 오너
+    public const string achievementPc3 = "CgkImviytJoSEAIQBA"; // 슈퍼 컴퓨터 오너
+    public const string achievementPc4 = "CgkImviytJoSEAIQBQ"; // 양자 컴퓨터 오너
 
+    public const string achievementBtc1 = "CgkImviytJoSEAIQBg"; // 일반 투자자
+    public const string achievementBtc2 = "CgkImviytJoSEAIQBw"; // 슈퍼 개미
+    public const string achievementBtc3 = "CgkImviytJoSEAIQCA"; // 자본가
+    public const string achievementBtc4 = "CgkImviytJoSEAIQCQ"; // 슈퍼 리치
 }
 

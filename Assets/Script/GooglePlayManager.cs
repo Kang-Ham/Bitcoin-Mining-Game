@@ -82,6 +82,9 @@ public class GooglePlayManager : MonoBehaviour
 
             Firebase.Auth.FirebaseUser newUser = task.Result;
             Debug.LogFormat("User signed in successfully: {0} ({1})", newUser.DisplayName, newUser.UserId);
+
+            //After Login
+            SetBtcAchievement();
         });
     }
 
@@ -100,17 +103,53 @@ public class GooglePlayManager : MonoBehaviour
             return;
         }
 
-        if (scriptGameSystem.currentPcList.Count >= 1)
+        if (scriptGameSystem.currentPcList.Count >= 49)
+        {
+            Social.ReportProgress(GPGSIds.achievementPc4, 100f, null);
+        }
+        else if (scriptGameSystem.currentPcList.Count >= 33)
+        {
+            Social.ReportProgress(GPGSIds.achievementPc3, 100f, null);
+        }
+        else if (scriptGameSystem.currentPcList.Count >= 17)
+        {
+            Social.ReportProgress(GPGSIds.achievementPc2, 100f, null);
+        }
+        else if (scriptGameSystem.currentPcList.Count >= 1)
         {
             Social.ReportProgress(GPGSIds.achievementPc1, 100f, null);
         }
     }
 
+    public void SetBtcAchievement()
+    {
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+
+        if (auth == null)
+        {
+            return;
+        }
+
+        if (scriptGameSystem.currentBtc >= 1000)
+        {
+            Social.ReportProgress(GPGSIds.achievementBtc4, 100f, null);
+        }
+        else if (scriptGameSystem.currentBtc >= 100)
+        {
+            Social.ReportProgress(GPGSIds.achievementBtc3, 100f, null);
+        }
+        else if (scriptGameSystem.currentBtc >= 10)
+        {
+            Social.ReportProgress(GPGSIds.achievementBtc2, 100f, null);
+        }
+        else if (scriptGameSystem.currentBtc >= 1)
+        {
+            Social.ReportProgress(GPGSIds.achievementBtc1, 100f, null);
+        }
+    }
+
     public void OpenStoreLink()
     {
-        //TODO: iOS 개발 시 앱스토어로 링크
-        Application.OpenURL("market://details?id=com.KangHam.BitcoinMiningGame");
-
 #if UNITY_ANDROID
         Application.OpenURL("market://details?id=com.KangHam.BitcoinMiningGame");
 #endif
