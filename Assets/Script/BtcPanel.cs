@@ -34,6 +34,14 @@ public class BtcPanel : MonoBehaviour
         buyInputField = GameObject.Find("BuyInput").GetComponent<InputField>();
         float buyInput;
 
+        // 네트워크 확인
+        if(scriptGameSystem.currentBtcPrice==0)
+        {
+            scriptMsgbox.ShowMsgbox("비트코인 가격이 정상적으로 로드되지 않았습니다. 인터넷 연결 유무를 확인하세요,", "확인");
+            return;
+        }
+
+        // 입력값 확인
         try
         {
             buyInput = System.Convert.ToSingle(buyInputField.text);
@@ -81,6 +89,13 @@ public class BtcPanel : MonoBehaviour
 
     public void OnClickBuyAllButtonEvent()
     {
+        // 네트워크 확인
+        if (scriptGameSystem.currentBtcPrice == 0)
+        {
+            scriptMsgbox.ShowMsgbox("비트코인 가격이 정상적으로 로드되지 않았습니다. 인터넷 연결 유무를 확인하세요,", "확인");
+            return;
+        }
+
         try
         {
             UInt64 moneyForBuy = scriptGameSystem.currentMoney;
@@ -116,6 +131,14 @@ public class BtcPanel : MonoBehaviour
         sellInputField = GameObject.Find("SellInput").GetComponent<InputField>();
         float sellInput;
 
+        // 네트워크 확인
+        if (scriptGameSystem.currentBtcPrice == 0)
+        {
+            scriptMsgbox.ShowMsgbox("비트코인 가격이 정상적으로 로드되지 않았습니다. 인터넷 연결 유무를 확인하세요,", "확인");
+            return;
+        }
+
+        // 입력값 확인
         try
         {
             sellInput = System.Convert.ToSingle(sellInputField.text);
@@ -162,6 +185,13 @@ public class BtcPanel : MonoBehaviour
 
     public void OnClickSellAllButtonEvent()
     {
+        // 네트워크 확인
+        if (scriptGameSystem.currentBtcPrice == 0)
+        {
+            scriptMsgbox.ShowMsgbox("비트코인 가격이 정상적으로 로드되지 않았습니다. 인터넷 연결 유무를 확인하세요,", "확인");
+            return;
+        }
+
         try
         {
             double btcForBuy = scriptGameSystem.currentBtc;
