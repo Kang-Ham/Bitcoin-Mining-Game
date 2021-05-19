@@ -42,8 +42,8 @@ public class OverclockPanel : MonoBehaviour
         instantObject.transform.SetParent(GameObject.Find("ClickerButton").transform);
 
         Rigidbody2D itemRigid = instantObject.GetComponent<Rigidbody2D>();
-        X_VELOCITY = Random.Range(-7.0f, 7.0f);
-        Y_VELOCITY = Random.Range(80.0f, 110.0f);
+        X_VELOCITY = Random.Range(-14.0f, 14.0f);
+        Y_VELOCITY = Random.Range(160.0f, 220.0f);
         Vector2 velocityVector = new Vector2(X_VELOCITY, Y_VELOCITY);
         itemRigid.AddForce(velocityVector, ForceMode2D.Impulse);
         Destroy(instantObject.gameObject, 1.5f);

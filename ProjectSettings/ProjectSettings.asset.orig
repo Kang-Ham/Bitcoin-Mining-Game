@@ -242,7 +242,11 @@ PlayerSettings:
   AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
+<<<<<<< Updated upstream
+  AndroidKeystoreName: C:/Users/fchop/Development/!important/user.keystore
+=======
   AndroidKeystoreName: "C:/Users/sj879/OneDrive/\uBC14\uD0D5 \uD654\uBA74/\uBCF5\uAD6C\uD30C\uC77C/user.keystore"
+>>>>>>> Stashed changes
   AndroidKeyaliasName: keybmg
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0

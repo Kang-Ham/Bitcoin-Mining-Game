@@ -195,15 +195,15 @@ public class Json : MonoBehaviour
 
         for (int i = 1; i < 80; i++)
         {
-            GameObject instantObject = Instantiate(itemBtc, new Vector2(125, 230), transform.rotation) as GameObject;
+            GameObject instantObject = Instantiate(itemBtc, new Vector2(Screen.width/2, Screen.height/2), transform.rotation) as GameObject;
             instantObject.transform.SetParent(GameObject.Find("ClickerButton").transform);
 
             Rigidbody2D itemRigid = instantObject.GetComponent<Rigidbody2D>();
-            X_VELOCITY = Random.Range(-30.0f, 30.0f);
-            Y_VELOCITY = Random.Range(110.0f, 170.0f);
+            X_VELOCITY = Random.Range(-60.0f, 60.0f);
+            Y_VELOCITY = Random.Range(220.0f, 340.0f);
             Vector2 velocityVector = new Vector2(X_VELOCITY, Y_VELOCITY);
             itemRigid.AddForce(velocityVector, ForceMode2D.Impulse);
-            Destroy(instantObject.gameObject, 5.0f);
+            Destroy(instantObject.gameObject, 15.0f);
         }
 
     }
