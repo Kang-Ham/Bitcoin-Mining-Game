@@ -25,6 +25,7 @@ public class GooglePlayManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SetLoadingPanelActive(true);
         ConfigGooglePlayGameClient();
     }
 
@@ -239,7 +240,9 @@ public class GooglePlayManager : MonoBehaviour
         string progress = BytesToString(cloudData);
         loadedData = progress;
 
+        // 로드 후 액션
         scriptJson.OnDataLoad(loadedData);
+        SetLoadingPanelActive(false);
     }
 
     private byte[] StringToBytes(string stringToConvert)
@@ -250,5 +253,11 @@ public class GooglePlayManager : MonoBehaviour
     private string BytesToString(byte[] bytes)
     {
         return Encoding.UTF8.GetString(bytes);
+    }
+
+    private void SetLoadingPanelActive(bool flag)
+    {
+        GameObject loadingPanel = GameObject.Find("PopupPanels").transform.Find("LoadingPanel").gameObject;
+        loadingPanel.SetActive(flag);
     }
 }

@@ -56,6 +56,7 @@ public class GameSystem : MonoBehaviour
     private GooglePlayManager scriptGooglePlayManager;
     private OverclockPanel scriptOverclockPanel;
     private Tabpanel scriptTabpanel;
+    private Msgbox scriptMsgbox;
 
     // Start is called before the first frame update
     void Start()
@@ -65,8 +66,16 @@ public class GameSystem : MonoBehaviour
         scriptTopAreaImage = GameObject.Find("TopAreaImage").GetComponent<TopAreaImage>();
         scriptJson = GameObject.Find("Json").GetComponent<Json>();
         scriptPcPanel = GameObject.Find("EventSystem").GetComponent<PcPanel>();
+        scriptMsgbox = GameObject.Find("EventSystem").GetComponent<Msgbox>();
 
-        //Btc, Money 등 로컬 파일에서 불러오기
+        // 네트워크 연결되지 않았을 시 접속 차단
+        if (Application.internetReachability == NetworkReachability.NotReachable)
+        {
+            scriptMsgbox.ShowMsgbox("인터넷 연결 유무를 확인하세요,", "확인");
+            Application.Quit();
+        }
+
+        // Btc, Money 등 로컬 파일에서 불러오기
         scriptJson.Load();
         scriptTopAreaImage.UpdateCurrentBtcText();
         scriptTopAreaImage.UpdateCurrentMoneyText();
@@ -123,15 +132,15 @@ public class GameSystem : MonoBehaviour
             string htmlText = www.downloadHandler.text;
             List<int> indexsBtcPrice = GetIndexOfBtcFromHTMLText(htmlText, "\"PRICE\":");
 
-            if (indexsBtcPrice.Count >= 2) //해당 html 소스에 PRICE가 여러개 있음... 2번째(인덱스상 1) Price 뒤에 Btc 가격 있음
+            if (indexsBtcPrice.Count >= 2) // 해당 html 소스에 PRICE가 여러개 있음... 2번째(인덱스상 1) Price 뒤에 Btc 가격 있음
             {
-                int curIndex = indexsBtcPrice[1] + 8; //"PRICE":0000 ... 0000만 추출하기 위해 +8
-                while (htmlText[curIndex] != ',') //strBtcPrice에 한 글자씩 넣음
+                int curIndex = indexsBtcPrice[1] + 8; // "PRICE":0000 ... 0000만 추출하기 위해 +8
+                while (htmlText[curIndex] != ',') // strBtcPrice에 한 글자씩 넣음
                 {
                     strBtcPrice += htmlText[curIndex];
                     curIndex += 1;
                 }
-                //strBtcPrice 예시: 70175252.53 ... string -> float -> int
+                // strBtcPrice 예시: 70175252.53 ... string -> float -> int
                 currentBtcPrice = (int)System.Convert.ToSingle(strBtcPrice);
 
                 try
