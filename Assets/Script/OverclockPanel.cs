@@ -59,6 +59,13 @@ public class OverclockPanel : MonoBehaviour
         if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
 
+        // 네트워크 확인
+        if (scriptGameSystem.currentBtcPrice == 0)
+        {
+            scriptMsgbox.ShowMsgbox("비트코인 가격이 정상적으로 로드되지 않았습니다. 인터넷 연결 유무를 확인하세요,", "확인");
+            return;
+        }
+
         if (scriptGameSystem.currentMoney >= scriptGameSystem.currentOverclockPrice)
         {
             scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - scriptGameSystem.currentOverclockPrice);
