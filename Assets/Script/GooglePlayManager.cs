@@ -84,6 +84,8 @@ public class GooglePlayManager : MonoBehaviour
 
     public void ConfigGooglePlayGameClient()
     {
+        SetLoadingContent("ConfigGooglePlayGameClient");
+
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
            .EnableSavedGames()
            .RequestServerAuthCode(false)
@@ -98,6 +100,8 @@ public class GooglePlayManager : MonoBehaviour
 
     public void LoginGooglePlayGame()
     {
+        SetLoadingContent("LoginGooglePlayGame");
+
         Social.localUser.Authenticate((bool success) =>
         {
             if (success)
@@ -204,6 +208,8 @@ public class GooglePlayManager : MonoBehaviour
 
     public void LoadFromCloud()
     {
+        SetLoadingContent("LoadFromCloud");
+
         if (Social.localUser.authenticated)
         {
             ((PlayGamesPlatform)Social.Active).SavedGame.OpenWithAutomaticConflictResolution(
@@ -216,6 +222,8 @@ public class GooglePlayManager : MonoBehaviour
 
     private void OnFileOpenToLoad(SavedGameRequestStatus status, ISavedGameMetadata metaData)
     {
+        SetLoadingContent("OnFileOpenToLoad");
+
         if (status == SavedGameRequestStatus.Success)
         {
             ((PlayGamesPlatform)Social.Active).SavedGame.ReadBinaryData(metaData, OnGameLoad);
@@ -228,6 +236,8 @@ public class GooglePlayManager : MonoBehaviour
 
     private void OnGameLoad(SavedGameRequestStatus status, byte[] bytes)
     {
+        SetLoadingContent("OnGameLoad");
+
         if (status == SavedGameRequestStatus.Success)
         {
             ProcessCloudData(bytes);
@@ -238,8 +248,10 @@ public class GooglePlayManager : MonoBehaviour
         }
     }
 
-    private void ProcessCloudData(byte[] cloudData)               
+    private void ProcessCloudData(byte[] cloudData)
     {
+        SetLoadingContent("ProcessCloudData");
+
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
         if (!scriptPcPanel) scriptPcPanel = GameObject.Find("EventSystem").GetComponent<PcPanel>();
         if (!scriptSetting) scriptSetting = GameObject.Find("EventSystem").GetComponent<Setting>();
@@ -393,5 +405,10 @@ public class GooglePlayManager : MonoBehaviour
         }
 
         loadedBtcPanel.SetActive(false);
+    }
+
+    private void SetLoadingContent(string content)
+    {
+        GameObject.Find("LoadingContent").GetComponent<Text>().text = content;
     }
 }
