@@ -43,7 +43,7 @@ public class Setting : MonoBehaviour
         clickedButton = index;
     }
 
-    public void SetSoundAfterJsonLoad()
+    public void SetSoundAfterDataLoad()
     {
         if(!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
 

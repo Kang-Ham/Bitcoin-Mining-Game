@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 3619051498725239298}
   - component: {fileID: -29193370783994206}
   - component: {fileID: -3087614172039043160}
-  - component: {fileID: -1974540449123585124}
+  - component: {fileID: -6044793587112043376}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -205,7 +205,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe152c15eed273e459256bb8bca3ee51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-1974540449123585124
+--- !u!114 &-6044793587112043376
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,4 +217,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1772f7c6e624ba1429943c96bdf104f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  authCode: 
+  itemBtc: {fileID: 4847284365122644535, guid: ab47b80c9b927bd46bed0396d2cd355e, type: 3}
+  SAVE_FILE_NAME: SystemInfo

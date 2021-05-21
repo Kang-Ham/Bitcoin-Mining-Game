@@ -50,7 +50,6 @@ public class GameSystem : MonoBehaviour
     public double currentOverclockPerTouch;
 
     private TopAreaImage scriptTopAreaImage;
-    private Json scriptJson;
     private PcPanel scriptPcPanel;
     private BtcPanel scriptBtcPanel;
     private GooglePlayManager scriptGooglePlayManager;
@@ -64,9 +63,9 @@ public class GameSystem : MonoBehaviour
         Camera.main.orthographicSize = 8.95f * ((Convert.ToSingle(Screen.height) / Convert.ToSingle(Screen.width)) / (16f / 9f));
 
         scriptTopAreaImage = GameObject.Find("TopAreaImage").GetComponent<TopAreaImage>();
-        scriptJson = GameObject.Find("Json").GetComponent<Json>();
         scriptPcPanel = GameObject.Find("EventSystem").GetComponent<PcPanel>();
         scriptMsgbox = GameObject.Find("EventSystem").GetComponent<Msgbox>();
+        scriptGooglePlayManager = GameObject.Find("EventSystem").GetComponent<GooglePlayManager>();
 
         // 네트워크 연결되지 않았을 시 접속 차단
         if (Application.internetReachability == NetworkReachability.NotReachable)
@@ -74,13 +73,6 @@ public class GameSystem : MonoBehaviour
             scriptMsgbox.ShowMsgbox("인터넷 연결 유무를 확인하세요,", "확인");
             Application.Quit();
         }
-
-        // Btc, Money 등 로컬 파일에서 불러오기
-        scriptJson.Load();
-        scriptTopAreaImage.UpdateCurrentBtcText();
-        scriptTopAreaImage.UpdateCurrentMoneyText();
-
-        if (currentPcList.Count == 0) scriptPcPanel.AddNewPc();
 
         StartCoroutine("SetCurrentBtcOnRunning", VALUE_TIME_SLICE_BTC);
         StartCoroutine("SavePeriodically", VALUE_TIME_SLICE_SAVE);
@@ -93,12 +85,6 @@ public class GameSystem : MonoBehaviour
         scriptTopAreaImage.UpdateCurrentMoneyText();
     }
 
-    void OnApplicationQuit()
-    {
-        scriptJson.Save();
-    }
-
-
     IEnumerator SetCurrentBtcOnRunning(float delay)
     {
         currentBtc += gameBtcPerSecond * delay;
@@ -109,7 +95,7 @@ public class GameSystem : MonoBehaviour
 
     IEnumerator SavePeriodically(float delay)
     {
-        scriptJson.Save();
+        scriptGooglePlayManager.SaveToCloud();
         yield return new WaitForSeconds(delay);
         StartCoroutine("SavePeriodically", delay);
     }

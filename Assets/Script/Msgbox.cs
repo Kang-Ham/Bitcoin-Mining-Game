@@ -9,7 +9,7 @@ public class Msgbox : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        msgboxPanel = GameObject.Find("PopupPanels").transform.Find("MsgboxPanel").gameObject;
+        
     }
 
     // Update is called once per frame
@@ -25,6 +25,8 @@ public class Msgbox : MonoBehaviour
 
     public void ShowMsgbox(string contentString, string button1String)
     {
+        if(!msgboxPanel) msgboxPanel = GameObject.Find("PopupPanels").transform.Find("MsgboxPanel").gameObject;
+
         msgboxPanel.SetActive(true);
 
         msgboxContent = msgboxPanel.transform.Find("MsgboxContent").gameObject;
