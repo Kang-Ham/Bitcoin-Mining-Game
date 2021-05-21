@@ -286,7 +286,7 @@ public class GooglePlayManager : MonoBehaviour
         SetLoadingPanelActive(false);
 
         // 부재하는 동안 얼마 벌었는지 알려주는 메시지 표시  
-        ShowLoadedBtcPanel(btcToGet);
+        ShowLoadedBtcPanel(btcToGet, timeDifference.Seconds + timeDifference.Minutes * 60 + timeDifference.Hours * 3600);
 
         // 소리 세팅에 따라서 설정
         scriptSetting.SetSoundAfterDataLoad();
@@ -350,7 +350,7 @@ public class GooglePlayManager : MonoBehaviour
         return Encoding.UTF8.GetString(bytes);
     }
 
-    private void ShowLoadedBtcPanel(float btcToGet)
+    private void ShowLoadedBtcPanel(float btcToGet, int timeDifferenceSeconds)
     {
         loadedBtcPanel = GameObject.Find("PopupPanels").transform.Find("LoadedBtcPanel").gameObject;
         Text loadedBtcPanelText = loadedBtcPanel.transform.Find("LoadedBtcText").GetComponent<Text>();
@@ -363,7 +363,8 @@ public class GooglePlayManager : MonoBehaviour
 
         StartCoroutine(SetLoadedBtcPanelFadeOut(3f, 1f));
 
-        for (int i = 1; i < 80; i++)
+        int coinCountToPopUp = Convert.ToInt16((timeDifferenceSeconds / 10800f) * 80f);
+        for (int i = 1; i < coinCountToPopUp; i++)
         {
             GameObject instantObject = Instantiate(itemBtc, new Vector2(Screen.width / 2, Screen.height / 2), transform.rotation) as GameObject;
             instantObject.transform.SetParent(GameObject.Find("ClickerButton").transform);
