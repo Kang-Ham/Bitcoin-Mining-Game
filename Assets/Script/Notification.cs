@@ -25,7 +25,7 @@ public class Notification : MonoBehaviour
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
 
-        if (pause)
+        if (pause && scriptGameSystem.currentNotificationStatus)
         {
 #if UNITY_ANDROID
             AndroidNotificationCenter.CancelAllNotifications();
