@@ -43,6 +43,7 @@ public class GooglePlayManager : MonoBehaviour
     private GooglePlayManager scriptGooglePlayManager;
     private Msgbox scriptMsgbox;
     private TopAreaImage scriptTopAreaImage;
+    private Cartoon scriptCartoon;
 
     private float X_VELOCITY;
     private float Y_VELOCITY;
@@ -68,7 +69,14 @@ public class GooglePlayManager : MonoBehaviour
         scriptMsgbox = GameObject.Find("EventSystem").GetComponent<Msgbox>();
 
         SetLoadingPanelActive(true);
-        ConfigGooglePlayGameClient();
+        try
+        {
+            ConfigGooglePlayGameClient();
+        }
+        catch
+        {
+            AfterSetDataToGame(true);
+        }
     }
 
     // Update is called once per frame
@@ -110,6 +118,10 @@ public class GooglePlayManager : MonoBehaviour
                 ConnectFirebaseWithGooglePlayGame();
 
                 LoadFromCloud();
+            }
+            else
+            {
+                AfterSetDataToGame(true);
             }
         });
     }
@@ -230,7 +242,8 @@ public class GooglePlayManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("SavedGameRequestStatus File Open Error" + status);
+            SetLoadingContent("SavedGameRequestStatus File Open Error: " + status);
+            AfterSetDataToGame(true);
         }
     }
 
@@ -244,7 +257,8 @@ public class GooglePlayManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("SavedGameRequestStatus Save Error" + status);
+            SetLoadingContent("SavedGameRequestStatus Save Error: " + status);
+            AfterSetDataToGame(true);
         }
     }
 
@@ -254,8 +268,6 @@ public class GooglePlayManager : MonoBehaviour
 
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
         if (!scriptPcPanel) scriptPcPanel = GameObject.Find("EventSystem").GetComponent<PcPanel>();
-        if (!scriptSetting) scriptSetting = GameObject.Find("EventSystem").GetComponent<Setting>();
-        if (!scriptTopAreaImage) scriptTopAreaImage = GameObject.Find("TopAreaImage").GetComponent<TopAreaImage>();
 
         string progress = BytesToString(cloudData);
         loadedData = progress;
@@ -286,23 +298,41 @@ public class GooglePlayManager : MonoBehaviour
             btcToGet = (timeDifference.Seconds + timeDifference.Minutes * 60 + timeDifference.Hours * 3600) * scriptNewPcPanel.btcPerSecond * scriptGameSystem.GPU_RATES[scriptGameSystem.currentGpuLevel];
             scriptGameSystem.currentBtc += btcToGet;
         }
-                                       
-        // 게임 처음 시작했을 때, 기본 pc 1개 지급
-        if (Convert.ToInt16(jsonSystemInfo["pcCount"].ToString()) == 0) scriptPcPanel.AddNewPc();
+
+        // 부재하는 동안 얼마 벌었는지 알려주는 메시지 표시  
+        ShowLoadedBtcPanel(btcToGet, timeDifference.Seconds + timeDifference.Minutes * 60 + timeDifference.Hours * 3600);
+
+        AfterSetDataToGame(false);
+    }
+
+    private void AfterSetDataToGame(bool isFirst)
+    {
+        if (!scriptSetting) scriptSetting = GameObject.Find("EventSystem").GetComponent<Setting>();
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+        if (!scriptCartoon) scriptCartoon = GameObject.Find("EventSystem").GetComponent<Cartoon>();
+        if (!scriptPcPanel) scriptPcPanel = GameObject.Find("EventSystem").GetComponent<PcPanel>();
+        if (!scriptTopAreaImage) scriptTopAreaImage = GameObject.Find("TopAreaImage").GetComponent<TopAreaImage>();
 
         // Btc, Money 업데이트
         scriptTopAreaImage.UpdateCurrentBtcText();
         scriptTopAreaImage.UpdateCurrentMoneyText();
 
+        // 소리 세팅에 따라서 설정
+        scriptSetting.SetSoundAfterDataLoad();
+
+        // 게임 처음 시작했을 때, 기본 pc 1개 지급
+        if (scriptGameSystem.currentPcList.Count == 0) scriptPcPanel.AddNewPc();
+
         // 로딩 화면 해제
         SetLoadingPanelActive(false);
 
-        // 부재하는 동안 얼마 벌었는지 알려주는 메시지 표시  
-        ShowLoadedBtcPanel(btcToGet, timeDifference.Seconds + timeDifference.Minutes * 60 + timeDifference.Hours * 3600);
-
-        // 소리 세팅에 따라서 설정
-        scriptSetting.SetSoundAfterDataLoad();
+        // 카툰 보여주기
+        if (isFirst)
+        {
+            scriptCartoon.SetCartoonActive(true);
+        }
     }
+
 
     private void SetLoadingPanelActive(bool flag)
     {

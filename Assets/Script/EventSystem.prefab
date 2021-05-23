@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: -29193370783994206}
   - component: {fileID: -3087614172039043160}
   - component: {fileID: -6044793587112043376}
+  - component: {fileID: 768787356121893297}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -219,3 +220,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemBtc: {fileID: 4847284365122644535, guid: ab47b80c9b927bd46bed0396d2cd355e, type: 3}
   SAVE_FILE_NAME: SystemInfo
+--- !u!114 &768787356121893297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1277198297499427128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72fa01b3093918c46992bed9e252c15f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cartoonSprites:
+  - {fileID: 21300000, guid: 03fcac5f684e6fb43ba3a5268bc5aa0b, type: 3}
+  - {fileID: 21300000, guid: d25e803e54b7af84895c88a9d32c8f1b, type: 3}
+  - {fileID: 21300000, guid: e0a3edceaf9a6fa47a890740ccf1ad7e, type: 3}
