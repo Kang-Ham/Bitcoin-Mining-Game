@@ -28,17 +28,20 @@ public class Cartoon : MonoBehaviour
         cartoonPanel = GameObject.Find("PopupPanels").transform.Find("CartoonPanel").gameObject;
         cartoonPanel.SetActive(flag);
         curCartoonIndex = 0;
+
     }
 
     public void OnClickNextButton()
     {
+        Image cartoonImage = GameObject.Find("CartoonImage").GetComponent<Image>();
+
         if (curCartoonIndex >= 2)
         {
+            cartoonImage.sprite = cartoonSprites[0];
             SetCartoonActive(false);
         }
         else
         {
-            Image cartoonImage = GameObject.Find("CartoonImage").GetComponent<Image>();
             curCartoonIndex += 1;
             cartoonImage.sprite = cartoonSprites[curCartoonIndex];
         }
