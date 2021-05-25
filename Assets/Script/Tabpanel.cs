@@ -175,12 +175,22 @@ public class Tabpanel : MonoBehaviour
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
 
-        Text overclockLevelText = GameObject.Find("OverclockLevelText").GetComponent<Text>();
+        Text currentOverclockLevelText = GameObject.Find("currentOverclockLevelText").GetComponent<Text>();
+        Text currentOverclockBtcText = GameObject.Find("currentOverclockBtcText").GetComponent<Text>();
+
+        currentOverclockLevelText.text = "현재 오버클럭 " + scriptGameSystem.currentOverclockLevel.ToString() + "레벨";
+        currentOverclockBtcText.text = "터치당 " + scriptGameSystem.currentOverclockPerTouch.ToString("0." + new string('#', 8)) + "BTC";
+
         Text overclockBtcText = GameObject.Find("OverclockBtcText").GetComponent<Text>();
         Text overclockPriceText = GameObject.Find("OverclockPriceText").GetComponent<Text>();
 
-        overclockLevelText.text = "현재 오버클럭 " + scriptGameSystem.currentOverclockLevel.ToString() + "레벨";
-        overclockBtcText.text = "터치당 " + scriptGameSystem.currentOverclockPerTouch.ToString("0." + new string('#', 8)) + "BTC";
+        overclockBtcText.text = "터치당 + " + scriptGameSystem.nextOverclockPerTouch.ToString("0." + new string('#', 8)) + "BTC";
         overclockPriceText.text = scriptGameSystem.currentOverclockPrice.ToString() + "원";
+
+        Text tenOverclockBtcText = GameObject.Find("tenOverclockBtcText").GetComponent<Text>();
+        Text tenOverclockPriceText = GameObject.Find("tenOverclockPriceText").GetComponent<Text>();
+
+        tenOverclockBtcText.text = "터치당 + " + scriptGameSystem.nextTenOverclockPerTouch.ToString("0." + new string('#', 8)) + "BTC";
+        tenOverclockPriceText.text = scriptGameSystem.currentTenOverclockPrice.ToString() + "원";
     }
 }

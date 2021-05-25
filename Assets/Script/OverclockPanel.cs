@@ -81,11 +81,50 @@ public class OverclockPanel : MonoBehaviour
 
     }
 
-    public void UpdateOverclock()
+    public void UpgradeTenOverclock()
+    {
+        if (!scriptMsgbox) scriptMsgbox = GameObject.Find("EventSystem").GetComponent<Msgbox>();
+        if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+
+        // 네트워크 확인
+        if (scriptGameSystem.currentBtcPrice == 0)
+        {
+            scriptMsgbox.ShowMsgbox("비트코인 가격이 정상적으로 로드되지 않았습니다. 인터넷 연결 유무를 확인하세요,", "확인");
+            return;
+        }
+
+        if (scriptGameSystem.currentMoney >= scriptGameSystem.currentTenOverclockPrice)
+        {
+            UpdateOverclock();
+            scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - scriptGameSystem.currentTenOverclockPrice);
+            scriptGameSystem.currentOverclockLevel += 10;
+            UpdateOverclock();
+        }
+        else
+        {
+            scriptMsgbox.ShowMsgbox("현금이 부족합니다.", "예");
+        }
+
+        scriptTabpanel.LoadOverclockInformation();
+
+    }
+        public void UpdateOverclock()
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
         scriptGameSystem.currentOverclockPrice = Convert.ToUInt64(10 * scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.currentOverclockLevel - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate((scriptGameSystem.currentOverclockLevel - 1) / scriptGameSystem.BIFURCATION_OF_OVERCLOCK)) + 10 * scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.currentBtcPrice * (Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1) * Math.Truncate((scriptGameSystem.currentOverclockLevel - 1) / scriptGameSystem.BIFURCATION_OF_OVERCLOCK));
         scriptGameSystem.currentOverclockPerTouch = Convert.ToDouble((1 / scriptGameSystem.OVERCLOCK_DIFFICULTY) * scriptGameSystem.BTC_AT_FIRST_TOUCH * (Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - scriptGameSystem.COEFFICIENT_OF_OVERCLOCK) * scriptGameSystem.currentOverclockLevel / 50 + scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.COEFFICIENT_OF_OVERCLOCK);
+        scriptGameSystem.currentTenOverclockPrice = 0;
+        for (int i = 0; i < 10; i++)
+        {
+            scriptGameSystem.currentTenOverclockPrice += Convert.ToUInt64(10 * scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.currentBtcPrice * Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, (scriptGameSystem.currentOverclockLevel + i) - scriptGameSystem.BIFURCATION_OF_OVERCLOCK * Math.Truncate(((scriptGameSystem.currentOverclockLevel + i) - 1) / scriptGameSystem.BIFURCATION_OF_OVERCLOCK)) + 10 * scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.currentBtcPrice * (Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - 1) * Math.Truncate(((scriptGameSystem.currentOverclockLevel + i) - 1) / scriptGameSystem.BIFURCATION_OF_OVERCLOCK));
+        }
+        scriptGameSystem.nextOverclockPerTouch = Convert.ToDouble((1 / scriptGameSystem.OVERCLOCK_DIFFICULTY) * scriptGameSystem.BTC_AT_FIRST_TOUCH * (Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - scriptGameSystem.COEFFICIENT_OF_OVERCLOCK) * (scriptGameSystem.currentOverclockLevel + 1) / 50 + scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.COEFFICIENT_OF_OVERCLOCK);
+        scriptGameSystem.nextTenOverclockPerTouch = 0;
+        for (int i = 0; i < 10; i++)
+        {
+            scriptGameSystem.nextTenOverclockPerTouch += Convert.ToDouble((1 / scriptGameSystem.OVERCLOCK_DIFFICULTY) * scriptGameSystem.BTC_AT_FIRST_TOUCH * (Math.Pow(scriptGameSystem.COEFFICIENT_OF_OVERCLOCK, scriptGameSystem.BIFURCATION_OF_OVERCLOCK) - scriptGameSystem.COEFFICIENT_OF_OVERCLOCK) * ((scriptGameSystem.currentOverclockLevel + i) + 1) / 50 + scriptGameSystem.BTC_AT_FIRST_TOUCH * scriptGameSystem.COEFFICIENT_OF_OVERCLOCK);
+        }
     }
 
     public void UpgradeOverclock10()
