@@ -14,7 +14,7 @@ public class Tabpanel : MonoBehaviour
     private GameSystem scriptGameSystem;
     private BtcPanel scriptBtcPanel;
 
-    private int isOverclockClicked = 0;
+    public int isOverclockClicked = 0;
     private int isComputerClicked = 0;
     private int isGpuClicked = 0;
     private int isBtcClicked = 0;
@@ -179,12 +179,12 @@ public class Tabpanel : MonoBehaviour
         Text currentOverclockBtcText = GameObject.Find("currentOverclockBtcText").GetComponent<Text>();
 
         currentOverclockLevelText.text = "현재 오버클럭 " + scriptGameSystem.currentOverclockLevel.ToString() + "레벨";
-        currentOverclockBtcText.text = "터치당 " + scriptGameSystem.currentOverclockPerTouch.ToString("0." + new string('#', 8)) + "BTC";
+        currentOverclockBtcText.text = "터치당 " + scriptGameSystem.currentOverclockPerTouch.ToString("0." + new string('#', 9)) + "BTC";
 
         Text overclockBtcText = GameObject.Find("OverclockBtcText").GetComponent<Text>();
         Text overclockPriceText = GameObject.Find("OverclockPriceText").GetComponent<Text>();
 
-        overclockBtcText.text = "터치당 + " + scriptGameSystem.nextOverclockPerTouch.ToString("0." + new string('#', 8)) + "BTC";
+        overclockBtcText.text = "터치당 + " + scriptGameSystem.nextOverclockPerTouch.ToString("0." + new string('#', 10)) + "BTC";
         overclockPriceText.text = scriptGameSystem.currentOverclockPrice.ToString() + "원";
 
         Text tenOverclockBtcText = GameObject.Find("tenOverclockBtcText").GetComponent<Text>();

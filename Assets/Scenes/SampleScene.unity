@@ -534,7 +534,7 @@ MonoBehaviour:
   VALUE_TIME_SLICE_CRAWLING: 60
   BIFURCATION_OF_OVERCLOCK: 50
   BTC_AT_FIRST_TOUCH: 0.00000008
-  COEFFICIENT_OF_OVERCLOCK: 1.05
+  COEFFICIENT_OF_OVERCLOCK: 1.04
   OVERCLOCK_DIFFICULTY: 1
   MAX_BTC_STORING_HOUR: 3
   PC_NAMES:
@@ -4635,7 +4635,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 0
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -9127,6 +9127,7 @@ MonoBehaviour:
   - {fileID: 955913624}
   - {fileID: 575696596}
   - {fileID: 1840604488}
+  isOverclockClicked: 0
 --- !u!1 &1065794242
 GameObject:
   m_ObjectHideFlags: 0

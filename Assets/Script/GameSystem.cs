@@ -145,10 +145,14 @@ public class GameSystem : MonoBehaviour
                 Debug.Log("Btc Price Loaded: " + strBtcPrice);
 
                 if (!scriptOverclockPanel) scriptOverclockPanel = GameObject.Find("EventSystem").GetComponent<OverclockPanel>();
-                if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
 
                 scriptOverclockPanel.UpdateOverclock();
-                scriptTabpanel.LoadOverclockInformation();
+
+                if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
+                if (scriptTabpanel.isOverclockClicked == 1)
+                {
+                    scriptTabpanel.LoadOverclockInformation();
+                }
             }
             else
             {
