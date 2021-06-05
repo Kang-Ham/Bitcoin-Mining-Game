@@ -49,8 +49,9 @@ public class GameSystem : MonoBehaviour
     public UInt64 currentOverclockPrice;
     public UInt64 currentTenOverclockPrice;
     public double currentOverclockPerTouch;
-    public double nextOverclockPerTouch;
-    public double nextTenOverclockPerTouch;
+    public double nextOverclockPerTouchIncrement;
+    public double nextTenOverclockPerTouchIncrement;
+    public GameObject MenuPanel;
 
     private TopAreaImage scriptTopAreaImage;
     private PcPanel scriptPcPanel;
@@ -144,14 +145,19 @@ public class GameSystem : MonoBehaviour
 
                 Debug.Log("Btc Price Loaded: " + strBtcPrice);
 
-                if (!scriptOverclockPanel) scriptOverclockPanel = GameObject.Find("EventSystem").GetComponent<OverclockPanel>();
 
-                scriptOverclockPanel.UpdateOverclock();
-
-                if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
-                if (scriptTabpanel.isOverclockClicked == 1)
+                if (MenuPanel) MenuPanel = GameObject.Find("Canvas").transform.Find("MenuPanel").gameObject;
+                if (MenuPanel.activeSelf == true && selectedMenu == 0)
                 {
+                    if (!scriptOverclockPanel) scriptOverclockPanel = GameObject.Find("EventSystem").GetComponent<OverclockPanel>();
+                    if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
+                    scriptOverclockPanel.UpdateOverclock();
                     scriptTabpanel.LoadOverclockInformation();
+                }
+                else
+                {
+                    if (!scriptOverclockPanel) scriptOverclockPanel = GameObject.Find("EventSystem").GetComponent<OverclockPanel>();
+                    scriptOverclockPanel.UpdateOverclock();
                 }
             }
             else
