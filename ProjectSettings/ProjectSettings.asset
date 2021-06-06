@@ -242,7 +242,7 @@ PlayerSettings:
   AndroidTargetArchitectures: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: '{dedicated}: user.keystore'
+  AndroidKeystoreName: C:/Users/fchop/Development/!important/user.keystore
   AndroidKeyaliasName: keybmg
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
