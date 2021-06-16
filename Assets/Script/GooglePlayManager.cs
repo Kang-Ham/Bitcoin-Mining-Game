@@ -69,14 +69,18 @@ public class GooglePlayManager : MonoBehaviour
         scriptMsgbox = GameObject.Find("EventSystem").GetComponent<Msgbox>();
 
         SetLoadingPanelActive(true);
+#if UNITY_ANDROID
         try
         {
             ConfigGooglePlayGameClient();
         }
-        catch
+        catch(Exception e)
         {
-            AfterSetDataToGame(true);
+            SetLoadingContent("오류가 발생하였습니다. 게임을 다시 실행해주세요." + e.Message);
         }
+#else
+        AfterSetDataToGame(true);
+#endif
     }
 
     // Update is called once per frame
@@ -307,6 +311,8 @@ public class GooglePlayManager : MonoBehaviour
 
     private void AfterSetDataToGame(bool isFirst)
     {
+        SetLoadingContent("AfterSetDataToGame");
+
         if (!scriptSetting) scriptSetting = GameObject.Find("EventSystem").GetComponent<Setting>();
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
         if (!scriptCartoon) scriptCartoon = GameObject.Find("EventSystem").GetComponent<Cartoon>();
