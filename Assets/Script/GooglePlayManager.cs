@@ -312,6 +312,8 @@ public class GooglePlayManager : MonoBehaviour
         if (!scriptCartoon) scriptCartoon = GameObject.Find("EventSystem").GetComponent<Cartoon>();
         if (!scriptPcPanel) scriptPcPanel = GameObject.Find("EventSystem").GetComponent<PcPanel>();
         if (!scriptTopAreaImage) scriptTopAreaImage = GameObject.Find("TopAreaImage").GetComponent<TopAreaImage>();
+        
+        scriptGameSystem.OnDataLoaded();
 
         // Btc, Money 업데이트
         scriptTopAreaImage.UpdateCurrentBtcText();

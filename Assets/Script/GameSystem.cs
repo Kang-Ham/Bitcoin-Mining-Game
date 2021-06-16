@@ -77,7 +77,10 @@ public class GameSystem : MonoBehaviour
             scriptMsgbox.ShowMsgbox("인터넷 연결 유무를 확인하세요,", "확인");
             Application.Quit();
         }
+    }
 
+    public void OnDataLoaded()
+    {
         StartCoroutine("SetCurrentBtcOnRunning", VALUE_TIME_SLICE_BTC);
         StartCoroutine("SavePeriodically", VALUE_TIME_SLICE_SAVE);
         StartCoroutine("SetcurrentBtcPriceWithCrawling", VALUE_TIME_SLICE_CRAWLING);
