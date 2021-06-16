@@ -53,7 +53,7 @@ public class OverclockPanel : MonoBehaviour
         audioPlayer.volume = 0.2f * Convert.ToSingle(scriptGameSystem.currentSoundEffectVolume);
     }
 
-    public void UpgradeOverclock()
+    public void UpgradeOverclock(Boolean isTenUpgrade)
     {
         if (!scriptMsgbox) scriptMsgbox = GameObject.Find("EventSystem").GetComponent<Msgbox>();
         if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
@@ -66,10 +66,25 @@ public class OverclockPanel : MonoBehaviour
             return;
         }
 
-        if (scriptGameSystem.currentMoney >= scriptGameSystem.currentOverclockPrice)
+        // 1회, 10회 구입인지 확인하고 가격 및 강화횟수 대입
+        ulong overclockPrice;
+        int upgradeCount;
+        if(isTenUpgrade == false)
         {
-            scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - scriptGameSystem.currentOverclockPrice);
-            scriptGameSystem.currentOverclockLevel += 1;
+            overclockPrice = scriptGameSystem.currentOverclockPrice;
+            upgradeCount = 1;
+        }
+        else
+        {
+            overclockPrice = scriptGameSystem.currentTenOverclockPrice;
+            upgradeCount = 10;
+        }
+
+        // 구입 연산
+        if (scriptGameSystem.currentMoney >= overclockPrice)
+        {
+            scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - overclockPrice);
+            scriptGameSystem.currentOverclockLevel += upgradeCount;
             UpdateOverclock();
         }
         else
@@ -78,37 +93,8 @@ public class OverclockPanel : MonoBehaviour
         }
 
         scriptTabpanel.LoadOverclockInformation();
-
     }
 
-    public void UpgradeTenOverclock()
-    {
-        if (!scriptMsgbox) scriptMsgbox = GameObject.Find("EventSystem").GetComponent<Msgbox>();
-        if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
-        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
-
-        // 네트워크 확인
-        if (scriptGameSystem.currentBtcPrice == 0)
-        {
-            scriptMsgbox.ShowMsgbox("비트코인 가격이 정상적으로 로드되지 않았습니다. 인터넷 연결 유무를 확인하세요,", "확인");
-            return;
-        }
-
-        if (scriptGameSystem.currentMoney >= scriptGameSystem.currentTenOverclockPrice)
-        {
-            UpdateOverclock();
-            scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - scriptGameSystem.currentTenOverclockPrice);
-            scriptGameSystem.currentOverclockLevel += 10;
-            UpdateOverclock();
-        }
-        else
-        {
-            scriptMsgbox.ShowMsgbox("현금이 부족합니다.", "예");
-        }
-
-        scriptTabpanel.LoadOverclockInformation();
-
-    }
     public void UpdateOverclock()
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
@@ -124,13 +110,5 @@ public class OverclockPanel : MonoBehaviour
 
         scriptGameSystem.nextOverclockPerTouchIncrement = Convert.ToDouble(scriptGameSystem.BTC_AT_FIRST_TOUCH * 50 * Math.Pow(((scriptGameSystem.currentOverclockLevel + 1) / scriptGameSystem.COEFFICIENT_OF_OVERCLOCK), 2)) - Convert.ToDouble(scriptGameSystem.BTC_AT_FIRST_TOUCH * 50 * Math.Pow((scriptGameSystem.currentOverclockLevel / scriptGameSystem.COEFFICIENT_OF_OVERCLOCK), 2));
         scriptGameSystem.nextTenOverclockPerTouchIncrement = Convert.ToDouble(scriptGameSystem.BTC_AT_FIRST_TOUCH * 50 * Math.Pow(((scriptGameSystem.currentOverclockLevel + 10) / scriptGameSystem.COEFFICIENT_OF_OVERCLOCK), 2)) - Convert.ToDouble(scriptGameSystem.BTC_AT_FIRST_TOUCH * 50 * Math.Pow((scriptGameSystem.currentOverclockLevel / scriptGameSystem.COEFFICIENT_OF_OVERCLOCK), 2));
-    }
-
-    public void UpgradeOverclock10()
-    {
-        for (int i = 1; i < 11; i++)
-        {
-            this.UpgradeOverclock();
-        }
     }
 }
