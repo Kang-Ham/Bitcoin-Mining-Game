@@ -299,7 +299,7 @@ public class GooglePlayManager : MonoBehaviour
         float btcToGet = 0f;
         for (int i = 0; i < Convert.ToInt16(jsonSystemInfo["pcCount"].ToString()); i++)
         {
-            Pc scriptNewPcPanel = scriptPcPanel.AddNewPc();
+            Pc scriptNewPcPanel = scriptPcPanel.AddNewPc(false);
             btcToGet += (timeDifference.Seconds + timeDifference.Minutes * 60 + timeDifference.Hours * 3600) * scriptNewPcPanel.btcPerSecond * scriptGameSystem.GPU_RATES[scriptGameSystem.currentGpuLevel];
         }
         scriptGameSystem.currentBtc += btcToGet;
@@ -330,7 +330,7 @@ public class GooglePlayManager : MonoBehaviour
         scriptSetting.SetSoundAfterDataLoad();
 
         // 게임 처음 시작했을 때, 기본 pc 1개 지급
-        if (scriptGameSystem.currentPcList.Count == 0) scriptPcPanel.AddNewPc();
+        if (scriptGameSystem.currentPcList.Count == 0) scriptPcPanel.AddNewPc(false);
 
         // 로딩 화면 해제
         SetLoadingPanelActive(false);

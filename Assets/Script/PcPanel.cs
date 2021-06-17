@@ -63,12 +63,10 @@ public class PcPanel : MonoBehaviour
                 if (clickedButton == 0)
                 {
                     scriptTabpanel.SetPcButtonInteractableFalse(false);
-
                     MakeNewButton(scriptGameSystem.currentPcList.Count);
 
                     scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - scriptGameSystem.PC_PRICES[pcType - 1]);
-
-                    AddNewPc();
+                    AddNewPc(true);
                 }
             }
             );
@@ -101,11 +99,10 @@ public class PcPanel : MonoBehaviour
         scriptTabpanel.LoadPcInformation(pcCount + 1);
     }
 
-    public Pc AddNewPc()
+    public Pc AddNewPc(bool isPcPanelOpened)
     {
         if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
         if (!scriptGooglePlaymanager) scriptGooglePlaymanager = GameObject.Find("EventSystem").GetComponent<GooglePlayManager>();
-
 
         int pcType = (int)(scriptGameSystem.currentPcList.Count / 16) + 1;
 
@@ -114,15 +111,23 @@ public class PcPanel : MonoBehaviour
         newPc.transform.parent = GameObject.Find("PcList").transform;
         Pc scriptnewPc = newPc.GetComponent<Pc>();
 
-        //Set Params
+        // Set Params
         scriptnewPc.spriteType = pcType;
         scriptnewPc.pos = nextPcPos;
         scriptnewPc.btcPerSecond = scriptGameSystem.PC_BTC_PER_SECOND[pcType - 1];
 
         scriptGameSystem.currentPcList.Add(scriptnewPc);
+        scriptGameSystem.pcBtcPerSecondSum += scriptnewPc.btcPerSecond;
 
-        //Pc 추가 후 업적 갱신
+        // Pc 추가 후 업적 갱신
         scriptGooglePlaymanager.SetPcAchievement();
+
+        // Pc 탭이 열려있으면 text값 갱신
+        if (isPcPanelOpened)
+        {
+            if (!scriptTabpanel) scriptTabpanel = GameObject.Find("Canvas").GetComponent<Tabpanel>();
+            scriptTabpanel.LoadPcGpuBpsInformation();
+        }
 
         return scriptnewPc;
     }

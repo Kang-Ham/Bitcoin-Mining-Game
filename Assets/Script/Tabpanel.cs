@@ -63,28 +63,37 @@ public class Tabpanel : MonoBehaviour
                 newColor.a = 1f;
                 menuTexts[i].color = newColor;
 
-                if (i == 0 && isOverclockClicked == 0) //Overclock ÅÇ
+                if (i == 0 && isOverclockClicked == 0) // Overclock
                 {
                     LoadOverclockInformation();
+
                     isOverclockClicked = 1;
                 }
-                else if (i == 1 && isComputerClicked == 0) //Computer ÅÇ
+                else if (i == 1) // Computer
                 {
-                    LoadAddPcButtons();
-                    SetPcButtonInteractableFalse(true);
-                    LoadPcInformation(0);
-                    isComputerClicked = 1;
+                    if(isComputerClicked == 0)
+                    {
+                        LoadAddPcButtons();
+                        SetPcButtonInteractableFalse(true);
+                        LoadPcInformation(0);
+
+                        isComputerClicked = 1;
+                    }
+                    
+                    LoadPcGpuBpsInformation();
                 }
-                else if (i == 2 && isGpuClicked == 0) //Gpu ÅÇ
+                else if (i == 2 && isGpuClicked == 0) // Gpu
                 {
                     LoadAllGpuInformation();
                     SetGpuButtonInteractableFalse(true);
+
                     isGpuClicked = 1;
                 }
-                else if (i == 3 && isBtcClicked == 0) //Btc ÅÇ
+                else if (i == 3 && isBtcClicked == 0) // Btc
                 {
                     if (!scriptBtcPanel) scriptBtcPanel = GameObject.Find("EventSystem").GetComponent<BtcPanel>();
                     scriptBtcPanel.UpdateCurrentBtcPrice();
+
                     isBtcClicked = 1;
                 }
             }
@@ -127,6 +136,8 @@ public class Tabpanel : MonoBehaviour
 
     public void LoadPcInformation(int pcCount)
     {
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+        
         int pcType = pcCount / 16;
 
         Text PcNameText = GameObject.FindGameObjectsWithTag("PcNameText")[pcCount].GetComponent<Text>();
@@ -136,6 +147,18 @@ public class Tabpanel : MonoBehaviour
         PcNameText.text = scriptGameSystem.PC_NAMES[pcType];
         PcBpsText.text = scriptGameSystem.PC_BTC_PER_SECOND[pcType].ToString("0." + new string('#', 8)) + "BPS";
         PcPriceText.text = string.Format("{0:n0}", scriptGameSystem.PC_PRICES[pcType]) + "¿ø";
+    }
+
+    public void LoadPcGpuBpsInformation()
+    {
+        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
+        
+        // ÇöÀç PC, GPU, BPS ·Îµå
+        Text currentPcGpuText = GameObject.Find("currentPcGpuText").GetComponent<Text>();
+        Text currentBpsText = GameObject.Find("currentBpsText").GetComponent<Text>();
+
+        currentPcGpuText.text = "ÇöÀç PC " + scriptGameSystem.currentPcList.Count.ToString() + "°³ / GPU " + scriptGameSystem.currentGpuLevel + "·¹º§";
+        currentBpsText.text = "ÃÊ´ç " + (scriptGameSystem.pcBtcPerSecondSum * scriptGameSystem.GPU_RATES[scriptGameSystem.currentGpuLevel]).ToString("0." + new string('#', 10)) + "BTC";
     }
 
 

@@ -15,13 +15,10 @@ public class Pc : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
         spriteR = gameObject.GetComponent<SpriteRenderer>();
 
         SetSprite(spriteType);
         SetPos();
-
-        scriptGameSystem.pcBtcPerSecondSum += btcPerSecond;
     }
 
     // Update is called once per frame
