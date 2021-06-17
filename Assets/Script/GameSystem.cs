@@ -43,7 +43,7 @@ public class GameSystem : MonoBehaviour
     public Boolean currentNotificationStatus;
 
     //불러오기 않아도 됨        
-    public float gameBtcPerSecond;
+    public float pcBtcPerSecondSum;
     public int selectedMenu;
     public int currentBtcPrice;
     public UInt64 currentOverclockPrice;
@@ -94,7 +94,7 @@ public class GameSystem : MonoBehaviour
 
     IEnumerator SetCurrentBtcOnRunning(float delay)
     {
-        currentBtc += gameBtcPerSecond * delay;
+        currentBtc += pcBtcPerSecondSum * GPU_RATES[currentGpuLevel] * delay;
         scriptTopAreaImage.UpdateCurrentBtcText();
         yield return new WaitForSeconds(delay);
         StartCoroutine("SetCurrentBtcOnRunning", delay);

@@ -21,7 +21,7 @@ public class Pc : MonoBehaviour
         SetSprite(spriteType);
         SetPos();
 
-        scriptGameSystem.gameBtcPerSecond += btcPerSecond;
+        scriptGameSystem.pcBtcPerSecondSum += btcPerSecond;
     }
 
     // Update is called once per frame

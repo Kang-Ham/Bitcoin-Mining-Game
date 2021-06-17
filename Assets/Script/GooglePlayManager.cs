@@ -286,7 +286,7 @@ public class GooglePlayManager : MonoBehaviour
         scriptGameSystem.currentSoundEffectVolume = Convert.ToInt16(jsonSystemInfo["currentSoundEffectVolume"].ToString());
         scriptGameSystem.currentNotificationStatus = Convert.ToBoolean(jsonSystemInfo["currentNotificationStatus"].ToString());
         
-        // PC Load & 시간에 따라 Btc 추가
+        // 미접속 시간 계산
         DateTime recentlyTerminatedAt = Convert.ToDateTime(jsonSystemInfo["recentlyTerminatedAt"].ToString());
         TimeSpan timeDifference = DateTime.Now - recentlyTerminatedAt;
 
@@ -295,13 +295,14 @@ public class GooglePlayManager : MonoBehaviour
             timeDifference = new TimeSpan(scriptGameSystem.MAX_BTC_STORING_HOUR, 0, 0);
         }
 
+        // PC 추가, 미접속 동안 번 돈 계산 및 대입
         float btcToGet = 0f;
         for (int i = 0; i < Convert.ToInt16(jsonSystemInfo["pcCount"].ToString()); i++)
         {
             Pc scriptNewPcPanel = scriptPcPanel.AddNewPc();
-            btcToGet = (timeDifference.Seconds + timeDifference.Minutes * 60 + timeDifference.Hours * 3600) * scriptNewPcPanel.btcPerSecond * scriptGameSystem.GPU_RATES[scriptGameSystem.currentGpuLevel];
-            scriptGameSystem.currentBtc += btcToGet;
+            btcToGet += (timeDifference.Seconds + timeDifference.Minutes * 60 + timeDifference.Hours * 3600) * scriptNewPcPanel.btcPerSecond * scriptGameSystem.GPU_RATES[scriptGameSystem.currentGpuLevel];
         }
+        scriptGameSystem.currentBtc += btcToGet;
 
         // 부재하는 동안 얼마 벌었는지 알려주는 메시지 표시  
         ShowLoadedBtcPanel(btcToGet, timeDifference.Seconds + timeDifference.Minutes * 60 + timeDifference.Hours * 3600);

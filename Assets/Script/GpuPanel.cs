@@ -58,17 +58,9 @@ public class GpuPanel : MonoBehaviour
                     scriptTabpanel.SetGpuButtonInteractableFalse(false);
 
                     scriptGameSystem.SetCurrentMoney(scriptGameSystem.currentMoney - scriptGameSystem.GPU_PRICES[currentGpuLevel + 1]);
-
-                    UpgradeCurrentGpu(currentGpuLevel);
+                    scriptGameSystem.currentGpuLevel = currentGpuLevel + 1;
                 }
             }
             );
-    }
-
-    public void UpgradeCurrentGpu(int currentGpuLevel)
-    {
-        if (!scriptGameSystem) scriptGameSystem = GameObject.Find("GameSystem").GetComponent<GameSystem>();
-        scriptGameSystem.gameBtcPerSecond *= scriptGameSystem.GPU_RATES[currentGpuLevel + 1] / scriptGameSystem.GPU_RATES[currentGpuLevel];
-        scriptGameSystem.currentGpuLevel = currentGpuLevel + 1;
     }
 }
